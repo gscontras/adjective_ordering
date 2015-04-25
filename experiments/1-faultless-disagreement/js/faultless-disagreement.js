@@ -60,7 +60,7 @@ function make_slides(f) {
 
       $(".utterance1").html("\"That "+ stim.Noun + " " + this.verbs[0] + " " + stim.Predicate + ".\"");
 
-      $(".utterance2").html("\"That "+ stim.Noun + " " + this.verbs[1] + " "  + stim.Predicate + ".\"");
+      $(".utterance2").html("\"You're wrong. That "+ stim.Noun + " " + this.verbs[1] + " "  + stim.Predicate + ".\"");
 
       this.sentence_types = _.shuffle(["yes","no"]);
       var sentences = {
@@ -107,8 +107,10 @@ function make_slides(f) {
         exp.data_trials.push({
           "faultless" : sentence_type,
           "response" : exp.sliderPost[i],
-          "noun" : this.stim.Noun,
+          "noun" : this.stim.Noun,          
           "predicate" : this.stim.Predicate,
+          "nounclass" : this.stim.NounClass,
+          "class" : this.stim.Class,                    
           "sentence" : this.stim.Sentence,
           // "sense" : $('input[name="sense"]:checked').val(),        
           "slide_number" : exp.phase
