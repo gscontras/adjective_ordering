@@ -61,7 +61,7 @@
 
   <div class="slide" id="instructions1">
     <h3>Instructions</h3>
-    <p> You will see 24 short dialogues. In each dialogue, speakers disagree about an object. Your task is to determine whether one speaker must be wrong, or whether both speakers can be right.</p>
+    <p> You will see 26 short dialogues. In each dialogue, speakers disagree about an object. Your task is to determine whether one speaker must be wrong, or whether both speakers can be right.</p>
     <!-- <p class="instruction_condition">{{}}</p> -->
     <button onclick="_s.button()">Continue</button>
   </div>
@@ -88,7 +88,8 @@
  -->
     <p>Can both <span class="man1">{{}}</span> and <span class="man2">{{}}</span> be right?</p>
     <table id="multi_slider_table" class="slider_table">
-      <tr><td></td><td class="left">definitely not</td><td class="right">definitely</td></tr> 
+<!--      <tr><td class="left">No, somebody must be wrong.</td><td class="right">Yes, it's a matter of opinion.</td></tr> -->
+      <tr><td>No, somebody must be wrong.</td><td><div id="slider0" class="slider"></div></td><td>Yes, it's a matter of opinion.</td></tr>
     </table>
 
     <button onclick="_s.button()">Continue</button>

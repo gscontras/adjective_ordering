@@ -1,4 +1,4 @@
-  var male_names = _.shuffle([
+  var names = _.shuffle([
     "Michael", "Christopher", "Matthew", "Joshua", "Jacob", "Nicholas",
     "Andrew", "Daniel", "Tyler", "Joseph", "Brandon", "David", "James",
     "Ryan", "John", "Zach", "Justin", "Will", "Anthony", "Robert", "Austin",
@@ -8,10 +8,7 @@
     "Jason", "Cameron", "Jeremy", "Mark", "Juan", "Travis", "Jeff", "Ethan",
     "Caleb", "Luis", "Jared", "Logan", "Hunter", "Trevor", "Evan", "Paul", "Kenneth",
     "Connor", "Dustin", "Noah", "Carlos", "Devin", "Gabriel", "Ian", "Greg",
-    "Derek", "Corey", "Scott", "Bradley"
-  ]);
-  var female_names = _.shuffle([
-    "Jessica", "Ashley", "Emily", "Sarah",
+    "Derek", "Corey", "Scott", "Bradley", "Jessica", "Ashley", "Emily", "Sarah",
     "Samantha", "Amanda", "Brittany", "Elizabeth", "Megan", "Hannah", "Kayla",
     "Lauren", "Stephanie", "Rachel", "Jennifer", "Nicole", "Alexis", "Victoria",
     "Amber", "Alyssa", "Courtney", "Rebecca", "Danielle", "Jasmine", "Brianna",

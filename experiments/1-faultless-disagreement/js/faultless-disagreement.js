@@ -27,6 +27,8 @@ function make_slides(f) {
     present : _.shuffle(stimuli),
     present_handle : function(stim) {
       $(".err").hide();
+      this.init_sliders();      
+      exp.sliderPost = null;
       // $('input[name="sense"]:checked').attr('checked',false);
       this.stim = stim; //FRED: allows you to access stim in helpers
       //var noun_data = _.sample(corpus.Noun)
@@ -36,17 +38,10 @@ function make_slides(f) {
 
       this.verbs = _.shuffle(["is","is not"])
 
-      var male_names_list = _.shuffle(male_names);
+      var names_list = _.shuffle(names);
 
-      var man1 = male_names_list[0];
-      var man2 = male_names_list[1];
-
-      var female_names_list = _.shuffle(female_names);
-
-      var woman1 = female_names_list[0];
-      var woman2 = female_names_list[1];
-
-      $(".woman").html(woman1)
+      var man1 = names_list[0];
+      var man2 = names_list[1];
 
       $(".man1").html(man1);
 
@@ -62,60 +57,58 @@ function make_slides(f) {
 
       $(".utterance2").html("\"You're wrong. That "+ stim.Noun + " " + this.verbs[1] + " "  + stim.Predicate + ".\"");
 
-      this.sentence_types = _.shuffle(["yes","no"]);
-      var sentences = {
-        "yes": "Yes, it's a matter of opinion.",
-        "no": "No, somebody must be wrong.",
-      };
+//      this.sentence_types = _.shuffle(["yes","no"]);
+//      this.sentence_types = ["no","yes"];
+//      var sentences = {
+//        "yes": "Yes, it's a matter of opinion.",
+//        "no": "No, somebody must be wrong.",
+//      };
 
-      this.n_sliders = this.sentence_types.length;
-      $(".slider_row").remove();
-      for (var i=0; i<this.n_sliders; i++) {
-        var sentence_type = this.sentence_types[i];
-        var sentence = sentences[sentence_type];
-        $("#multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + "<font size='4'>" + sentence + "</font>" + '</td><td colspan="2"><div id="slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
-        utils.match_row_height("#multi_slider_table", ".slider_target");
-      }
+//      this.n_sliders = this.sentence_types.length;
+		this.n_sliders = 1;
+//      $(".slider_row").remove();
+//      for (var i=0; i<this.n_sliders; i++) {
+//        var sentence_type_left = this.sentence_types[0];
+//        var sentence_type_left = this.sentence_types[1];        
+//        var sentence_left = sentences[sentence_type_left];
+//        var sentence_right = sentences[sentence_type_right];        
+//        $("#multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence0">' + "<font size='4'>" + sentence_left + "</font>" + '</td><td colspan="2"><div id="slider0" class="slider">-------[ ]--------</div></td><td class="slider_target" id="sentence1">' + "<font size='4'>" + sentence_right + "</font>" + '</td></tr>');
+//        utils.match_row_height("#multi_slider_table", ".slider_target");
+//      }
 
-      this.init_sliders(this.sentence_types);
-      exp.sliderPost = [];
     },
 
     button : function() {
-      if (exp.sliderPost.length < this.n_sliders) {
-        $(".err").show();
-      } else {
+    	console.log(exp.sliderPost);
+      if (exp.sliderPost != null) {
         this.log_responses();
-        _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
+        _stream.apply(this); //use exp.go() if and only if there is no "present" data.
+      } else {
+        $(".err").show();
       }
     },
 
-    init_sliders : function(sentence_types) {
-      for (var i=0; i<sentence_types.length; i++) {
-        var sentence_type = sentence_types[i];
-        utils.make_slider("#slider" + i, this.make_slider_callback(i));
-      }
+    init_sliders : function() {
+      utils.make_slider("#slider0", function(event, ui) {
+        exp.sliderPost = ui.value;
+      });
     },
-    make_slider_callback : function(i) {
-      return function(event, ui) {
-        exp.sliderPost[i] = ui.value;
-      };
-    },
+//    make_slider_callback : function(i) {
+//      return function(event, ui) {
+//        exp.sliderPost[i] = ui.value;
+//      };
+//    },
     log_responses : function() {
-      for (var i=0; i<this.sentence_types.length; i++) {
-        var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
-          "faultless" : sentence_type,
-          "response" : exp.sliderPost[i],
+          "response" : exp.sliderPost,
           "noun" : this.stim.Noun,          
           "predicate" : this.stim.Predicate,
           "nounclass" : this.stim.NounClass,
           "class" : this.stim.Class,                    
-          "sentence" : this.stim.Sentence,
+          "firstutterance" : this.verbs[0],
           // "sense" : $('input[name="sense"]:checked').val(),        
           "slide_number" : exp.phase
         });
-      }
     },
   });
 

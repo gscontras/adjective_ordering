@@ -18,9 +18,9 @@ var adjectives = _.shuffle([
 		{"Predicate":"tiny", "Class":"size"},					
 		{"Predicate":"short", "Class":"size"},					
 		{"Predicate":"long", "Class":"size"},							
-		{"Predicate":"wooden", "Class":"texture"},
-		{"Predicate":"plastic", "Class":"texture"},
-		{"Predicate":"metallic", "Class":"texture"},
+		{"Predicate":"made of wood", "Class":"texture"},
+		{"Predicate":"made of plastic", "Class":"texture"},
+		{"Predicate":"made of metal", "Class":"texture"},
 		{"Predicate":"smooth", "Class":"texture"},
 		{"Predicate":"hard", "Class":"texture"},
 		{"Predicate":"soft", "Class":"texture"},
@@ -29,7 +29,9 @@ var adjectives = _.shuffle([
 		{"Predicate":"rotten", "Class":"age"},
 		{"Predicate":"fresh", "Class":"age"},
 		{"Predicate":"good", "Class":"quality"},
-		{"Predicate":"bad", "Class":"quality"}				
+		{"Predicate":"bad", "Class":"quality"},
+		{"Predicate":"round", "Class":"shape"},						
+		{"Predicate":"square", "Class":"shape"}
 ]);
 
 var nouns = [
