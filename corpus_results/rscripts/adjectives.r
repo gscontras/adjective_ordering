@@ -199,6 +199,9 @@ ggplot(agr, aes(x=Adj,y=DistanceFromNoun)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bynoun.pdf")
 
+# what are the cases of color occurring far away from the noun?
+d_exp[d_exp$PrevAdjective %in% c("red","blue","green","brown","yellow","purple") | d_exp$PrevPrevAdjective %in% c("red","blue","green","brown","yellow","purple"),]$NP
+
 
 # plot adjective's mean distance from noun by class, only for cases where there's more than two prenominal modifiers
 d_subexp = d_exp[d_exp$PrevPrevAdj == "yes",]
