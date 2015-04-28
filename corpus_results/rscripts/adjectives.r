@@ -128,7 +128,7 @@ summary(gathered)
 # remove all the adjectives that didn't occur in the experiment
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
 summary(gathered)
-
+nrow(gathered) # 23191 cases
 
 # plot adjective's mean distance from noun by class
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
@@ -181,6 +181,24 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier.pdf")
+
+
+agr = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered, FUN=mean)
+agr$CILow = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered,FUN="ci.low")$DistanceFromNoun
+agr$CIHigh = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered, FUN="ci.high")$DistanceFromNoun
+agr$YMin = agr$DistanceFromNoun - agr$CILow
+agr$YMax = agr$DistanceFromNoun + agr$CIHigh
+agr = agr[order(agr[,c("DistanceFromNoun")],decreasing=T),]
+agr$Adj = factor(x=as.character(agr$Adjective),levels=unique(as.character(agr$Adjective)))
+
+ggplot(agr, aes(x=Adj,y=DistanceFromNoun)) +
+  geom_bar(stat="identity") +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
+  geom_hline(yintercept =1) +
+  facet_wrap(~AdjClass,scales="free_x") +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bynoun.pdf")
+
 
 # plot adjective's mean distance from noun by class, only for cases where there's more than two prenominal modifiers
 d_subexp = d_exp[d_exp$PrevPrevAdj == "yes",]
