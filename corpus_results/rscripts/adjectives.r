@@ -101,7 +101,7 @@ strength = c("strong","weak")
 other = c("open", "closed", "dark", "bright")
 
 # data.frame with only the data points for the adjectives that we tested in the faultless disagreement study
-adjs = data.frame(Adjective = c('red', 'yellow', 'green', 'blue', 'purple', 'brown', 'big', 'small', 'huge', 'tiny', 'short', 'long', 'wooden', 'plastic', 'metal', 'smooth', 'hard', 'soft', 'old', 'new', 'rotten', 'fresh', 'good', 'bad', 'round', 'square'), Class = c('color', 'color', 'color', 'color', 'color', 'color', 'size', 'size', 'size', 'size', 'size', 'size', 'texture', 'texture', 'texture', 'texture', 'texture', 'texture', 'age', 'age', 'age', 'age', 'quality', 'quality', 'shape', 'shape'))
+adjs = data.frame(Adjective = c('red', 'yellow', 'green', 'blue', 'purple', 'brown', 'big', 'small', 'huge', 'tiny', 'short', 'long', 'wooden', 'plastic', 'metal', 'smooth', 'hard', 'soft', 'old', 'new', 'rotten', 'fresh', 'good', 'bad', 'round', 'square'), Class = c('color', 'color', 'color', 'color', 'color', 'color', 'size', 'size', 'size', 'size', 'size', 'size', 'material', 'material', 'material', 'texture', 'texture', 'texture', 'age', 'age', 'age', 'age', 'quality', 'quality', 'shape', 'shape'))
 str(adjs)
 row.names(adjs) = adjs$Adjective
 
