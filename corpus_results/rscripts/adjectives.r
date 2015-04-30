@@ -2,6 +2,8 @@ library(ggplot2)
 library(plyr)
 theme_set(theme_bw(18))
 setwd("~/cogsci/projects/stanford/projects/adjective_ordering/corpus_results/")
+#for greg
+#setwd("~/Documents/git/CoCoLab/adjective_ordering/corpus_results/")
 source("rscripts/helpers.r")
 
 #load("data/r.RData")
@@ -227,6 +229,7 @@ agr$YMin = agr$DistanceFromNoun - agr$CILow
 agr$YMax = agr$DistanceFromNoun + agr$CIHigh
 agr = agr[order(agr[,c("DistanceFromNoun")],decreasing=T),]
 agr$Adj = factor(x=as.character(agr$Adjective),levels=unique(as.character(agr$Adjective)))
+#agr$Class <- factor(d$Class,levels=c("quality","size","age","texture","shape","color"))
 
 ggplot(agr, aes(x=Adj,y=DistanceFromNoun)) +
   geom_bar(stat="identity") +
