@@ -192,6 +192,11 @@ gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
 nrow(gathered) # to plot: 2412 cases
 summary(gathered)
 
+gathered[gathered$Adjective %in% c("wooden","plastic","metal"),]
+d_subexp[d_subexp$PrevAdjective %in% c("wooden","plastic","metal"),]
+gathered[gathered$Adjective %in% c("soft","hard","smooth"),]
+d_subexp[d_subexp$PrevAdjective %in% c("soft","hard","smooth"),]
+
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class, data=gathered,FUN="ci.low")$DistanceFromNoun
 agr$CIHigh = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN="ci.high")$DistanceFromNoun
