@@ -2,16 +2,16 @@ library(ggplot2)
 library(reshape2)
 library(lme4)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/1-faultless-disagreement/Submiterator-master")
+setwd("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master")
 
-d = read.table("faultless-disagreement-trials.tsv",sep="\t",header=T)
+d = read.table("faultless-disagreement-2-trials.tsv",sep="\t",header=T)
 head(d)
 
 summary(d)
 
 aggregate(response~class,data=d,mean)
 
-d$class <- factor(d$class,levels=c("quality","size","age","texture","shape","color"))
+d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
 
 table(d$class,d$nounclass)
 
@@ -37,7 +37,7 @@ pred_plot <- ggplot(p_s, aes(x=reorder(predicate,-response,mean),y=response)) +
   facet_wrap(~class,scale="free_x") +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 pred_plot
-ggsave("../results/pred_plot.pdf",height=4)
+ggsave("../results/pred_plot.pdf",height=5)
 
 ## predicate plot by class and noun
 n_s = bootsSummary(data=d, measurevar="response", groupvars=c("class","predicate","nounclass"))
@@ -50,4 +50,4 @@ noun_plot <- ggplot(n_s, aes(x=reorder(predicate,-response,mean),y=response,fill
   facet_wrap(~class,scale="free_x") +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 noun_plot
-ggsave("../results/noun_plot.pdf",height=4)
+ggsave("../results/noun_plot.pdf",height=5)
