@@ -40,25 +40,29 @@ d_s = aggregate(response~f_diff,data=d,mean)
 ggplot(d_s, aes(x=f_diff,y=response)) +
   geom_point() +
   ylab("acceptability") +
-  xlab("faultless disagreement")
+  xlab("faultless disagreement") +
+  ggtitle("by-class plot")
   #geom_smooth()
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),position=position_dodge(width=0.9))+
-  geom_abline(slope=1,intercept=0.5)
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),position=position_dodge(width=0.9))+
+  #geom_abline(slope=1,intercept=0.5)
+ggsave("../results/class_plot.pdf")
 
-ggplot(d, aes(x=f_diff,y=response)) +
-         geom_point() +
-  geom_smooth()
+#ggplot(d, aes(x=f_diff,y=response)) +
+ #        geom_point() +
+  #geom_smooth()
+
 
 ## by predicate plot
 
-ggplot(d, aes(x=p_diff,y=response)) +
-  geom_point() +
-  geom_smooth()
+#ggplot(d, aes(x=p_diff,y=response)) +
+#  geom_point() +
+#  geom_smooth()
 
 p_s = bootsSummary(data=d, measurevar="response", groupvars=c("p_diff"))
 
 ggplot(p_s, aes(x=p_diff,y=response)) +
   geom_point() +
-  #geom_smooth()
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=p_diff, width=0.1),position=position_dodge(width=0.9))+
-  geom_abline(slope=1,intercept=0.5)
+  ylab("acceptability") +
+  xlab("faultless disagreement") +
+  ggtitle("by-predicate plot")
+ggsave("../results/pred_plot.pdf")
