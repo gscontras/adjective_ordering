@@ -9,10 +9,15 @@ source("rscripts/helpers.r")
 #load("data/r.RData")
 rs = read.table("data/swbd.tab", sep="\t", header=T, quote="")
 rs$Corpus = "swbd"
+nrow(rs) # 15'744 cases in swbd
 rb = read.table("data/bncs.tab", sep="\t", header=T, quote="")
-rb$Corpus = "bncs"
-nrow(rb)
+rb$Corpus = "bncs" 
+nrow(rb) # 201'261 cases in bncs
 head(rb)
+rbw = read.table("data/bncw.tab", sep="\t", header=T, quote="")
+rbw$Corpus = "bncw"
+nrow(rbw) # cases in bncw
+head(rbw)
 
 bnc_adjfreqs = as.data.frame(table(rb$Adjective))
 bnc_adjfreqs = bnc_adjfreqs[order(bnc_adjfreqs[,c("Freq")],decreasing=T),]
@@ -107,7 +112,11 @@ adjs = data.frame(Adjective = c('red', 'yellow', 'green', 'blue', 'purple', 'bro
 str(adjs)
 row.names(adjs) = adjs$Adjective
 
-d = rbind(rb,rs)
+#######################################################################
+########### HERE'S WHERE ALL THE INTERESTING STUFF STARTS #############
+#######################################################################
+
+d = rbind(rb,rs,rbw)
 nrow(d)
 rb=d
 # plot mean distance from noun for all adjectives we tested
