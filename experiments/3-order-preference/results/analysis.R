@@ -30,18 +30,22 @@ d$f_ratio = (d$class1_f/d$class2_f)
 d$f_diff = (d$class1_f-d$class2_f)
 d$p_ratio = (d$pred1_f/d$pred2_f)
 d$p_diff = (d$pred1_f-d$pred2_f)
+d$sentence = paste(d$predicate1,d$predicate2,d$noun)
 
 ## by class plot
 
 d_s = bootsSummary(data=d, measurevar="response", groupvars=c("f_diff"))
 
 d_s = aggregate(response~f_diff,data=d,mean)
+d_s = aggregate(response~f_diff*configuration,data=d,mean)
 
 ggplot(d_s, aes(x=f_diff,y=response)) +
   geom_point() +
+  geom_text(aes(label=configuration))+
   ylab("acceptability") +
   xlab("faultless disagreement") +
   ggtitle("by-class plot")
+
   #geom_smooth()
   #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),position=position_dodge(width=0.9))+
   #geom_abline(slope=1,intercept=0.5)
@@ -60,9 +64,12 @@ ggsave("../results/class_plot.pdf")
 
 p_s = bootsSummary(data=d, measurevar="response", groupvars=c("p_diff"))
 
+p_s = aggregate(response~p_diff*sentence,data=d,mean)
+
 ggplot(p_s, aes(x=p_diff,y=response)) +
-  geom_point() +
+  geom_point(alpha=0.25) +
   ylab("acceptability") +
   xlab("faultless disagreement") +
+  geom_text(size=2,alpha=0.75,aes(label=sentence),angle=45)+
   ggtitle("by-predicate plot")
-ggsave("../results/pred_plot.pdf")
+ggsave("../results/pred_plot.pdf",width=12,height=10)
