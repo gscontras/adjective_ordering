@@ -14,7 +14,7 @@ rb = read.table("data/bncs.tab", sep="\t", header=T, quote="")
 rb$Corpus = "bncs" 
 nrow(rb) # 201'261 cases in bncs
 head(rb)
-rbw = read.table("data/bncw.tab", sep=" %%% ", header=T)
+rbw = read.table("data/bncw.tab", sep="\t", header=T, quote="")
 rbw$Corpus = "bncw"
 nrow(rbw) # 270'695 (already restricted) cases in bncw, over 4 million without restriction
 head(rbw)
@@ -117,13 +117,16 @@ row.names(adjs) = adjs$Adjective
 #######################################################################
 
 d = rbind(rb,rs)#,rbw)
+rb = d
+d = merge(rb, rbw, all=T)
 nrow(d)
 rb=d
 # plot mean distance from noun for all adjectives we tested
 d_exp = droplevels(rb[rb$Adjective %in% adjs$Adjective | rb$PrevAdjective %in% adjs$Adjective | rb$PrevPrevAdjective %in% adjs$Adjective,])
 nrow(d_exp)
+table(d_exp$Corpus)
 table(d_exp$Corpus,d_exp$PrevAdj)
-table(d_exp$PrevPrevAdj) # only 111 cases with 3 adjs
+table(d_exp$Corpus,d_exp$PrevPrevAdj) # only 111 cases with 3 adjs
 head(d_exp[d_exp$PrevPrevAdj == "yes",])
 d_exp[d_exp$PrevAdjective == "",]$PrevAdjective = NA
 d_exp[d_exp$PrevPrevAdjective == "",]$PrevPrevAdjective = NA
@@ -181,13 +184,13 @@ ggsave("graphs/mean_distance_from_noun_all_bycorpus.pdf")
 
 # plot adjective's mean distance from noun by class, only for cases where there's more than one prenominal modifier
 d_subexp = d_exp[d_exp$PrevAdj == "yes" | d_exp$PrevPrevAdj == "yes",]
-nrow(d_subexp) #total of 2144 cases instead of 25499...
+nrow(d_subexp) #total of 35721 cases
 
 gathered = d_subexp %>% 
   select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus) %>% 
   gather(Position, Adjective,  Adjective:PrevPrevAdjective)
 gathered = gathered[!is.na(gathered$Adjective),]
-nrow(gathered) #total: 4404 cases
+nrow(gathered) #total: 107163 cases
 head(gathered)
 summary(gathered)
 gathered$DistanceFromNoun = 1
@@ -199,7 +202,7 @@ gathered$Class = adjs[as.character(gathered$Adjective),]$Class
 summary(gathered)
 # remove all the adjectives that didn't occur in the experiment
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
-nrow(gathered) # to plot: 2412 cases
+nrow(gathered) # to plot: 39199 cases
 summary(gathered)
 
 gathered[gathered$Adjective %in% c("wooden","plastic","metal"),]
@@ -234,7 +237,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1) +
   facet_wrap(~Corpus)
-ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.pdf")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.pdf",width=14)
 
 
 agr = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered, FUN=mean)
@@ -252,7 +255,7 @@ ggplot(agr, aes(x=Adj,y=DistanceFromNoun)) +
   geom_hline(yintercept =1) +
   facet_wrap(~Class,scales="free_x") +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadj.pdf")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadj.pdf",width=8,height=7)
 
 # what are the cases of color occurring far away from the noun?
 d_exp[d_exp$PrevAdjective %in% c("red","blue","green","brown","yellow","purple") | d_exp$PrevPrevAdjective %in% c("red","blue","green","brown","yellow","purple"),]$NP
@@ -260,13 +263,13 @@ d_exp[d_exp$PrevAdjective %in% c("red","blue","green","brown","yellow","purple")
 
 # plot adjective's mean distance from noun by class, only for cases where there's more than two prenominal modifiers
 d_subexp = d_exp[d_exp$PrevPrevAdj == "yes",]
-nrow(d_subexp) #total of 116 cases instead of 22944 or even 1985...
+nrow(d_subexp) #total of 1778 cases
 
 gathered = d_subexp %>% 
   select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus) %>% 
   gather(Position, Adjective,  Adjective:PrevPrevAdjective)
 gathered = gathered[!is.na(gathered$Adjective),]
-nrow(gathered)  # 348 cases
+nrow(gathered)  # 5334 cases
 head(gathered)
 summary(gathered)
 gathered$DistanceFromNoun = 1
@@ -278,7 +281,7 @@ gathered$Class = adjs[as.character(gathered$Adjective),]$Class
 summary(gathered)
 # remove all the adjectives that didn't occur in the experiment
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
-nrow(gathered) # to plot: 144 cases
+nrow(gathered) # to plot: 2091 cases
 summary(gathered)
 
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
