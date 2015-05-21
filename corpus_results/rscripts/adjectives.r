@@ -229,6 +229,7 @@ ggplot(agr, aes(x=Adjective,y=DistanceFromNoun, fill=NounClass)) +
   geom_hline(yintercept =1) +
   facet_wrap(~AdjClass,scales="free_x")
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadjective_bynounclass.pdf",width=12)
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadjective_bynounclass.jpg")
 
 agr = aggregate(DistanceFromNoun ~ NounClass + Class, data=bynoun, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class, data=bynoun,FUN="ci.low")$DistanceFromNoun
