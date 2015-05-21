@@ -112,6 +112,9 @@ adjs = data.frame(Adjective = c('red', 'yellow', 'green', 'blue', 'purple', 'bro
 str(adjs)
 row.names(adjs) = adjs$Adjective
 
+nouns = data.frame(Noun = c("apple","banana","carrot","cheese","tomato","orange","cherry","cranberry","grape","grapefruit","pear","pomegranate","raspberry","strawberry","watermelon","beet","pepper","radish","onion","potato","rhubarb","apricot","cantaloupe","fig","kiwi","lemon","mango","nectarine","papaya","peach","persimmon","pumpkin","rutabaga","squash","corn","pineapple","tangerine","cauliflower","garlic","ginger","artichoke","kohlrabi","mushroom","parsnip","shallot","turnip","avocado","lime","pea","arugula","asparagus","broccoli","sprouts","cabbage","bean","celery","cucumber","leek","okra","spinach","zucchini","blackberry","blueberry","currant","plum","raisin","olive","eggplant","apples","bananas","carrots","cheeses","tomatoes","oranges","cherries","cranberries","grapes","grapefruits","pears","pomegranates","raspberries","strawberries","watermelons","beets","peppers","radishes","onions","potatoes","apricots","cantaloupes","figs","kiwis","lemons","mangoes","nectarines","papayas","peaches","persimmons","pumpkins","rutabagas","pineapples","tangerines","artichokes","kohlrabis","mushrooms","parsnips","shallots","turnips","avocadoes","limes","peas","cabbages","beans","celeries","cucumbers","leeks","zucchinis","watercress","blackberries","blueberries","currants","plums","raisins","olives","eggplants","chair","couch","fan","tv","desk","recliner","stool","sofa","bench","seat","bed","futon","hammock","mattress","table","television","bookcase","shelf","bookshelf","cabinet","closet","pantry","chest","drawer","nightstand","sideboard","wardrobe","chairs","couches","fans","tvs","desks","recliners","stools","sofas","benches","seats","beds","futons","hammocks","mattresses","tables","televisions","bookcases","shelves","bookshelves","cabinets","closets","pantries","chests","drawers","nightstands","sideboards","wardrobes"), NounClass = c(rep("food",125),rep("furniture",54)))
+row.names(nouns) = nouns$Noun
+
 #######################################################################
 ########### HERE'S WHERE ALL THE INTERESTING STUFF STARTS #############
 #######################################################################
@@ -132,7 +135,7 @@ d_exp[d_exp$PrevAdjective == "",]$PrevAdjective = NA
 d_exp[d_exp$PrevPrevAdjective == "",]$PrevPrevAdjective = NA
 
 gathered = d_exp %>% 
-            select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus) %>% 
+            select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) %>% 
             gather(Position, Adjective,  Adjective:PrevPrevAdjective)
 gathered = gathered[!is.na(gathered$Adjective),]
 gathered$Corpus = as.factor(as.character(gathered$Corpus))
@@ -187,7 +190,7 @@ d_subexp = d_exp[d_exp$PrevAdj == "yes" | d_exp$PrevPrevAdj == "yes",]
 nrow(d_subexp) #total of 35721 cases
 
 gathered = d_subexp %>% 
-  select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus) %>% 
+  select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) %>% 
   gather(Position, Adjective,  Adjective:PrevPrevAdjective)
 gathered = gathered[!is.na(gathered$Adjective),]
 nrow(gathered) #total: 107163 cases
@@ -204,6 +207,45 @@ summary(gathered)
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
 nrow(gathered) # to plot: 39199 cases
 summary(gathered)
+
+nrow(gathered[gathered$Noun %in% nouns$Noun,])
+d_subexp[d_subexp$Noun %in% nouns$Noun,]
+bynoun = droplevels(gathered[gathered$Noun %in% nouns$Noun,])
+bynoun$NounClass = nouns[as.character(bynoun$Noun),]$NounClass
+nrow(bynoun)
+
+agr = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN=mean)
+agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun,FUN="ci.low")$DistanceFromNoun
+agr$CIHigh = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN="ci.high")$DistanceFromNoun
+agr$YMin = agr$DistanceFromNoun - agr$CILow
+agr$YMax = agr$DistanceFromNoun + agr$CIHigh
+agr = agr[order(agr[,c("DistanceFromNoun")],decreasing=T),]
+agr$AdjClass = factor(x=as.character(agr$Class),levels=as.character(agr$Class))
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=Adjective,y=DistanceFromNoun, fill=NounClass)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+  geom_hline(yintercept =1) +
+  facet_wrap(~AdjClass,scales="free_x")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadjective_bynounclass.pdf",width=12)
+
+agr = aggregate(DistanceFromNoun ~ NounClass + Class, data=bynoun, FUN=mean)
+agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class, data=bynoun,FUN="ci.low")$DistanceFromNoun
+agr$CIHigh = aggregate(DistanceFromNoun ~ NounClass + Class, data=bynoun, FUN="ci.high")$DistanceFromNoun
+agr$YMin = agr$DistanceFromNoun - agr$CILow
+agr$YMax = agr$DistanceFromNoun + agr$CIHigh
+agr = agr[order(agr[,c("DistanceFromNoun")],decreasing=T),]
+agr$AdjClass = factor(x=as.character(agr$Class),levels=as.character(agr$Class))
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun, fill=NounClass)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+  geom_hline(yintercept =1) 
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.pdf")
+
+
 
 gathered[gathered$Adjective %in% c("wooden","plastic","metal"),]
 d_subexp[d_subexp$PrevAdjective %in% c("wooden","plastic","metal"),]
