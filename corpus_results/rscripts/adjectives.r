@@ -281,7 +281,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_hline(yintercept =1) +
   facet_wrap(~Corpus)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.pdf",width=14)
-ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.jpg",width=14)
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.jpg",width=10)
 
 
 agr = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered, FUN=mean)

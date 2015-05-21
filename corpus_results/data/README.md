@@ -53,5 +53,5 @@ Split up by adjective:
 
 For cases with three modifying adjectives: mean distance from the head noun by adjective class
 
-![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethantwomodifiers.jpg "Distance by adjective class for cases with at three modifiers")
+![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethantwomodifiers.jpg "Distance by adjective class for cases with  three modifiers")
 
