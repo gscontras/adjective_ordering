@@ -14,9 +14,9 @@ rb = read.table("data/bncs.tab", sep="\t", header=T, quote="")
 rb$Corpus = "bncs" 
 nrow(rb) # 201'261 cases in bncs
 head(rb)
-rbw = read.table("data/bncw.tab", sep="\t", header=T, quote="")
+rbw = read.table("data/bncw.tab", sep=" %%% ", header=T)
 rbw$Corpus = "bncw"
-nrow(rbw) # cases in bncw
+nrow(rbw) # 270'695 (already restricted) cases in bncw, over 4 million without restriction
 head(rbw)
 
 bnc_adjfreqs = as.data.frame(table(rb$Adjective))
