@@ -116,12 +116,13 @@ row.names(adjs) = adjs$Adjective
 ########### HERE'S WHERE ALL THE INTERESTING STUFF STARTS #############
 #######################################################################
 
-d = rbind(rb,rs,rbw)
+d = rbind(rb,rs)#,rbw)
 nrow(d)
 rb=d
 # plot mean distance from noun for all adjectives we tested
 d_exp = droplevels(rb[rb$Adjective %in% adjs$Adjective | rb$PrevAdjective %in% adjs$Adjective | rb$PrevPrevAdjective %in% adjs$Adjective,])
 nrow(d_exp)
+table(d_exp$Corpus,d_exp$PrevAdj)
 table(d_exp$PrevPrevAdj) # only 111 cases with 3 adjs
 head(d_exp[d_exp$PrevPrevAdj == "yes",])
 d_exp[d_exp$PrevAdjective == "",]$PrevAdjective = NA
