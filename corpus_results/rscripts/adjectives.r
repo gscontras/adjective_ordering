@@ -265,6 +265,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier.pdf")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier.png")
 
 agr = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered,FUN="ci.low")$DistanceFromNoun
