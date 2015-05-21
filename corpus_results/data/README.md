@@ -38,6 +38,20 @@ Number of cases in each corpus:
 | bncw | NA | 270694 | 237107 (88%) | 3195 (12%) | 1662 (.6%) |
 
 
-For cases with more than one modifying adjective: mean distance from the head noun by adjective class
+For cases with at least two modifying adjectives: mean distance from the head noun by adjective class
 
-![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier.jpg "Distance by adjective class for cases with more than one modifier")
+![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier.jpg "Distance by adjective class for cases with at least two modifiers")
+
+Split up by corpus:
+
+![Distance by adjective class and corpus](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.jpg "Distance by adjective class and corpus for cases with at least two modifiers")
+
+Split up by adjective:
+
+![Distance by adjective and corpus](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_byadj.jpg "Distance by adjective and corpus for cases with at least two modifiers")
+
+
+For cases with three modifying adjectives: mean distance from the head noun by adjective class
+
+![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethantwomodifiers.jpg "Distance by adjective class for cases with at three modifiers")
+

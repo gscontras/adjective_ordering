@@ -265,7 +265,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier.pdf")
-ggsave("graphs/mean_distance_from_noun_morethanonemodifier.jpg")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier.jpg",width=7)
 
 agr = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered,FUN="ci.low")$DistanceFromNoun
@@ -281,6 +281,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_hline(yintercept =1) +
   facet_wrap(~Corpus)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.pdf",width=14)
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.jpg",width=14)
 
 
 agr = aggregate(DistanceFromNoun ~ Class + Adjective, data=gathered, FUN=mean)
@@ -299,6 +300,7 @@ ggplot(agr, aes(x=Adj,y=DistanceFromNoun)) +
   facet_wrap(~Class,scales="free_x") +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadj.pdf",width=8,height=7)
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadj.jpg",width=8,height=7)
 
 # what are the cases of color occurring far away from the noun?
 d_exp[d_exp$PrevAdjective %in% c("red","blue","green","brown","yellow","purple") | d_exp$PrevPrevAdjective %in% c("red","blue","green","brown","yellow","purple"),]$NP
@@ -340,6 +342,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1)
 ggsave("graphs/mean_distance_from_noun_morethantwomodifiers.pdf")
+ggsave("graphs/mean_distance_from_noun_morethantwomodifiers.jpg")
 
 
 
