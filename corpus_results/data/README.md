@@ -40,4 +40,4 @@ Number of cases in each corpus:
 
 For cases with more than one modifying adjective: mean distance from the head noun by adjective class
 
-![Distance by adjective class](https://github.com/gscontras/adjective_ordering/tree/master/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier.png "Bla bla")
+![Distance by adjective class](https://github.com/gscontras/adjective_ordering/tree/master/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier.jpg "Bla bla")
