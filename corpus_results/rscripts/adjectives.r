@@ -312,6 +312,109 @@ ggsave("graphs/mean_distance_from_noun_morethanonemodifier_byadj.jpg",width=8,he
 d_exp[d_exp$PrevAdjective %in% c("red","blue","green","brown","yellow","purple") | d_exp$PrevPrevAdjective %in% c("red","blue","green","brown","yellow","purple"),]$NP
 
 
+# add frequencies
+tmp = d_subexp %>% 
+  select(P_Adjective,P_PrevAdjective,P_PrevPrevAdjective,P_Noun,Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) 
+head(tmp)
+tmp$AdjFreq = paste(tmp$Adjective,tmp$P_Adjective)
+tmp$PAdjFreq = paste(tmp$PrevAdjective,tmp$P_PrevAdjective)
+tmp$PPAdjFreq = paste(tmp$PrevPrevAdjective,tmp$P_PrevPrevAdjective)
+
+gathere = tmp %>% 
+  select(AdjFreq,PAdjFreq,PPAdjFreq,Noun,Corpus,P_Noun) %>%
+  gather(Position, AdjFrequency,  AdjFreq:PPAdjFreq)
+gathere = gathere[!is.na(gathere$AdjFrequency),]
+head(gathere)
+gathere$Adjective = sapply(strsplit(as.character(gathere$AdjFrequency)," "), "[", 1)
+gathere$Frequency = sapply(strsplit(as.character(gathere$AdjFrequency)," "), "[", 2)
+gathere$Adjective = as.factor(as.character(gathere$Adjective))
+gathere$Frequency = as.numeric(as.character(gathere$Frequency))
+gathere = droplevels(gathere[!is.na(gathere$Frequency),])
+summary(gathere)
+gathere$DistanceFromNoun = 1
+gathere[gathere$Position == "PAdjFreq",]$DistanceFromNoun = 2
+gathere[gathere$Position == "PPAdjFreq",]$DistanceFromNoun = 3
+unique(paste(gathere$Position,gathere$DistanceFromNoun))
+head(gathere)
+gathere$Class = adjs[as.character(gathere$Adjective),]$Class
+summary(gathere)
+
+agr = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere, FUN=mean)
+agr$CILow = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere,FUN="ci.low")$Frequency
+agr$CIHigh = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere, FUN="ci.high")$Frequency
+agr$YMin = agr$Frequency - agr$CILow
+agr$YMax = agr$Frequency + agr$CIHigh
+agr = agr[order(agr[,c("Frequency")],decreasing=T),]
+agr$Class <- factor(agr$Class,levels=c("quality","size","age","texture","shape","color","material"))
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=Class,y=Frequency,fill=as.factor(DistanceFromNoun))) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+  #facet_wrap(~Class,scales="free_x") +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+ggsave("graphs/meanfrequency_bydistance_byclass.pdf")
+
+
+agr = aggregate(Frequency ~ Class + DistanceFromNoun + Corpus, data=gathere, FUN=mean)
+agr$CILow = aggregate(Frequency ~ Class + DistanceFromNoun + Corpus, data=gathere,FUN="ci.low")$Frequency
+agr$CIHigh = aggregate(Frequency ~ Class + DistanceFromNoun + Corpus, data=gathere, FUN="ci.high")$Frequency
+agr$YMin = agr$Frequency - agr$CILow
+agr$YMax = agr$Frequency + agr$CIHigh
+agr = agr[order(agr[,c("Frequency")],decreasing=T),]
+agr$Class <- factor(agr$Class,levels=c("quality","size","age","texture","shape","color","material"))
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=Class,y=Frequency,fill=as.factor(DistanceFromNoun))) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+  facet_wrap(~Corpus,scales="free_x") +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+
+agr = unique(gathere[!is.na(gathere$Class),c("Adjective","Frequency","Class","Corpus")])
+nrow(agr)
+ggplot(agr, aes(x=Adjective,y=Frequency,fill=Corpus)) +
+  geom_bar(stat="identity",position="dodge") +
+  facet_wrap(~Class, scales="free_x")
+ggsave("graphs/adj_freqs_bycorpus.pdf")
+
+agr = aggregate(Frequency ~ Class + DistanceFromNoun + Adjective, data=gathere, FUN=mean)
+agr$CILow = aggregate(Frequency ~ Class + DistanceFromNoun + Adjective, data=gathere,FUN="ci.low")$Frequency
+agr$CIHigh = aggregate(Frequency ~ Class + DistanceFromNoun + Adjective, data=gathere, FUN="ci.high")$Frequency
+agr$YMin = agr$Frequency - agr$CILow
+agr$YMax = agr$Frequency + agr$CIHigh
+agr = agr[order(agr[,c("Frequency")],decreasing=T),]
+agr$Class <- factor(agr$Class,levels=c("quality","size","age","texture","shape","color","material"))
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=Adjective,y=Frequency,fill=as.factor(DistanceFromNoun))) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+  facet_wrap(~Class,scales="free_x") +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+
+levels(gathere$Class) = c(levels(gathere$Class), "classless")
+gathere[is.na(gathere$Class),]$Class = "classless"
+# 
+# agr = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere, FUN=mean)
+# agr$CILow = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere,FUN="ci.low")$Frequency
+# agr$CIHigh = aggregate(Frequency ~ Class + DistanceFromNoun, data=gathere, FUN="ci.high")$Frequency
+# agr$YMin = agr$Frequency - agr$CILow
+# agr$YMax = agr$Frequency + agr$CIHigh
+# agr = agr[order(agr[,c("Frequency")],decreasing=T),]
+# agr$Class <- factor(agr$Class,levels=c("quality","size","age","texture","shape","color","material"))
+# dodge=position_dodge(.9)
+# 
+# ggplot(agr, aes(x=Class,y=Frequency,fill=as.factor(DistanceFromNoun))) +
+#   geom_bar(stat="identity",position=dodge) +
+#   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
+#   #facet_wrap(~Class,scales="free_x") +
+#   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+# ggsave("graphs/meanfrequency_bydistance_byclass_all.pdf")
+
+
+
+
 # plot adjective's mean distance from noun by class, only for cases where there's more than two prenominal modifiers
 d_subexp = d_exp[d_exp$PrevPrevAdj == "yes",]
 nrow(d_subexp) #total of 1778 cases
