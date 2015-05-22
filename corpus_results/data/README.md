@@ -70,12 +70,12 @@ For cases with three modifying adjectives (2,091 cases): mean distance from the 
 
 Again, we see a similar pattern as in the fd data (and on this subset the quality/size order comes out the same). Here, the outlier is shape, though the rest is ordered the same. There are only six shape cases, though. For your amusement:
 
-*them little square welsh terriers    
-those round white dutch cabbages     
-small square coloured inserts        
-the square transparent boiled sweets
-the dismal gray square outside      
-small square coloured inserts *
+*them little square welsh terriers*    
+*those round white dutch cabbages*     
+*small square coloured inserts*        
+*the square transparent boiled sweets*
+*the dismal gray square outside*      
+*small square coloured inserts*
 
 Distribution over adjective class for these 2,091 cases:
 
