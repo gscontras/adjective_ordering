@@ -256,6 +256,7 @@ gathered[gathered$Adjective %in% c("wooden","plastic","metal"),]
 d_subexp[d_subexp$PrevAdjective %in% c("wooden","plastic","metal"),]
 gathered[gathered$Adjective %in% c("soft","hard","smooth"),]
 d_subexp[d_subexp$PrevAdjective %in% c("soft","hard","smooth"),]
+d_subexp[d_subexp$Adjective %in% c("square","round") | d_subexp$PrevAdjective %in% c("square","round") | d_subexp$PrevPrevAdjective %in% c("square","round"),]$NP
 
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class, data=gathered,FUN="ci.low")$DistanceFromNoun
