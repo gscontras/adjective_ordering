@@ -46,9 +46,10 @@ For cases with at least two modifying adjectives (39,199 cases): mean distance f
 
 Distribution over adjective class for these 39,199 cases:
 
-Class |     age     | size |    color |  quality |  texture | material |    shape |
-Count |   15688 |   11576 |     5024 |     3790 |     1720 |     1183 |      218 | 
-Proportion | 0.40   |  0.30 |     0.13 |     0.10 |     0.04 |     0.03 |     0.01 |
+| ------| ---:| ---:| ---:| ---:| --:| ---:| ---:|
+| Class |     age     | size |    color |  quality |  texture | material |    shape |
+| Count |   15688 |   11576 |     5024 |     3790 |     1720 |     1183 |      218 | 
+| Proportion | 0.40   |  0.30 |     0.13 |     0.10 |     0.04 |     0.03 |     0.01 |
 
 Split up by corpus (swbd: 180 cases, bncs: 2,232 cases, bncw: 36,787 cases):
 
