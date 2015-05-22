@@ -67,9 +67,11 @@ For cases with three modifying adjectives (2,091 cases): mean distance from the 
 
 Distribution over adjective class for these 2,091 cases:
 
-Class |     age     | size |    color |  quality |  texture | material |    shape |
-Count |   797 |     627 |      338 |      162 |       87 |       74 |        6 |
-Proportion | 0.38 |    0.30 |     0.16 |     0.08 |     0.04 |     0.04 |     0.003 |
+| | | | | | | | |
+| ------| ---:| ---:| ---:| ---:| --:| ---:| ---:|
+| Class |     age     | size |    color |  quality |  texture | material |    shape |
+| Count |   797 |     627 |      338 |      162 |       87 |       74 |        6 |
+| Proportion | 0.38 |    0.30 |     0.16 |     0.08 |     0.04 |     0.04 |     0.003 |
 
 
 
@@ -77,13 +79,17 @@ It would be nice to compare the corpus counts to the faultless disagreement/orde
 
 Distribution over adjective classes:
 
- |    age |   color | material |  quality |   shape |    size  | texture |
- |    135 |     111 |     144 |      18 |       2 |     202  |     56 |
+| | | | | | | | |
+| ------| ---:| ---:| ---:| ---:| --:| ---:| ---:|
+| Class |    age |   color | material |  quality |   shape |    size  | texture |
+| Count |    135 |     111 |     144 |      18 |       2 |     202  |     56 |
 
 Distribution over noun classes:
 
-|     food | furniture |
-|      233 |      435 |
+| | |
+| ------| ---:| ---:|
+| Class |     food | furniture |
+| Count |      233 |      435 |
 
 ![Distance by adjective class and noun class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.jpg "Distance by adjective class and noun class for cases with at least two modifiers")
 
