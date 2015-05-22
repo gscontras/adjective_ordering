@@ -81,8 +81,9 @@ Distribution over adjective classes:
 
 | | | | | | | | |
 | ------| ---:| ---:| ---:| ---:| --:| ---:| ---:|
-| Class |    age |   color | material |  quality |   shape |    size  | texture |
-| Count |    135 |     111 |     144 |      18 |       2 |     202  |     56 |
+| Class |    size |  material | age | color | texture |  quality |   shape |
+| Count |    202  |    144 |      135 |      111 |       56 |       18 |        2 |
+| Proportion | 0.30  |   0.22 |     0.20 |     0.17 |     0.08 |     0.03 |     0.003 |
 
 Distribution over noun classes:
 

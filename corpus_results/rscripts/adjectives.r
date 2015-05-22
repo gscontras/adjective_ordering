@@ -214,6 +214,9 @@ bynoun = droplevels(gathered[gathered$Noun %in% nouns$Noun,])
 bynoun$NounClass = nouns[as.character(bynoun$Noun),]$NounClass
 nrow(bynoun)
 
+sort(table(bynoun$Class),decreasing=T)
+round(sort(prop.table(table(bynoun$Class)),decreasing=T),3)
+
 agr = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun,FUN="ci.low")$DistanceFromNoun
 agr$CIHigh = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN="ci.high")$DistanceFromNoun
