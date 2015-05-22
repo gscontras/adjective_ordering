@@ -245,6 +245,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun, fill=NounClass)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25,position=dodge) +
   geom_hline(yintercept =1) 
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.pdf")
+ggsave("graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.jpg")
 
 
 
@@ -329,6 +330,9 @@ summary(gathered)
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
 nrow(gathered) # to plot: 2091 cases
 summary(gathered)
+
+sort(table(gathered$Class),decreasing=T)
+round(sort(prop.table(table(gathered$Class)),decreasing=T),2)
 
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class, data=gathered,FUN="ci.low")$DistanceFromNoun

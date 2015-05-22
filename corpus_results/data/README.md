@@ -38,11 +38,19 @@ Number of cases in each corpus:
 | bncw | NA | 270694 | 237107 (88%) | 3195 (12%) | 1662 (.6%) |
 
 
-For cases with at least two modifying adjectives: mean distance from the head noun by adjective class
+All the following plots are of mean distance from the head noun for each of the 26 adjectives that we tested in the faultless disagreement/pairwise preference experiments. 
+
+For cases with at least two modifying adjectives (39,199 cases): mean distance from the head noun by adjective class
 
 ![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier.jpg "Distance by adjective class for cases with at least two modifiers")
 
-Split up by corpus:
+Distribution over adjective class for these 39,199 cases:
+
+Class |     age     | size |    color |  quality |  texture | material |    shape |
+Count |   15688 |   11576 |     5024 |     3790 |     1720 |     1183 |      218 | 
+Proportion | 0.40   |  0.30 |     0.13 |     0.10 |     0.04 |     0.03 |     0.01 |
+
+Split up by corpus (swbd: 180 cases, bncs: 2,232 cases, bncw: 36,787 cases):
 
 ![Distance by adjective class and corpus](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_bycorpus.jpg "Distance by adjective class and corpus for cases with at least two modifiers")
 
@@ -51,7 +59,29 @@ Split up by adjective:
 ![Distance by adjective and corpus](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_byadj.jpg "Distance by adjective and corpus for cases with at least two modifiers")
 
 
-For cases with three modifying adjectives: mean distance from the head noun by adjective class
+For cases with three modifying adjectives (2,091 cases): mean distance from the head noun by adjective class
 
 ![Distance by adjective class](/corpus_results/graphs/mean_distance_from_noun_morethantwomodifiers.jpg "Distance by adjective class for cases with  three modifiers")
+
+Distribution over adjective class for these 2,091 cases:
+
+Class |     age     | size |    color |  quality |  texture | material |    shape |
+Count |   797 |     627 |      338 |      162 |       87 |       74 |        6 |
+Proportion | 0.38 |    0.30 |     0.16 |     0.08 |     0.04 |     0.04 |     0.003 |
+
+
+
+It would be nice to compare the corpus counts to the faultless disagreement/ordered preference experiment data in a more fine-grained way, e.g. by noun class (furniture vs. food), which seems to play a role. Because there were only 92 cases in total of AAN/AAAN where N was one of the nouns we tested, I instead put together a list of 125 food (mostly fruit and vegetables) and 54 furniture nouns in both their singular and plural forms. If a given case did not contain one of these nouns, it was excluded. The remaining 668 cases entered the graph below, showing the mean distance from the head noun by adjective class, split up by the class of the noun it occurs with. 
+
+Distribution over adjective classes:
+
+ |    age |   color | material |  quality |   shape |    size  | texture |
+ |    135 |     111 |     144 |      18 |       2 |     202  |     56 |
+
+Distribution over noun classes:
+
+|     food | furniture |
+|      233 |      435 |
+
+![Distance by adjective class and noun class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.jpg "Distance by adjective class and noun class for cases with at least two modifiers")
 
