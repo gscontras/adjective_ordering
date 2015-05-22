@@ -106,3 +106,4 @@ Distribution over noun classes:
 
 ![Distance by adjective class and noun class](/corpus_results/graphs/mean_distance_from_noun_morethanonemodifier_bynounclass.jpg "Distance by adjective class and noun class for cases with at least two modifiers")
 
+The following classes pattern numerically with the faultless disagreement data: size, texture, age, material, shape. The ones that are reversed: quality and color. However, for none of these cases do the differences between noun classes actually look very big in the faultless disagreement data, so it's sort of unclear what to make of this.
