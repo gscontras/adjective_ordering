@@ -45,11 +45,50 @@ ggplot(d_s, aes(x=f_diff,y=response)) +
   ylab("acceptability") +
   xlab("faultless disagreement") +
   ggtitle("by-class plot")
-
-  #geom_smooth()
-  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),position=position_dodge(width=0.9))+
-  #geom_abline(slope=1,intercept=0.5)
 ggsave("../results/class_plot.pdf")
+
+
+
+s = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
+head(s)
+s_agr = aggregate(response~class,data=s,mean)
+p_agr = aggregate(response~predicate,data=s,mean)
+
+d$class1_s = s_agr$response[match(d$class1,s_agr$class)]
+d$class2_s = s_agr$response[match(d$class2,s_agr$class)]
+
+d$pred1_s = p_agr$response[match(d$predicate1,p_agr$predicate)]
+d$pred2_s = p_agr$response[match(d$predicate2,p_agr$predicate)]
+
+d$s_ratio = (d$class1_s/d$class2_s)
+d$s_diff = (d$class1_s-d$class2_s)
+d$p_ratio = (d$pred1_s/d$pred2_s)
+d$p_diff = (d$pred1_s-d$pred2_s)
+d$sentence = paste(d$predicate1,d$predicate2,d$noun)
+
+## by class plot
+
+#d_s = bootsSummary(data=d, measurevar="response", groupvars=c("s_diff"))
+
+d_s = aggregate(response~s_diff,data=d,mean)
+d_s = aggregate(response~f_diff*configuration,data=d,mean)
+
+ggplot(d_s, aes(x=s_diff,y=response)) +
+  geom_point() +
+  #geom_text(aes(label=configuration))+
+  ylab("acceptability") +
+  xlab("subjectivity") +
+  ggtitle("by-class plot")
+ggsave("../results/class_plot_subjectivity.pdf")
+
+
+## correlations
+
+head(d)
+cor(d$response,d$f_diff) # 0.69
+cor(d$response,d$s_diff) # 0.68
+
+
 
 #ggplot(d, aes(x=f_diff,y=response)) +
  #        geom_point() +
