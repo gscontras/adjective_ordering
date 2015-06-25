@@ -6,46 +6,164 @@ setwd("~/Documents/git/cocolab/adjective_ordering/experiments/3-order-preference
 
 d = read.table("order-preference-trials.tsv",sep="\t",header=T)
 head(d)
-
+s = read.table("order-preference-subject_information.tsv",sep="\t",header=T)
+head(s)
+d$language = s$language[match(d$workerid,s$workerid)]
+unique(d$language)
+all <- d
+# only native English speakers (n=45)
+d = d[d$language!="DUTCH, ENGLISH"&d$language!="English, Spanish"&d$language!="Vietnamese"&d$language!="Spanish",]
+unique(d$workerid)
 summary(d)
 
-d$configuration = paste(d$class1,d$class2)
+o <- d
 
-aggregate(response~configuration,data=d,mean)
+## compute class configuration ratio
+
+o$configuration <- paste(o$class1,o$class2)
+head(o)
+o_agg <- aggregate(response~configuration*class1*class2,data=o,mean)
+head(o_agg,20)
+
+o_agg$Ratio = -555
+row.names(o_agg) = o_agg$configuration
+
+for (first in levels(o_agg$class1)) {
+  for (second in levels(o_agg$class1)[levels(o_agg$class1) != first]) {
+    o_agg[paste(first,second),]$Ratio = o_agg[paste(first,second),]$response / o_agg[paste(second, first),]$response
+    print(paste(first,second))
+  }
+}
+
+## compute adjective configuration ratio
+
+o$adj_configuration <- paste(o$predicate1,o$predicate2)
+head(o)
+o_adj_agg <- aggregate(response~adj_configuration*predicate1*predicate2,data=o,mean)
+head(o_adj_agg,20)
+
+o_adj_agg$adj_Ratio = -555
+row.names(o_adj_agg) = o_adj_agg$adj_configuration
+
+for (first in levels(o_adj_agg$predicate1)) {
+  for (second in levels(o_adj_agg$predicate1)[levels(o_adj_agg$predicate1) != first]) {
+    o_adj_agg[paste(first,second),]$adj_Ratio = o_adj_agg[paste(first,second),]$response / o_adj_agg[paste(second, first),]$response
+    print(paste(first,second))
+  }
+}
+
+# add in order preference
+
+d$configuration = paste(d$class1,d$class2)
+d$adj_configuration = paste(d$predicate1,d$predicate2)
+all_agg <- aggregate(response~configuration*adj_configuration*class1*class2,data=d,mean)
+
+all_agg$Ratio = o_agg[as.character(all_agg$configuration),]$Ratio
+all_agg[is.na(all_agg$Ratio),]$Ratio = -555
+all_agg$Preferred = as.factor(ifelse(all_agg$Ratio > 1, "preferred", ifelse(all_agg$Ratio == -555, "single","dispreferred")))
+
+all_agg$adj_Ratio = o_adj_agg[as.character(all_agg$adj_configuration),]$adj_Ratio
+all_agg[is.na(all_agg$adj_Ratio),]$adj_Ratio = -555
+all_agg$adj_Preferred = as.factor(ifelse(all_agg$adj_Ratio > 1, "preferred", ifelse(all_agg$adj_Ratio == -555, "single","dispreferred")))
+
+nrow(all_agg)
+nrow(all_agg[all_agg$Preferred=="preferred",])
+
+all_agg$adj_preferred_10 = 0
+all_agg[all_agg$adj_Preferred=="preferred",]$adj_preferred_10 = 1
+
+all_agg_s = bootsSummary(data=all_agg, measurevar="adj_preferred_10", groupvars=c("class1"))
+
+ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferred_10+1))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=bootsci_low+1, ymax=bootsci_high+1, x=reorder(class1,-adj_preferred_10,mean), width=0.1),alpha=0.5)+
+  xlab("\nadjective class")+
+  ylab("distance from noun\n")+
+  #labs("order\npreference")+
+  theme_bw()#+
+  #theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+ggsave("../results/class_distance_by_adj.pdf",height=4)
+
+
+ggplot(data=all_agg[all_agg$Preferred=="preferred",],aes(x=reorder(configuration,-Ratio,mean),y=Ratio))+
+  geom_bar(stat="identity")+
+  xlab("\nadjective class configuration")+
+  ylab("acceptability ratio\n")+
+  #labs("order\npreference")+
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+ggsave("../results/order_ratio.pdf",height=4)
+
+## average distance from noun
+
+dist = read.csv("../results/distance.csv",header=T)
+dist$distance = (dist$first / 6)+1
+head(dist)
+
+ggplot(data=dist,aes(x=reorder(class,-distance,mean),y=distance))+
+  geom_bar(stat="identity")+
+  xlab("\nadjective class")+
+  ylab("distance from noun\n")+
+  #labs("order\npreference")+
+  theme_bw()
+ggsave("../results/class_distance.pdf",height=4)
+
+
+ggplot(data=all_agg,aes(x=reorder(configuration,-response,mean),y=response,fill=Preferred))+
+  geom_bar(stat="identity")+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+
+
+
+
 
 ## get faultles disagreement ratings
 
 f = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-trials.tsv",sep="\t",header=T)
 head(f)
+fs = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-subject_information.tsv",sep="\t",header=T)
+head(fs) #
+f$language = fs$language[match(f$workerid,fs$workerid)]
+# 50 native English participants
 f_agr = aggregate(response~class,data=f,mean)
-p_agr = aggregate(response~predicate,data=f,mean)
+#p_agr = aggregate(response~predicate,data=f,mean)
+
+d$Ratio = o_agg$Ratio[match(d$configuration,o_agg$configuration)]
+#all_agg[is.na(all_agg$Ratio),]$Ratio = -555
+d$Preferred = as.factor(ifelse(d$Ratio > 1, "preferred", ifelse(d$Ratio == -555, "single","dispreferred")))
 
 d$class1_f = f_agr$response[match(d$class1,f_agr$class)]
 d$class2_f = f_agr$response[match(d$class2,f_agr$class)]
 
-d$pred1_f = p_agr$response[match(d$predicate1,p_agr$predicate)]
-d$pred2_f = p_agr$response[match(d$predicate2,p_agr$predicate)]
+#d$pred1_f = p_agr$response[match(d$predicate1,p_agr$predicate)]
+#d$pred2_f = p_agr$response[match(d$predicate2,p_agr$predicate)]
 
-d$f_ratio = (d$class1_f/d$class2_f)
+#d$f_ratio = (d$class1_f/d$class2_f)
 d$f_diff = (d$class1_f-d$class2_f)
-d$p_ratio = (d$pred1_f/d$pred2_f)
-d$p_diff = (d$pred1_f-d$pred2_f)
-d$sentence = paste(d$predicate1,d$predicate2,d$noun)
+#d$p_ratio = (d$pred1_f/d$pred2_f)
+#d$p_diff = (d$pred1_f-d$pred2_f)
+#d$sentence = paste(d$predicate1,d$predicate2,d$noun)
 
 ## by class plot
 
-d_s = bootsSummary(data=d, measurevar="response", groupvars=c("f_diff"))
+d_s = bootsSummary(data=d, measurevar="response", groupvars=c("f_diff","Preferred","configuration"))
 
-d_s = aggregate(response~f_diff,data=d,mean)
-d_s = aggregate(response~f_diff*configuration,data=d,mean)
+#d_s = aggregate(response~f_diff,data=d,mean)
+#d_s = aggregate(response~f_diff*configuration,data=d,mean)
 
-ggplot(d_s, aes(x=f_diff,y=response)) +
+ggplot(d_s, aes(x=f_diff,y=response,color=Preferred)) +
   geom_point() +
-  geom_text(aes(label=configuration))+
-  ylab("acceptability") +
-  xlab("faultless disagreement") +
-  ggtitle("by-class plot")
-ggsave("../results/class_plot.pdf")
+  #geom_smooth()+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),alpha=0.5)+
+  #geom_text(aes(label=configuration),color="black")+
+  ylab("acceptability\n") +
+  xlab("\nfaultless disagreement") +
+  labs(color="order\npreference")+
+  #ggtitle("by-class plot")
+  theme_bw()
+ggsave("../results/faultless_order_preference.pdf",width=5.5,height=3.5)
+
+## only color-shape has diverging predictions
 
 
 
