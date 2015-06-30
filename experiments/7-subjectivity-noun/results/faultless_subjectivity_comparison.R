@@ -9,6 +9,7 @@ head(d)
 
 f = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-trials.tsv",sep="\t",header=T)
 head(f)
+#fsub = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-subject_information.tsv",sep="\t",header=T)
 f_agr = aggregate(response~class,data=f,mean)
 f_agr_pred = aggregate(response~predicate,data=f,mean)
 d$class1_f = f_agr$response[match(d$class1,f_agr$class)]
@@ -22,6 +23,7 @@ d$f_diff_pred = (d$pred1_f-d$pred2_f)
 
 s = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
 head(s)
+ssub = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
 s_agr = aggregate(response~class,data=s,mean)
 s_agr_pred = aggregate(response~predicate,data=s,mean)
 d$class1_s = s_agr$response[match(d$class1,s_agr$class)]
@@ -51,6 +53,31 @@ f_trim$workerid = paste("f",f_trim$workerid)
 s$expt = "subjectivity"
 s$workerid = paste("s",s$workerid)
 fs = rbind(f_trim,s)
+
+fs_s = bootsSummary(data=fs, measurevar="response", groupvars=c("class","expt"))
+
+ggplot(data=fs_s,aes(x=reorder(class,-response,mean),y=response,fill=expt))+
+  geom_bar(stat="identity",position="dodge")+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,mean), width=0.1),position=position_dodge(0.9))+
+  xlab("\nadjective class")+
+  ylab("response")+
+  labs(fill="measure")+
+  theme_bw()#+
+#theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/results/class_subjectivity.pdf",height=4)
+
+
+fs_s = bootsSummary(data=fs, measurevar="response", groupvars=c("class"))
+
+ggplot(data=fs_s[fs_s$expt=="faultless",],aes(x=reorder(class,-response,mean),y=response))+
+  geom_bar(stat="identity",position="dodge")+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,mean), width=0.1),position=position_dodge(0.9))+
+  xlab("\nadjective class")+
+  ylab("response")+
+  #labs(fill="measure")+
+  theme_bw()#+
+#theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/results/class_subjectivity_collapsed.pdf",height=4)
 
 
 

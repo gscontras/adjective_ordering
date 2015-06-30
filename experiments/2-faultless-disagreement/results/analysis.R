@@ -9,6 +9,8 @@ head(d)
 
 summary(d)
 
+pairwise.t.test(d$response, d$class, p.adj = "bonf")
+
 aggregate(response~class,data=d,mean)
 
 d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))

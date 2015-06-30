@@ -19,6 +19,9 @@ rbw$Corpus = "bncw"
 nrow(rbw) # 270'695 (already restricted) cases in bncw, over 4 million without restriction
 head(rbw)
 
+####### NOT INTERESTING
+
+
 bnc_adjfreqs = as.data.frame(table(rb$Adjective))
 bnc_adjfreqs = bnc_adjfreqs[order(bnc_adjfreqs[,c("Freq")],decreasing=T),]
 bnc_padjfreqs = as.data.frame(table(rb$PrevAdjective))
@@ -106,6 +109,9 @@ volume = c("full", "empty", "deep", "shallow")
 temperature = c("hot", "cold")
 strength = c("strong","weak")
 other = c("open", "closed", "dark", "bright")
+
+
+###### ALSO NEED THESE
 
 # data.frame with only the data points for the adjectives that we tested in the faultless disagreement study
 adjs = data.frame(Adjective = c('red', 'yellow', 'green', 'blue', 'purple', 'brown', 'big', 'small', 'huge', 'tiny', 'short', 'long', 'wooden', 'plastic', 'metal', 'smooth', 'hard', 'soft', 'old', 'new', 'rotten', 'fresh', 'good', 'bad', 'round', 'square'), Class = c('color', 'color', 'color', 'color', 'color', 'color', 'size', 'size', 'size', 'size', 'size', 'size', 'material', 'material', 'material', 'texture', 'texture', 'texture', 'age', 'age', 'age', 'age', 'quality', 'quality', 'shape', 'shape'))
@@ -258,6 +264,13 @@ gathered[gathered$Adjective %in% c("soft","hard","smooth"),]
 d_subexp[d_subexp$PrevAdjective %in% c("soft","hard","smooth"),]
 d_subexp[d_subexp$Adjective %in% c("square","round") | d_subexp$PrevAdjective %in% c("square","round") | d_subexp$PrevPrevAdjective %in% c("square","round"),]$NP
 
+## pairwise comparison
+
+pairwise.t.test(gathered$DistanceFromNoun, gathered$Class, p.adj = "bonf")
+
+m = lmer(DistanceFromNoun ~ Class + (1|Noun) + (1|Corpus), data=gathered)
+summary(m)
+
 agr = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class, data=gathered,FUN="ci.low")$DistanceFromNoun
 agr$CIHigh = aggregate(DistanceFromNoun ~ Class, data=gathered, FUN="ci.high")$DistanceFromNoun
@@ -266,12 +279,16 @@ agr$YMax = agr$DistanceFromNoun + agr$CIHigh
 agr = agr[order(agr[,c("DistanceFromNoun")],decreasing=T),]
 agr$AdjClass = factor(x=as.character(agr$Class),levels=as.character(agr$Class))
 
-ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
+ggplot(agr, aes(x=AdjClass,y=(DistanceFromNoun-1))) +
   geom_bar(stat="identity") +
-  geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
-  geom_hline(yintercept =1)
+  geom_errorbar(aes(ymin=YMin-1,ymax=YMax-1),width=.1) +
+  theme_bw()+
+  ylim(0,1) +
+  xlab("\nadjective class") +
+  ylab("distance from noun\n")
+  #geom_hline(yintercept =1)
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier.pdf")
-ggsave("graphs/mean_distance_from_noun_morethanonemodifier.jpg",width=7)
+ggsave("graphs/corpus_distance_plot.pdf",height=3)
 
 agr = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered,FUN="ci.low")$DistanceFromNoun

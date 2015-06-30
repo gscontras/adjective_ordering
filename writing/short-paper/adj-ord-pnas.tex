@@ -61,19 +61,19 @@ Description of our corpus work.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.95\linewidth]{plots/distance_from_noun.eps}
+	\includegraphics[width=.95\linewidth]{plots/corpus_distance_plot.eps}
 	\caption{Average distance from noun by adjective class for cases with at least two modifying adjectives (39,199 cases).}\label{distance-from-noun}
 \end{figure}
 
-Based on the average distance-from-noun scores calculated in Fig.\ \ref{distance-from-noun}, we may infer the ordering preferences in \ref{inferred-order-preferences}.
+Based on the average distance-from-noun scores calculated in Fig.\ \ref{distance-from-noun}, we may infer the ordering preferences in \ref{inferred-order-preferences} via pairwise comparisons between classes.
 \be size \geq quality > age > texture > shape > color > material \label{inferred-order-preferences}\ee
 
 \section{Behavioral Experiments}
 	
 \subsection{Subjectivity} We conducted experiment 1 to measure the subjectivity of adjectives and the broader classes to which they belong. Participants evaluated the potential for faultless disagreement between two differing descriptions of an object (\emph{Experiment 1a: Faultless Disagreement}). For example, an experimental trial might have Mary assert ``that apple is old,'' then have Bob counter with ``that apple is not old.'' To the extent that both Mary and Bob can be right in their descriptions of the apple, ``old'' admits that degree of faultless disagreement. In other words, to the extent that two people might disagree about a description without one necessarily being wrong, that description is subjective. We validated our faultless disagreement measure in a separate paradigm, which explicitly asked about the potential ``subjectivity'' of an object description like ``old apple'' (\emph{Experiment 1b: Subjectivity}). The results of these two methods are highly correlated with each other ($r^{2} = 0.89$), suggesting that the measures they invoke converge in their estimation of adjective subjectivity.
 
-Fig.~\ref{faultless-class} plots faultless disagreement ratings for adjectives and their respective classes. Based on these aggregate scores, we infer the adjective class subjectivity raking in \ref{inferred-subjectivity}.
-\be quality \geq size > texture \geq age > color > shape \geq material \label{inferred-subjectivity}\ee
+Fig.~\ref{faultless-class} plots faultless disagreement ratings for adjectives and their respective classes. Based on these aggregate scores, we infer the adjective class subjectivity raking in \ref{inferred-subjectivity} on the basis of pairwise comparisons between classes.
+\be quality \geq size > texture \geq age > color \geq shape \geq material \label{inferred-subjectivity}\ee
 
 \begin{figure}[h]
 	\centering
@@ -88,6 +88,7 @@ Fig.~\ref{faultless-class} plots faultless disagreement ratings for adjectives a
 We have so far established a connection between adjective subjectivity (measured in experiment 1) and adjective proximity to nouns (obtained from corpus counts). Our next task is to verify the adjective ordering preferences that we have inferred from the corpus and from the literature on the topic, and to evaluate the predictive power of subjectivity in determining adjective order. To that end, we elicited naturalness judgments on adjective-adjective-noun object descriptions, permuting the relative order of the adjectives (\emph{Experiment 2: Ordering Preferences}). Participants indicated which ordering of an adjective-adjective-noun object description (e.g., ``the big red apple'' vs.\ ``the red big apple'') sounded more natural. 
 
 On the basis of these naturalness ratings, we computed for each adjective-adjective pairing its preferred, canonical order. We then determined how often an adjective from a given class occurred first in an adjective-adjective-noun configuration; Fig.\ \ref{class-distance-by-adj} plots these average distance scores, where a value of 2 signals that a class's adjectives always occur first in preferred adjective-adjective-noun orderings, and a value of 1 indicates that a class's adjectives always occur second, closest to the noun.
+\be size \geq quality > texture \geq age > color > shape > material \label{inferred-preference}\ee
 
 \begin{figure}[h]
 	\centering
@@ -99,7 +100,7 @@ Finally, and most directly related to our hypothesis concerning adjective subjec
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.95\linewidth]{plots/faultless_order_preference.eps}
+	\includegraphics[width=\linewidth]{plots/faultless_order_preference.eps}
 	\caption{By-class adjective order preferences plotted against difference in faultless disagreement.}\label{faultless-order}
 \end{figure}
 
@@ -108,28 +109,6 @@ Finally, and most directly related to our hypothesis concerning adjective subjec
 
 
 
- We then compared these naturalness judgments with the subjectivity scores.
-
-For each pair of adjective classes, we determine the preferred ordering on the basis of the ratio of ratings for the each order. Ratio scores greater than 1 indicate the preferred ordering; these ratio scores for the preferred orderings are plotted in Fig.\ \ref{order-ratio}.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.95\linewidth]{plots/order_ratio.eps}
-	\caption{Accpetability ratios for the preferred adjective class orderings.}\label{order-ratio}
-\end{figure}
-
-On the basis of these preferred orderings, we may calculate the average distance from noun for each class, plotted in Fig.\ \ref{class-distance}. Comparing Fig.\ \ref{class-distance} with the corpus-based distance scores reported in Fig.\ \ref{distance-from-noun} confirms the reliability of the current paradigm: we replicate near exactly the qualitative order of adjective class distance from noun. 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.95\linewidth]{plots/class_distance.eps}
-	\caption{Average distance from noun for each adjective class calculated from order preference ratings.}\label{class-distance}
-\end{figure}
-
-We may infer the order preferences in \ref{expt-inferred-order-preferences} (cf.\ the preferences inferred from corpus counts in \ref{inferred-order-preferences} above).
-\be
-size > quality > age > texture > shape > color > material\label{expt-inferred-order-preferences}\ee 
-
 \section{Discussion}
 
 
@@ -137,9 +116,29 @@ size > quality > age > texture > shape > color > material\label{expt-inferred-or
 \begin{materials}
 \section{Corpus counts} 
 
+Pairwise comparisons using t tests with bonferroni correction
+         age     color   material quality shape   size   
+         color    < 2e-16 -       -        -       -       -      
+         material < 2e-16 8.9e-05 -        -       -       -      
+         quality  < 2e-16 < 2e-16 < 2e-16  -       -       -      
+         shape    < 2e-16 0.032   1.3e-05  < 2e-16 -       -      
+         size     < 2e-16 < 2e-16 < 2e-16  0.636   < 2e-16 -      
+         texture  2.1e-13 < 2e-16 < 2e-16  < 2e-16 1.9e-10 < 2e-16
+
 \section{Experiment 1a: Faultless Disagreement}
 Something about our methods and how we ran the experiment
-\begin{table}[h]
+
+
+Pairwise comparisons using t tests with bonferroni correction
+		         age     color   material quality shape   size   
+         color    < 2e-16 -       -        -       -       -      
+         material < 2e-16 0.00161 -        -       -       -      
+         quality  7.6e-06 < 2e-16 < 2e-16  -       -       -      
+         shape    < 2e-16 0.25546 1.00000  < 2e-16 -       -      
+         size     2.8e-10 < 2e-16 < 2e-16  1.00000 < 2e-16 -      
+         texture  1.00000 < 2e-16 < 2e-16  0.00011 < 2e-16 1.1e-07
+
+\begin{table}
 	\caption{Adjectives and nouns used in experimental stimuli.}
 	\begin{tabular}{@{\vrule height 10.5pt depth2pt  width0pt}llllll}
 	\textbf{adjective}	&	\textbf{class}	&	\textbf{adjective}	&	\textbf{class}	&	\textbf{noun}	&	\textbf{class}	\\ \hline
@@ -156,7 +155,7 @@ brown	&	color	&	long	&	size	&	desk	&	furniture	\\
 wooden	&	material	&	smooth	&	texture	\\				
 plastic	&	material	&	hard	&	texture	\\				
 metal	&	material	&	soft	&	texture	\\													
-	\end{tabular} \label{stim-table}
+	\end{tabular} \caption{Adjectives and nouns used in experimental stimuli.}\label{stim-table}
 \end{table}
 
 \section{Experiment 1b: Subjectivity}
@@ -174,6 +173,24 @@ On each trial, participants indicated which description sounded more natural by 
 \end{figure}
 
 Only native speakers of English with IP addresses located within the United States were included in the analyses; we analyzed data from 45 participants.
+
+
+
+\begin{table}
+	\caption{Pairwise comparisons using t tests with bonferroni correction}
+\begin{tabular}{lllllll}
+	   &    age & color & material & quality & shape & size  \\ 
+color &		\textbf{$<$0.001} & -       & -        & - & - & - \\      
+material &	\textbf{$<$0.001} & 1.00 & -        & - & - & - \\      
+quality & 	0.98 & \textbf{$<$0.001} & \textbf{$<$0.001}  & - & - & - \\      
+shape & 	1.00 & \textbf{$<$0.05} & \textbf{$<$0.001}  & \textbf{$<$0.05} & - & - \\     
+size & 		\textbf{$<$0.001} & \textbf{$<$0.001} & \textbf{$<$0.001}  & 0.11 & \textbf{$<$0.001} & - \\     
+texture & 	1.00 & \textbf{$<$0.001} & \textbf{$<$0.001}  & 1.00 & 0.30 & \textbf{$<$0.001}
+\end{tabular}
+\end{table}
+
+\textbf{$<$0.001}
+
 
 
 \end{materials}
@@ -276,3 +293,28 @@ Z.~Zhang and H.~Zha, {\em Principal manifolds and nonlinear dimension
 \end{document}
 
 
+
+
+
+
+We then compared these naturalness judgments with the subjectivity scores.
+
+For each pair of adjective classes, we determine the preferred ordering on the basis of the ratio of ratings for the each order. Ratio scores greater than 1 indicate the preferred ordering; these ratio scores for the preferred orderings are plotted in Fig.\ \ref{order-ratio}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.95\linewidth]{plots/order_ratio.eps}
+	\caption{Accpetability ratios for the preferred adjective class orderings.}\label{order-ratio}
+\end{figure}
+
+On the basis of these preferred orderings, we may calculate the average distance from noun for each class, plotted in Fig.\ \ref{class-distance}. Comparing Fig.\ \ref{class-distance} with the corpus-based distance scores reported in Fig.\ \ref{distance-from-noun} confirms the reliability of the current paradigm: we replicate near exactly the qualitative order of adjective class distance from noun. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.95\linewidth]{plots/class_distance.eps}
+	\caption{Average distance from noun for each adjective class calculated from order preference ratings.}\label{class-distance}
+\end{figure}
+
+We may infer the order preferences in \ref{expt-inferred-order-preferences} (cf.\ the preferences inferred from corpus counts in \ref{inferred-order-preferences} above).
+\be
+size > quality > age > texture > shape > color > material\label{expt-inferred-order-preferences}\ee 

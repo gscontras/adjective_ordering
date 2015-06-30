@@ -72,17 +72,21 @@ nrow(all_agg[all_agg$Preferred=="preferred",])
 all_agg$adj_preferred_10 = 0
 all_agg[all_agg$adj_Preferred=="preferred",]$adj_preferred_10 = 1
 
+
+pairwise.t.test(all_agg$adj_preferred_10, all_agg$class1, p.adj = "bonf")
+
 all_agg_s = bootsSummary(data=all_agg, measurevar="adj_preferred_10", groupvars=c("class1"))
 
-ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferred_10+1))+
+ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferred_10))+
   geom_bar(stat="identity")+
-  geom_errorbar(aes(ymin=bootsci_low+1, ymax=bootsci_high+1, x=reorder(class1,-adj_preferred_10,mean), width=0.1),alpha=0.5)+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class1,-adj_preferred_10,mean), width=0.1),alpha=0.5)+
   xlab("\nadjective class")+
   ylab("distance from noun\n")+
+  ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
   #theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
-ggsave("../results/class_distance_by_adj.pdf",height=4)
+ggsave("../results/class_distance_by_adj.pdf",height=3)
 
 
 ggplot(data=all_agg[all_agg$Preferred=="preferred",],aes(x=reorder(configuration,-Ratio,mean),y=Ratio))+

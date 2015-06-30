@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  30 JUN 2015 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  30 JUN 2015 15:16
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -321,8 +321,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  
  ======================================================================== 
 
-File: plots/distance_from_noun.eps Graphic file (type eps)
-<plots/distance_from_noun.eps>
+File: plots/corpus_distance_plot.eps Graphic file (type eps)
+<plots/corpus_distance_plot.eps>
 
 
  C A R E F U L !! \begin{figure}[h] used on this page !
@@ -346,36 +346,10 @@ File: plots/class_distance_by_adj.eps Graphic file (type eps)
 
 File: plots/faultless_order_preference.eps Graphic file (type eps)
 <plots/faultless_order_preference.eps>
+\figandtabbox0=\box52
 
 
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/order_ratio.eps Graphic file (type eps)
-<plots/order_ratio.eps>
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/class_distance.eps Graphic file (type eps)
-<plots/class_distance.eps>
-
- ======================================================================== 
- C A R E F U L !!!!!
- 
- You have used \begin{table}[h] !
- If there are any tables that appear earlier on the page
- they may be numbered incorrectly.
- 
- Please check this and every other page on which you have used 
- \begin{table}[h] !
- 
- ======================================================================== 
-
-[2]
-
-LaTeX Warning: Reference `corpus' on page 3 undefined on input line 167.
+LaTeX Warning: Reference `corpus' on page 2 undefined on input line 166.
 
 
 
@@ -383,18 +357,24 @@ LaTeX Warning: Reference `corpus' on page 3 undefined on input line 167.
 
 
 File: images/order_trial.eps Graphic file (type eps)
-<images/order_trial.eps> [3] (./adj-ord-pnas.aux)
+<images/order_trial.eps>
+\figandtabbox1=\box53
+
+Overfull \vbox (2.00002pt too high) has occurred while \output is active []
+
+
+[2] [3] (./adj-ord-pnas.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2976 strings out of 493118
- 37564 string characters out of 6135459
- 120946 words of memory out of 5000000
- 6395 multiletter control sequences out of 15000+600000
+ 2988 strings out of 493118
+ 37661 string characters out of 6135459
+ 118929 words of memory out of 5000000
+ 6409 multiletter control sequences out of 15000+600000
  14677 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,10n,37p,1159b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on adj-ord-pnas.dvi (3 pages, 21820 bytes).
+Output written on adj-ord-pnas.dvi (3 pages, 21920 bytes).
