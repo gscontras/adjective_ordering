@@ -70,13 +70,45 @@ Based on the average distance-from-noun scores calculated in Fig.\ \ref{distance
 
 \section{Behavioral Experiments}
 	
-\subsection{Subjectivity} We conducted experiment 1 to measure the subjectivity of adjectives and the broader classes to which they belong. Participants evaluated the potential for faultless disagreement between two differing descriptions of an object (\emph{Experiment 1a: Faultless Disagreement}). For example, an experimental trial might have Mary assert ``that apple is old,'' then have Bob counter with ``that apple is not old.'' To the extent that both Mary and Bob can be right in their descriptions of the apple, ``old'' admits that degree of faultless disagreement. In other words, to the extent that two people might disagree about a description without one necessarily being wrong, that description is subjective. We validated our faultless disagreement measure in a separate paradigm, which explicitly asked about the potential ``subjectivity'' of an object description like ``old apple'' (\emph{Experiment 1b: Subjectivity}). The results of these two methods are highly correlated with each other ($r^{2} = 0.89$), suggesting that the measures they invoke converge in their estimation of adjective subjectivity. 
+\subsection{Subjectivity} We conducted experiment 1 to measure the subjectivity of adjectives and the broader classes to which they belong. Participants evaluated the potential for faultless disagreement between two differing descriptions of an object (\emph{Experiment 1a: Faultless Disagreement}). For example, an experimental trial might have Mary assert ``that apple is old,'' then have Bob counter with ``that apple is not old.'' To the extent that both Mary and Bob can be right in their descriptions of the apple, ``old'' admits that degree of faultless disagreement. In other words, to the extent that two people might disagree about a description without one necessarily being wrong, that description is subjective. We validated our faultless disagreement measure in a separate paradigm, which explicitly asked about the potential ``subjectivity'' of an object description like ``old apple'' (\emph{Experiment 1b: Subjectivity}). The results of these two methods are highly correlated with each other ($r^{2} = 0.89$), suggesting that the measures they invoke converge in their estimation of adjective subjectivity.
+
+Fig.~\ref{faultless-class} plots faultless disagreement ratings for adjectives and their respective classes. Based on these aggregate scores, we infer the adjective class subjectivity raking in \ref{inferred-subjectivity}.
+\be quality \geq size > texture \geq age > color > shape \geq material \label{inferred-subjectivity}\ee
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.95\linewidth]{plots/faultless_class_plot.eps}
+	\caption{Average distance from noun for each adjective class, determined by computing how often adjectives from a class occur first in preferred adjective-adjective-noun orderings.}\label{faultless-class}
+\end{figure}
 
 
 
 
 \subsection{Ordering preferences}
-We have so far established a connection between adjective subjectivity (measured by faultless disagreement scores in Expt.\ 1) and adjective proximity to nouns (obtained from corpus counts in Section \ref{corpus}). Our next task is to verify the adjective ordering preferences that we have inferred from the corpus and from the literature on the topic, and to evaluate the predictive power of subjectivity in determining adjective order. To that end, we elicited naturalness judgments on adjective-adjective-noun object descriptions, permuting the relative order of adjectives. We then compared these naturalness judgments with the faultless disagreement scores.
+We have so far established a connection between adjective subjectivity (measured in experiment 1) and adjective proximity to nouns (obtained from corpus counts). Our next task is to verify the adjective ordering preferences that we have inferred from the corpus and from the literature on the topic, and to evaluate the predictive power of subjectivity in determining adjective order. To that end, we elicited naturalness judgments on adjective-adjective-noun object descriptions, permuting the relative order of the adjectives (\emph{Experiment 2: Ordering Preferences}). Participants indicated which ordering of an adjective-adjective-noun object description (e.g., ``the big red apple'' vs.\ ``the red big apple'') sounded more natural. 
+
+On the basis of these naturalness ratings, we computed for each adjective-adjective pairing its preferred, canonical order. We then determined how often an adjective from a given class occurred first in an adjective-adjective-noun configuration; Fig.\ \ref{class-distance-by-adj} plots these average distance scores, where a value of 2 signals that a class's adjectives always occur first in preferred adjective-adjective-noun orderings, and a value of 1 indicates that a class's adjectives always occur second, closest to the noun.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.95\linewidth]{plots/class_distance_by_adj.eps}
+	\caption{Average distance from noun for each adjective class, determined by computing how often adjectives from a class occur first in preferred adjective-adjective-noun orderings.}\label{class-distance-by-adj}
+\end{figure}
+
+Finally, and most directly related to our hypothesis concerning adjective subjectivity in ordering preferences, we compared acceptability ratings from the current experiment with faultless disagreement scores from Expt.\ 1. To do so, we first calculated a difference score for each class configuration, \textsc{class1}--\textsc{class2}, subtracting the average faultless disagreement score for \textsc{class1} from the average faultless disagreement score for \textsc{class2}. Fig.\ \ref{faultless-order} plots class configuration acceptability ratings against faultless disagreement difference scores.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.95\linewidth]{plots/faultless_order_preference.eps}
+	\caption{By-class adjective order preferences plotted against difference in faultless disagreement.}\label{faultless-order}
+\end{figure}
+
+
+
+
+
+
+ We then compared these naturalness judgments with the subjectivity scores.
 
 For each pair of adjective classes, we determine the preferred ordering on the basis of the ratio of ratings for the each order. Ratio scores greater than 1 indicate the preferred ordering; these ratio scores for the preferred orderings are plotted in Fig.\ \ref{order-ratio}.
 
@@ -97,21 +129,6 @@ On the basis of these preferred orderings, we may calculate the average distance
 We may infer the order preferences in \ref{expt-inferred-order-preferences} (cf.\ the preferences inferred from corpus counts in \ref{inferred-order-preferences} above).
 \be
 size > quality > age > texture > shape > color > material\label{expt-inferred-order-preferences}\ee 
-In addition to calculating preference ratios by class configurations, we also calculated preferred orderings for all of the specific adjective pairings. On the basis of how often an adjective from a given class occurred first in an adjective-adjective-noun configuration, we may infer the relative distance from the noun a given class prefers. Fig.\ \ref{class-distance-by-adj} plots these average distance scores, where a value of 2 signals that a class's adjectives always occur first in preferred adjective-adjective-noun orderings, and a value of 1 indicates that a class's adjectives always occur second.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.95\linewidth]{plots/class_distance_by_adj.eps}
-	\caption{Average distance from noun for each adjective class by computing how often adjectives from that class occur first in preferred adjective-adjective-noun orderings.}\label{class-distance-by-adj}
-\end{figure}
-
-Finally, and most directly related to our hypothesis concerning adjective subjectivity in ordering preferences, we compared acceptability ratings from the current experiment with faultless disagreement scores from Expt.\ 1. To do so, we first calculated a difference score for each class configuration, \textsc{class1}--\textsc{class2}, subtracting the average faultless disagreement score for \textsc{class1} from the average faultless disagreement score for \textsc{class2}. Fig.\ \ref{faultless-order} plots class configuration acceptability ratings against faultless disagreement difference scores.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.95\linewidth]{plots/faultless_order_preference.eps}
-	\caption{By-class adjective order preferences plotted against difference in faultless disagreement.}\label{faultless-order}
-\end{figure}
 
 \section{Discussion}
 
