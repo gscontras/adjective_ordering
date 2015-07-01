@@ -1,6 +1,6 @@
 # Tgrep2/TDTlite search
 
-The databases swbd.tab, bncw.tab, and bncs.tab are not in the repo because they're too big. They can be found on Judith's computer in this directory. Searches were run on jdegen@slate from ./projects/adjectives for swbd/bncs and from ./projects/adjectives_bncw for bncw. The latter got its own search because it's much larger and there are over 4 million cases of any adjective occurring before any noun. Things crashed, so I ran three separate searches on bncw (adj_1, adj_2, and adj_3 subdirectories):
+The databases swbd.tab, bncw.tab, and bncs.tab contain the data extracted from the Switchboard, the written BNC, and the spoken BNC. Searches were run on jdegen@slate from ./projects/adjectives for swbd/bncs and from ./projects/adjectives_bncw for bncw. The latter got its own search because it's much larger and there are over 4 million cases of any adjective occurring before any noun. Things crashed, so I ran three separate searches on bncw (adj_1, adj_2, and adj_3 subdirectories):
 
 ```
 @ REFEXP        (@NP=np < (/^JJ/=adj < @TARGETADJ $.. (/^NN/ !,, (@TERMINAL ,, =adj !>> (@DISFL >> =np)))));

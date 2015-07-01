@@ -267,6 +267,7 @@ d_subexp[d_subexp$Adjective %in% c("square","round") | d_subexp$PrevAdjective %i
 ## pairwise comparison
 
 pairwise.t.test(gathered$DistanceFromNoun, gathered$Class, p.adj = "bonf")
+round(pairwise.t.test(gathered$DistanceFromNoun, gathered$Class, p.adj = "bonf")$p.value,4)
 
 m = lmer(DistanceFromNoun ~ Class + (1|Noun) + (1|Corpus), data=gathered)
 summary(m)

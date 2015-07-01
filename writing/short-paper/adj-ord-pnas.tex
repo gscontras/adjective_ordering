@@ -10,11 +10,21 @@
 %% ADDITIONAL OPTIONAL STYLE FILES Font specification
 
 %\usepackage{pnastwoF}
+\usepackage{color}
 
 
 
 %% OPTIONAL MACRO DEFINITIONS
 \def\s{\sigma}
+\newcommand{\eref}[1]{(\ref{#1})}
+\newcommand{\tableref}[1]{Table \ref{#1}}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\appref}[1]{Appendix \ref{#1}}
+\newcommand{\sectionref}[1]{Section \ref{#1}}
+
+\definecolor{Red}{RGB}{255,0,0}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}
+
 %%%%%%%%%%%%
 %% For PNAS Only:
 \url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
@@ -57,16 +67,20 @@ of the United States of America}
 
 \section{Corpus Counts}
 
-Description of our corpus work.
+We first conducted a corpus study to measure, for 26 adjectives from seven different classes discussed in the literature (size, quality, age, texture, shape, color, material), what their mean distance from the noun is in phrases with either two or three adjectives preceding the noun, e.g., ``a nice green color'' or ``some big heavy red cloaks''. We extracted all such cases from the Switchboard Corpus of American English \red{REF} as well as from both the written and spoken portions of the British National Corpus ( \red{REF}, see \emph{Materials and Methods} for details). Mean distance from the noun for each adjective class is shown in \figref{fig:distance}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.95\linewidth]{plots/corpus_distance_plot.eps}
 	\caption{Average distance from noun by adjective class for cases with at least two modifying adjectives (39,199 cases).}\label{distance-from-noun}
+	\label{fig:distance}
 \end{figure}
 
-Based on the average distance-from-noun scores calculated in Fig.\ \ref{distance-from-noun}, we may infer the ordering preferences in \ref{inferred-order-preferences} via pairwise comparisons between classes.
+Conducting pairwise Bonferroni-corrected comparisons between classes on the average distance-from-noun scores calculated in \figref{fig:distance} yields the following ordering preferences:
+
 \be size \geq quality > age > texture > shape > color > material \label{inferred-order-preferences}\ee
+
+This order \red{is identical to/closely tracks} the order previously documented \ref{REFS}.
 
 \section{Behavioral Experiments}
 	
@@ -116,6 +130,8 @@ Finally, and most directly related to our hypothesis concerning adjective subjec
 \begin{materials}
 \section{Corpus counts} 
 
+We used TGrep2 \cite{rohde2005} and the TGrep2 Database Tools \cite{degenjaeger}
+
 Pairwise comparisons using t tests with bonferroni correction
          age     color   material quality shape   size   
          color    < 2e-16 -       -        -       -       -      
@@ -155,7 +171,7 @@ brown	&	color	&	long	&	size	&	desk	&	furniture	\\
 wooden	&	material	&	smooth	&	texture	\\				
 plastic	&	material	&	hard	&	texture	\\				
 metal	&	material	&	soft	&	texture	\\													
-	\end{tabular} \caption{Adjectives and nouns used in experimental stimuli.}\label{stim-table}
+	\end{tabular} \label{stim-table}\caption{Adjectives and nouns used in experimental stimuli.}
 \end{table}
 
 \section{Experiment 1b: Subjectivity}
@@ -177,7 +193,7 @@ Only native speakers of English with IP addresses located within the United Stat
 
 
 \begin{table}
-	\caption{Pairwise comparisons using t tests with bonferroni correction}
+	
 \begin{tabular}{lllllll}
 	   &    age & color & material & quality & shape & size  \\ 
 color &		\textbf{$<$0.001} & -       & -        & - & - & - \\      
@@ -187,6 +203,7 @@ shape & 	1.00 & \textbf{$<$0.05} & \textbf{$<$0.001}  & \textbf{$<$0.05} & - & -
 size & 		\textbf{$<$0.001} & \textbf{$<$0.001} & \textbf{$<$0.001}  & 0.11 & \textbf{$<$0.001} & - \\     
 texture & 	1.00 & \textbf{$<$0.001} & \textbf{$<$0.001}  & 1.00 & 0.30 & \textbf{$<$0.001}
 \end{tabular}
+\caption{Pairwise comparisons using t tests with Bonferroni correction \red{---would be nicer to have adjectives in the order of the plot for ease of readability; also, currently wrong numbers}}
 \end{table}
 
 \textbf{$<$0.001}
