@@ -1,20 +1,20 @@
-%% PNAStwoS.tex
-%% Sample file to use for PNAS articles prepared in LaTeX
-%% For two column PNAS articles
+%% P--StwoS.tex
+%% Sample file to use for P--S articles prepared in LaTeX
+%% For two column P--S articles
 %% Version1: Apr 15, 2008
 %% Version2: Oct 04, 2013
 
 %% BASIC CLASS FILE
 \documentclass{pnastwo}
 
-%% ADDITIONAL OPTIONAL STYLE FILES Font specification
+%% ADDITIO--L OPTIO--L STYLE FILES Font specification
 
 %\usepackage{pnastwoF}
 \usepackage{color}
 
 
 
-%% OPTIONAL MACRO DEFINITIONS
+%% OPTIO--L MACRO DEFINITIONS
 \def\s{\sigma}
 \newcommand{\eref}[1]{(\ref{#1})}
 \newcommand{\tableref}[1]{Table \ref{#1}}
@@ -26,7 +26,7 @@
 \newcommand{\red}[1]{\textcolor{Red}{#1}}
 
 %%%%%%%%%%%%
-%% For PNAS Only:
+%% For P--S Only:
 \url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
 \copyrightyear{2015}
 \issuedate{Issue Date}
@@ -67,7 +67,7 @@ of the United States of America}
 
 \section{Corpus Counts}
 
-We first conducted a corpus study to measure, for 26 adjectives from seven different classes discussed in the literature (size, quality, age, texture, shape, color, material), what their mean distance from the noun is in phrases with either two or three adjectives preceding the noun, e.g., ``a nice green color'' or ``some big heavy red cloaks''. We extracted all such cases from the Switchboard Corpus of American English \red{REF} as well as from both the written and spoken portions of the British National Corpus ( \red{REF}, see \emph{Materials and Methods} for details). Mean distance from the noun for each adjective class is shown in \figref{fig:distance}.
+We first conducted a corpus study to measure, for 26 adjectives from seven different classes discussed in the literature (size, quality, age, texture, shape, color, material), what their mean distance from the noun is in phrases with either two or three adjectives preceding the noun, e.g., ``a nice green color'' or ``some big heavy red cloaks''. We extracted all such cases from the Switchboard corpus as well as from both the written and spoken portions of the British National Corpus (see \emph{Materials and Methods} for details). Mean distance from the noun for each adjective class is shown in \figref{fig:distance}.
 
 \begin{figure}[h]
 	\centering
@@ -130,7 +130,35 @@ Finally, and most directly related to our hypothesis concerning adjective subjec
 \begin{materials}
 \section{Corpus counts} 
 
-We used TGrep2 \cite{rohde2005} and the TGrep2 Database Tools \cite{degenjaeger}
+We used TGrep2 \cite{rohde2005} and the TGrep2 Database Tools \cite{degenjaeger-tdt} to extract all ``A A N" and ``A A A N" NPs that contained one of the 26 adjectives in Table \ref{TABLREFER} from the Penn Treebank subset of the Switchboard corpus of telephone dialogs \cite{godfrey1992} as well as from the spoken and the written portions of the British National Corpus (\red{REF}). There were a total of 35,721 cases. For these cases, we computed the distance of each occurrence of our 26 target adjectives from the noun, yielding results for a total of 39,199 adjectives (180 from Switchboard, 2,232 from the spoken BNC, 36,787 from the written BNC).  See \tableref{tab:adjdist} for the distribution of cases over adjective classes.
+
+\begin{table}
+	\caption{Distribution of cases extracted from corpora over adjective classes}
+	\begin{tabular}{l c c c c c c c}
+	\textbf{Class} & age & size & color & quality & texture & material & shape \\
+	\textbf{Count} & 15,688 & 11,576 & 5,024 & 3,790 & 1,720 & 1, 183 & 218 \\
+	\textbf{Proportion} & .40 & .30 & .13 & .10 & .04 & .03 & .01
+	\end{tabular}
+
+		\label{tab:adjdist}
+\end{table}
+
+For each adjective class, mean distance from the noun was computed (where position directly preceding the noun was coded as 0, the position preceding that as 1, etc.). The resulting by-class mean distances are shown in \figref{fig:distance}. To determine which differences between adjective classes are meaningful differences, we conducted Bonferroni-corrected pairwise t-tests. All differences were significant at the .0001 level except for the difference between color and shape (significant at the .04 level) and the difference between size and quality (not significant). See \tableref{tab:bonferronicorpus} for a summary. These results suggest that except for the exact position of size and quality, the order established in \figref{fig:distance} is real.
+
+\begin{table}
+\caption{Pairwise comparisons between adjective classes using t-tests with Bonferroni correction}
+
+\begin{tabular}{l l l l l l l}
+       &  age & color & material & quality & shape & size\\
+color &     $<$.0001 &    --   &    --   &   -- &   --  & --\\
+material &  $<$.0001 &  $<$.0001 &      --  &    -- &   -- &  --\\
+quality &   $<$.0001 & $<$.0001 &         $<$.0001 &      --  &  -- &  --\\
+shape &     $<$.0001 & $<$.04 &        $<$.0001 &  $<$.0001 &    -- &  --\\
+size &      $<$.0001 & $<$.0001 &        $<$.0001 &  $<$.76 &    $<$.0001 &   --\\
+texture &   $<$.0001 & $<$.0001 &       $<$.0001 &  $<$.0001 &    $<$.0001 &    $<$.0001
+\end{tabular}
+\label{tab:bonferronicorpus}
+\end{table}
 
 Pairwise comparisons using t tests with bonferroni correction
          age     color   material quality shape   size   
@@ -230,7 +258,7 @@ P.~B\'erard, G.~Besson, and S.~Gallot, {\em Embedding {R}iemannian
 R.R.~Coifman and S.~Lafon, {\em Diffusion maps}, Appl. Comp. Harm. Anal.,
   21 (2006), pp.~5--30.
 
-\bibitem{DiffusionPNAS}
+\bibitem{DiffusionP--S}
 R.R.~Coifman, S.~Lafon, A.~Lee, M.~Maggioni, B.~Nadler, F.~Warner, and
   S.~Zucker, {\em Geometric diffusions as a tool for harmonic analysis and
   structure definition of data. {P}art {I}: Diffusion maps}, Proc. of Nat.

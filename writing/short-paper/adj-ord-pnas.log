@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  30 JUN 2015 16:51
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  2 JUL 2015 10:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -452,10 +452,25 @@ pdf)
 Package pdftex.def Info: plots/faultless_order_preference-eps-converted-to.pdf 
 used on input line 117.
 (pdftex.def)             Requested size: 248.25pt x 152.96684pt.
+
+
+LaTeX Warning: Citation `rohde2005' on page 2 undefined on input line 133.
+
+
+LaTeX Warning: Citation `degenjaeger-tdt' on page 2 undefined on input line 133
+.
+
+
+LaTeX Warning: Reference `TABLREFER' on page 2 undefined on input line 133.
+
+
+LaTeX Warning: Citation `godfrey1992' on page 2 undefined on input line 133.
+
 \figandtabbox0=\box53
+\figandtabbox1=\box54
+\figandtabbox2=\box55
 
-
-LaTeX Warning: Reference `corpus' on page 2 undefined on input line 180.
+LaTeX Warning: Reference `corpus' on page 2 undefined on input line 210.
 
 
 
@@ -470,38 +485,31 @@ Package epstopdf Info: Source file: <images/order_trial.eps>
 (epstopdf)                    size: 37507 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/order_trial-eps-con
 verted-to.pdf images/order_trial.eps>
-(epstopdf)             \includegraphics on input line 185.
+(epstopdf)             \includegraphics on input line 215.
 Package epstopdf Info: Output file is already uptodate.
 <images/order_trial-eps-converted-to.pdf, id=26, 524.96124pt x 290.08376pt>
 File: images/order_trial-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/order_trial-eps-converted-to.pdf>
 Package pdftex.def Info: images/order_trial-eps-converted-to.pdf used on input 
-line 185.
+line 215.
 (pdftex.def)             Requested size: 198.60075pt x 109.74164pt.
-\figandtabbox1=\box54
+\figandtabbox3=\box56
  [2 <./plots/class_distance_by_adj-eps-converted-to.pdf> <./plots/faultless_ord
-er_preference-eps-converted-to.pdf> <./images/order_trial-eps-converted-to.pdf>
-]
-Overfull \vbox (43.20021pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (43.20021pt too high) has occurred while \output is active []
-
-
-[3] (./adj-ord-pnas.aux)
+er_preference-eps-converted-to.pdf>] [3 <./images/order_trial-eps-converted-to.
+pdf>] (./adj-ord-pnas.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3508 strings out of 493488
- 45550 string characters out of 3141326
- 127208 words of memory out of 3000000
- 6763 multiletter control sequences out of 15000+200000
+ 3532 strings out of 493488
+ 45849 string characters out of 3141326
+ 131222 words of memory out of 3000000
+ 6787 multiletter control sequences out of 15000+200000
  14677 words of font info for 53 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 49i,10n,37p,1159b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,11n,37p,1159b,319s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb>
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
@@ -517,7 +525,7 @@ live/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texli
 ve/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive
 /2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2
 012/texmf-dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb>
-Output written on adj-ord-pnas.pdf (3 pages, 700952 bytes).
+Output written on adj-ord-pnas.pdf (3 pages, 702491 bytes).
 PDF statistics:
  90 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream

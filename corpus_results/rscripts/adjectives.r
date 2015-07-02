@@ -191,7 +191,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   facet_wrap(~Corpus)
 ggsave("graphs/mean_distance_from_noun_all_bycorpus.pdf")
 
-# plot adjective's mean distance from noun by class, only for cases where there's more than one prenominal modifier
+# plot adjective's mean distance from noun by class, only for cases where there's more than one prenominal modifier -- THIS IS THE STUFF YOU"RE REPORTING IN THE PAPER
 d_subexp = d_exp[d_exp$PrevAdj == "yes" | d_exp$PrevPrevAdj == "yes",]
 nrow(d_subexp) #total of 35721 cases
 
@@ -213,6 +213,8 @@ summary(gathered)
 gathered = droplevels(gathered[gathered$Adjective %in% adjs$Adjective,])
 nrow(gathered) # to plot: 39199 cases
 summary(gathered)
+
+table(gathered$Corpus)
 
 nrow(gathered[gathered$Noun %in% nouns$Noun,])
 d_subexp[d_subexp$Noun %in% nouns$Noun,]
