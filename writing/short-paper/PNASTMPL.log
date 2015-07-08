@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  8 JUL 2015 16:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  3 JUL 2015 15:27
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
  %&-line parsing enabled.
-**adj-ord-pnas.tex
-(./adj-ord-pnas.tex
+**PNASTMPL.tex
+(./PNASTMPL.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (./pnastwo.cls
@@ -269,23 +269,22 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 \c@remark=\count124
 \tablewide=\box51
 )
-(./adj-ord-pnas.aux)
-\openout1 = `adj-ord-pnas.aux'.
+(./PNASTMPL.aux)
+\openout1 = `PNASTMPL.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/crop/crop.sty
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/crop/crop.sty
 Package: crop 2003/05/20 v1.9 crop marks (mf)
 \stockwidth=\dimen134
 \stockheight=\dimen135
@@ -298,96 +297,43 @@ Package crop Info: Local config file crop.cfg used on input line 605.
 (/usr/local/texlive/2014/texmf-dist/tex/xelatex/xetexconfig/crop.cfg)
 Package crop Info: using `dvips' graphics driver on input line 607.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 54.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 54.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 ]
-
- ======================================================================== 
- C A R E F U L !!!!!
- 
- You have used \begin{figure}[h] !
- If there are any figures that appear earlier on the page
- they may be numbered incorrectly.
- 
- Please check this and every other page on which you have used 
- \begin{figure}[h] !
- 
- ======================================================================== 
-
-File: plots/corpus_distance_plot.eps Graphic file (type eps)
-<plots/corpus_distance_plot.eps>
-
-LaTeX Warning: Reference `REFS' on page 2 undefined on input line 103.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 237.
 
 
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 237.
+ [2]
+File: figsamp.eps Graphic file (type eps)
 
- C A R E F U L !! \begin{figure}[h] used on this page !
+<figsamp.eps>
+File: figsamp.eps Graphic file (type eps)
+ <figsamp.eps>
 
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-File: plots/faultless_class_plot.eps Graphic file (type eps)
-<plots/faultless_class_plot.eps>
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/class_distance_by_adj.eps Graphic file (type eps)
-<plots/class_distance_by_adj.eps>
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/faultless_order_preference.eps Graphic file (type eps)
-<plots/faultless_order_preference.eps> [2]
-
-LaTeX Warning: Reference `TABLREFER' on page 3 undefined on input line 151.
-
-\figandtabbox0=\box52
-\figandtabbox1=\box53
-\figandtabbox2=\box54
-
-LaTeX Warning: Reference `corpus' on page 3 undefined on input line 228.
-
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: images/order_trial.eps Graphic file (type eps)
-<images/order_trial.eps>
-\figandtabbox3=\box55
- [3]
-Overfull \vbox (40.20021pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (40.20021pt too high) has occurred while \output is active []
-
-Missing character: There is no â in font cmssbx10!
-Missing character: There is no € in font cmssbx10!
-Missing character: There is no ’ in font cmssbx10!
-
-[4] (./adj-ord-pnas.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[3] [4] (./PNASTMPL.aux) ) 
 Here is how much of TeX's memory you used:
- 3012 strings out of 493118
- 37899 string characters out of 6135459
- 124044 words of memory out of 5000000
- 6433 multiletter control sequences out of 15000+600000
- 14677 words of font info for 53 fonts, out of 8000000 for 9000
+ 2986 strings out of 493118
+ 37421 string characters out of 6135459
+ 123914 words of memory out of 5000000
+ 6407 multiletter control sequences out of 15000+600000
+ 15972 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,10n,37p,1185b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,11n,37p,327b,304s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on adj-ord-pnas.dvi (4 pages, 32508 bytes).
+Output written on PNASTMPL.dvi (4 pages, 26776 bytes).

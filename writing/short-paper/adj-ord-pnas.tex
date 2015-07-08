@@ -11,7 +11,7 @@
 
 %\usepackage{pnastwoF}
 \usepackage{color}
-
+%\usepackage[square,sort,comma,numbers]{natbib}
 
 
 %% OPTIO--L MACRO DEFINITIONS
@@ -62,8 +62,28 @@ of the United States of America}
 
 %\abbreviations{SAM, self-assembled monolayer; OTS, octadecyltrichlorosilane}
 
-\dropcap{I}ntoduction\ldots summary of the literature on adjective ordering preferences.
+\dropcap{L}inguistic competence encompasses a broad swath of information that determines the language we speak. The information, grammar, is ``mentalistic'' \cite{chomsky1965}; we observe it through the regularities in behavior of speakers and speech communities. Here we take up one such regularity, adjective ordering preferences, which determines the relative order of prenominal adjectives when more than one is used to modify a noun. The topic has received considerable attention throughout the history of generative grammar XXX and cognitive psychology XXX, owing to its remarkable stability within and across languages. Something so robust, the reasoning goes, must evidence a deep principle of the cognitive architecture that shapes language. Yet while descriptions of the phenomenon abound, an explanation continues to prove elusive. The current work serves not to solve this problem, but rather to focus attention on what we believe to be the main determinant of these preferences: adjective subjectivity. We begin with a summary of the phenomenon of interest.
 
+Speakers exhibit strong preferences when two or more adjectives are used to modify a noun, as in ``the big blue box'' or ``the good smooth purple plastic chair.'' Deviate from the preferred order, and somethings feels particularly unwieldy about ``the blue big box,'' even more so with ``the plastic good purple smooth chair.'' Indeed, for any string of pre-nominal adjectives, chances are their order is non-arbitrary. Linguists have been aware of adjective ordering preferences (or restrictions; often abbreviated ``AOR'') for well over a century now \cite{sweet1898,bloomfield1933}. Even more curious than their robustly attested status in English is their cross-linguistic regularity, observed in languages as far-flung as Celtic \cite{sproatshih1991} and Indonesian \cite{martin1969competence}.
+
+The descriptions of these preferences that have so far been proffered are nearly as diverse as the principles to which they appeal (see \cite{wulff2003} for a review of the many potential factors contributing to adjective order in production). \cite{sweet1898} proposed two principles: that adjectives which are more closely connected with the noun in meaning occur more closely to the noun, and that adjectives with a more specialized meaning occur closer to the noun. \cite{ziff1960} proposed two others: that adjectives with a less context-dependent meaning occur more closely to the noun, and that adjectives that felicitously describe a narrower set of nouns occur more closely to the noun. \cite{martin1969determinants} expands on the proposal from \cite{ziff1960}, using behavioral experiments to demonstrate that adjective order depends on adjective ``definiteness'' (i.e., context-dependence) and ``absoluteness,'' a correlate of definiteness operationalized by the number of comparisons needed to judge whether an object holds the specified property.
+While researchers may disagree about its details, the psychological explorations of ordering preferences converge on the idea that aspects of  adjectives' meaning (i.e., specificity, context-sensitivity, reliance on comparison, etc.) determine their relative order.
+
+As part of a larger project mapping the syntax and semantics of adjectives, the literature on ordering preferences then marks a turn away from the psychological determinants or ordering preferences, and toward an ordered typology of semantic classes of adjectives. These classes separate on the basis of the properties named by the adjectives that populate them. At the heart of this enterprise is \cite{dixon1982}, who argues that by prioritizing the study of adjective semantics, we may gain insight into properties of their syntactic distribution; one such property of that semantics is meant to inform concerns their relative order in pre-nominal strings. After surveying a wealth of languages, Dixon arrives the adjective classes (or ``types''), which he takes to be a cross-linguistic universal, together with their English ranking in \ref{dixon-order}.\footnote{XXX Some representative examples of Dixon's semantic classes: dimension (big, small), physical property (hard, heavy), speed (fast, slow), human propensity (happy, clever), age (new, young).} In multi-adjective strings, higher ranked adjectives occur farther from the modified noun.
+\[
+dimension > physical\ property > speed > 
+\]
+\be human\ propensity > age > color\label{dixon-order}\ee
+While the ranking in \ref{dixon-order} is meant to characterize English preferences, Dixon notes that this ranking also surfaces in Hungarian and Telugu; and in Selepet (New Guinea), where adjectives typically occur post-nominally, the order is preserved in the reverse, such that higher ranked adjectives occur farther (to the right) of the modified noun (cf.~the discussion of Indonesian in \cite{martin1969competence} and of Celtic in \cite{sproatshih1991}).
+
+
+Using a smaller and perhaps more transparently labeled set of semantic classes, \cite{sproatshih1991} proposed the ranking in \ref{ss-order}.
+
+\be quality > size > shape > color > provenance\label{ss-order}\ee
+
+
+
+Our approach to the investigation of ordering preferences synthesizes strategies from the psychological approach, probing the principles that underlie these preferences, and from the typological approach, using descriptive adjective classes to structure and inform our hypotheses.
 
 \section{Corpus Counts}
 
@@ -96,8 +116,6 @@ Fig.~\ref{faultless-class} plots faultless disagreement ratings for adjectives a
 \end{figure}
 
 
-
-
 \subsection{Ordering preferences}
 We have so far established a connection between adjective subjectivity (measured in experiment 1) and adjective proximity to nouns (obtained from corpus counts). Our next task is to verify the adjective ordering preferences that we have inferred from the corpus and from the literature on the topic, and to evaluate the predictive power of subjectivity in determining adjective order. To that end, we elicited naturalness judgments on adjective-adjective-noun object descriptions, permuting the relative order of the adjectives (\emph{Experiment 2: Ordering Preferences}). Participants indicated which ordering of an adjective-adjective-noun object description (e.g., ``the big red apple'' vs.\ ``the red big apple'') sounded more natural. 
 
@@ -115,7 +133,7 @@ Finally, and most directly related to our hypothesis concerning adjective subjec
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{plots/faultless_order_preference.eps}
-	\caption{By-class adjective order preferences plotted against difference in faultless disagreement.}\label{faultless-order}
+	\caption{Class-level order preferences plotted against difference in faultless disagreement between A1 and A2 (values greater than 0 indicate that the more subjective adjective class occurs farther from the noun).}\label{faultless-order}
 \end{figure}
 
 
@@ -139,9 +157,9 @@ We used TGrep2 \cite{rohde2005} and the TGrep2 Database Tools \cite{degenjaeger-
 	\textbf{Count} & 15,688 & 11,576 & 5,024 & 3,790 & 1,720 & 1, 183 & 218 \\
 	\textbf{Proportion} & .40 & .30 & .13 & .10 & .04 & .03 & .01
 	\end{tabular}
-
-		\label{tab:adjdist}
+\label{tab:adjdist}
 \end{table}
+
 
 For each adjective class, mean distance from the noun was computed (where position directly preceding the noun was coded as 0, the position preceding that as 1, etc.). The resulting by-class mean distances are shown in \figref{fig:distance}. To determine which differences between adjective classes are meaningful differences, we conducted Bonferroni-corrected pairwise t-tests. All differences were significant at the .0001 level except for the difference between color and shape (significant at the .04 level) and the difference between size and quality (not significant). See \tableref{tab:bonferronicorpus} for a summary. These results suggest that except for the exact position of size and quality, the order established in \figref{fig:distance} is real.
 
@@ -245,95 +263,47 @@ This work was supported in part by Office of Naval Research Grant N000141310788 
 \end{acknowledgments}
 
 \begin{thebibliography}{10}
-\bibitem{BN}
-M.~Belkin and P.~Niyogi, {\em Using manifold structure for partially
-  labelled classification}, Advances in NIPS, 15 (2003).
+	\bibitem{chomsky1965}
+	N.~Chomsky, {\em Aspects of the Theory of Syntax} (1965).
 
-\bibitem{BBG:EmbeddingRiemannianManifoldHeatKernel}
-P.~B\'erard, G.~Besson, and S.~Gallot, {\em Embedding {R}iemannian
-  manifolds by their heat kernel}, Geom. and Fun. Anal., 4 (1994),
-  pp.~374--398.
-
-\bibitem{CLAcha1}
-R.R.~Coifman and S.~Lafon, {\em Diffusion maps}, Appl. Comp. Harm. Anal.,
-  21 (2006), pp.~5--30.
-
-\bibitem{DiffusionP--S}
-R.R.~Coifman, S.~Lafon, A.~Lee, M.~Maggioni, B.~Nadler, F.~Warner, and
-  S.~Zucker, {\em Geometric diffusions as a tool for harmonic analysis and
-  structure definition of data. {P}art {I}: Diffusion maps}, Proc. of Nat.
-  Acad. Sci.,  (2005), pp.~7426--7431.
-
-\bibitem{Clementi:LowDimensionaFreeEnergyLandscapesProteinFolding}
-P.~Das, M.~Moll, H.~Stamati, L.~Kavraki, and C.~Clementi, {\em
-  Low-dimensional, free-energy landscapes of protein-folding reactions by
-  nonlinear dimensionality reduction}, P.N.A.S., 103 (2006), pp.~9885--9890.
-
-\bibitem{DoGri}
-D.~Donoho and C.~Grimes, {\em Hessian eigenmaps: new locally linear
-  embedding techniques for high-dimensional data}, Proceedings of the National
-  Academy of Sciences, 100 (2003), pp.~5591--5596.
-
-\bibitem{DoGri:WhenDoesIsoMap}
-D.~L. Donoho and C.~Grimes, {\em When does isomap recover natural
-  parameterization of families of articulated images?}, Tech. Report Tech. Rep.
-  2002-27, Department of Statistics, Stanford University, August 2002.
-
-\bibitem{GruterWidman:GreenFunction}
-M.~Gr\"uter and K.-O. Widman, {\em The {G}reen function for uniformly
-  elliptic equations}, Man. Math., 37 (1982), pp.~303--342.
-
-\bibitem{Simon:NeumannEssentialSpectrum}
-R.~Hempel, L.~Seco, and B.~Simon, {\em The essential spectrum of neumann
-  laplacians on some bounded singular domains}, 1991.
-
-\bibitem{1}
-Kadison, R.\ V.\ and Singer, I.\ M.\ (1959)
-Extensions of pure states, {\it Amer.\ J.\ Math.\ \bf
-81}, 383-400.
-
-\bibitem{2}
-Anderson, J.\ (1981) A conjecture concerning the pure states of
-$B(H)$ and a related theorem. in {\it Topics in Modern Operator
-Theory}, Birkha\"user, pp.\ 27-43.
-
-\bibitem{3}
-Anderson, J.\ (1979) Extreme points in sets of
-positive linear maps on $B(H)$. {\it J.\ Funct.\
-Anal.\
-\bf 31}, 195-217.
-
-\bibitem{4}
-Anderson, J.\ (1979) Pathology in the Calkin algebra. {\it J.\
-Operator Theory \bf 2}, 159-167.
-
-\bibitem{5}
-Johnson, B.\ E.\ and Parrott, S.\ K.\ (1972) Operators commuting
-with a von Neumann algebra modulo the set of compact operators.
-{\it J.\ Funct.\ Anal.\ \bf 11}, 39-61.
-
-\bibitem{6}
-Akemann, C.\ and Weaver, N.\ (2004) Consistency of a
-counterexample to Naimark's problem. {\it Proc.\ Nat.\ Acad.\
-Sci.\ USA \bf 101}, 7522-7525.
-
-\bibitem{TSL}
-J.~Tenenbaum, V.~de~Silva, and J.~Langford, {\em A global geometric
-  framework for nonlinear dimensionality reduction}, Science, 290 (2000),
-  pp.~2319--2323.
-
-\bibitem{ZhaZha}
-Z.~Zhang and H.~Zha, {\em Principal manifolds and nonlinear dimension
-  reduction via local tangent space alignement}, Tech. Report CSE-02-019,
-  Department of computer science and engineering, Pennsylvania State
-  University, 2002.
+	\bibitem{sweet1898}
+	H.~Sweet, {\em A New English Grammar} (1898).
+	
+	\bibitem{bloomfield1933}
+	L.~Bloomfield, {\em Language} (1933).
+	
+	\bibitem{sproatshih1991}
+	R.~Sproat and C.~Shih, 1991. {\em The cross-linguistic distribution of adjective ordering restrictions}, Interdisciplinary approaches to language: Essays in honor of S.-Y.~Kuroda (1991), pp.~565--593.
+	
+	\bibitem{martin1969competence}
+	J.~E.~Martin, {\em Some Competence-Process Relationships in Noun Phrases with Prenominal and Postnominal Adjectives}, Journal of Verbal Learning and Verbal Behavior, 8 (1969), pp.~471--480. 	
+	
+	\bibitem{wulff2003}
+	S.~Wulff, {\em A multifactorial corpus analysis of adjective order in English},
+	International Journal of Corpus Linguistics, 8 (2003), pp.~245‒-282.
+	
+	\bibitem{ziff1960}
+	P.~Ziff, {\em Semantic Analysis} (1960).
+	
+	\bibitem{martin1969determinants}
+	J.~E.~Martin, {\em Semantic Determinants of Preferred Adjective Order}, Journal of Verbal Learning and Verbal Behavior, 8 (1969), pp.~697--704. 
+	
+	\bibitem{dixon1982}	
+	R.~M.W.~Dixon, {\em Where have all the adjectives gone?, and other essays in semantics and syntax} (1982).
+	
+	\bibitem{rohde2005}
+	D.~Rohde, TGrep2 User Manual (2005).
+	
+	\bibitem{degenjaeger-tdt}
+	J.~Degen and T.F.~Jaeger, The TGrep2 Database Tools (2011).
+	
+	\bibitem{godfrey1992}
+	J.~Godfrey and E.~Holliman and J.~McDaniel, {\em Switchboard: A Telephone Speech Corpus for Research and Development}, Proceedings of ICASSP-92 (1994),
+	pp.~517--520.
 \end{thebibliography}
 
 
 \end{article}
-
-
-
 
 \end{document}
 
