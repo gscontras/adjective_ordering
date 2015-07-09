@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  8 JUL 2015 16:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  9 JUL 2015 15:59
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -307,9 +307,21 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 54.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+LaTeX Warning: Citation `kemmereretal2009' on page 1 undefined on input line 70
+.
+
+[1
 
 ]
+
+LaTeX Warning: Citation `hetzron1978' on page 2 undefined on input line 85.
+
+
+LaTeX Warning: Citation `lapollahuang2004' on page 2 undefined on input line 85
+.
+
 
  ======================================================================== 
  C A R E F U L !!!!!
@@ -326,7 +338,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: plots/corpus_distance_plot.eps Graphic file (type eps)
 <plots/corpus_distance_plot.eps>
 
-LaTeX Warning: Reference `REFS' on page 2 undefined on input line 103.
+LaTeX Warning: Reference `REFS' on page 2 undefined on input line 115.
 
 
 
@@ -334,7 +346,7 @@ LaTeX Warning: Reference `REFS' on page 2 undefined on input line 103.
 
 
 File: plots/faultless_class_plot.eps Graphic file (type eps)
-<plots/faultless_class_plot.eps>
+<plots/faultless_class_plot.eps> [2]
 
 
  C A R E F U L !! \begin{figure}[h] used on this page !
@@ -348,16 +360,17 @@ File: plots/class_distance_by_adj.eps Graphic file (type eps)
 
 
 File: plots/faultless_order_preference.eps Graphic file (type eps)
-<plots/faultless_order_preference.eps> [2]
+<plots/faultless_order_preference.eps>
 
-LaTeX Warning: Reference `TABLREFER' on page 3 undefined on input line 151.
+LaTeX Warning: Reference `TABLREFER' on page 3 undefined on input line 163.
 
 \figandtabbox0=\box52
 \figandtabbox1=\box53
 \figandtabbox2=\box54
 
-LaTeX Warning: Reference `corpus' on page 3 undefined on input line 228.
+LaTeX Warning: Reference `corpus' on page 3 undefined on input line 240.
 
+[3]
 
 
  C A R E F U L !! \begin{figure}[h] used on this page !
@@ -366,28 +379,21 @@ LaTeX Warning: Reference `corpus' on page 3 undefined on input line 228.
 File: images/order_trial.eps Graphic file (type eps)
 <images/order_trial.eps>
 \figandtabbox3=\box55
- [3]
-Overfull \vbox (40.20021pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (40.20021pt too high) has occurred while \output is active []
-
 Missing character: There is no â in font cmssbx10!
 Missing character: There is no € in font cmssbx10!
 Missing character: There is no ’ in font cmssbx10!
-
-[4] (./adj-ord-pnas.aux)
+ [4] [5] (./adj-ord-pnas.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3012 strings out of 493118
- 37899 string characters out of 6135459
- 124044 words of memory out of 5000000
- 6433 multiletter control sequences out of 15000+600000
- 14677 words of font info for 53 fonts, out of 8000000 for 9000
+ 3022 strings out of 493118
+ 38028 string characters out of 6135459
+ 124068 words of memory out of 5000000
+ 6442 multiletter control sequences out of 15000+600000
+ 14989 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,10n,37p,1185b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,11n,37p,1181b,348s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on adj-ord-pnas.dvi (4 pages, 32508 bytes).
+Output written on adj-ord-pnas.dvi (5 pages, 39272 bytes).
