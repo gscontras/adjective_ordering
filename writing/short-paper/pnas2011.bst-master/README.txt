@@ -13,3 +13,4 @@ Changes:
 
 Known bugs:
  - First-names with hyphens, say Aaaa-Bbbb incorrectly end up as AB instead of A-B
+
