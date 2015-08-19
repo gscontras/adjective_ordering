@@ -76,6 +76,9 @@ all_agg[all_agg$adj_Preferred=="preferred",]$adj_preferred_10 = 1
 pairwise.t.test(all_agg$adj_preferred_10, all_agg$class1, p.adj = "bonf")
 
 all_agg_s = bootsSummary(data=all_agg, measurevar="adj_preferred_10", groupvars=c("class1"))
+#save for aggregate plot
+write.csv(all_agg_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/preference.csv")
+
 
 ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferred_10))+
   geom_bar(stat="identity")+

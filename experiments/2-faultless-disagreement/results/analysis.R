@@ -19,6 +19,9 @@ table(d$class,d$nounclass)
 
 ## class plot
 d_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
+# save data for aggregate plot
+#write.csv(d_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/faultless.csv")
+
 class_plot <- ggplot(d_s, aes(x=reorder(class,-response,mean),y=response)) +
   geom_bar(stat="identity",position=position_dodge()) +
   geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,-response,mean), width=0.1),position=position_dodge(width=0.9))+
