@@ -77,7 +77,7 @@ pairwise.t.test(all_agg$adj_preferred_10, all_agg$class1, p.adj = "bonf")
 
 all_agg_s = bootsSummary(data=all_agg, measurevar="adj_preferred_10", groupvars=c("class1"))
 #save for aggregate plot
-write.csv(all_agg_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/preference.csv")
+#write.csv(all_agg_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/preference.csv")
 
 
 ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferred_10))+
@@ -174,7 +174,27 @@ ggplot(d_s, aes(x=f_diff,y=response,color=Preferred)) +
   scale_colour_manual(values=c("blue","red","blue"),limits = c("preferred", "dispreferred"))+
   #ggtitle("by-class plot")
   theme_bw()
-ggsave("../results/faultless_order_preference.pdf",width=5.5,height=3.5)
+#ggsave("../results/faultless_order_preference.pdf",width=5.5,height=3.5)
+ggsave("~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/comparison1.pdf")
+
+ggplot(d_s, aes(x=f_diff,y=response)) +
+  geom_point() +
+  geom_smooth(data=d_s, aes(f_diff,response,color=smooth_thing),method=lm)+
+  #geom_smooth(data=d_s, aes(f_diff,response,color=smooth_thing))+
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=f_diff, width=0.1),alpha=0.5)+
+  #geom_text(aes(label=configuration),color="black")+
+  ylab("configuration acceptability\n") +
+  xlab("\nsubjectivity difference") +
+  ylim(0,1)+
+  scale_x_continuous(breaks=c(-0.5,-0.25,0,0.25,0.5))+
+  #labs(color="order\npreference")+
+  scale_colour_manual(values=c("blue","red","blue"),limits = c("preferred", "dispreferred"))+
+  guides(color=FALSE)+
+  #ggtitle("by-class plot")
+  theme_bw()
+
+ggsave("~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/comparison2.pdf",width=4,height=3)
+
 
 ## only color-shape has diverging predictions
 
