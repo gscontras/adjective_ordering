@@ -294,6 +294,9 @@ ggplot(agr, aes(x=AdjClass,y=(DistanceFromNoun-1))) +
 ggsave("graphs/mean_distance_from_noun_morethanonemodifier.pdf")
 ggsave("graphs/corpus_distance_plot.pdf",height=3)
 
+# write means to file for greg (to be included in abstract for eva's adjective workshop)
+write.csv(agr[,c("Class","DistanceFromNoun","YMin","YMax")],file="data/means_for_abstract.csv",row.names=F,quote=F)
+
 agr = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered,FUN="ci.low")$DistanceFromNoun
 agr$CIHigh = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN="ci.high")$DistanceFromNoun
