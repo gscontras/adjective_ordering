@@ -1,6 +1,7 @@
 library(ggplot2)
 library(reshape2)
 library(lme4)
+library(hydroGOF)
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/3-order-preference/Submiterator-master")
 
@@ -195,6 +196,7 @@ ggplot(d_s, aes(x=f_diff,y=response)) +
 
 ggsave("~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/comparison2.pdf",width=4,height=3)
 
+gof(d_s$f_diff,d_s$response) #r2=.81
 
 ## only color-shape has diverging predictions
 

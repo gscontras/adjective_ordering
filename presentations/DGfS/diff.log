@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  20 AUG 2015 10:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  20 AUG 2015 09:39
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
  %&-line parsing enabled.
-**DGfS-adj-order-abstract.tex
-(./DGfS-adj-order-abstract.tex
+**diff.tex
+(./diff.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
@@ -343,29 +343,28 @@ Package: wrapfig 2003/01/31  v 3.6
 )
 \c@saveenumi=\count113
 
-(./DGfS-adj-order-abstract.aux)
-\openout1 = `DGfS-adj-order-abstract.aux'.
+(./diff.aux)
+\openout1 = `diff.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 101.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
+LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 120.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 120.
 
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    ... okay on input line 120.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: dvips
@@ -376,14 +375,14 @@ LaTeX Font Info:    ... okay on input line 101.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(50.58878pt, 513.11745pt, 50.58878pt)
-* v-part:(T,H,B)=(54.2025pt, 686.56499pt, 54.2025pt)
+* v-part:(T,H,B)=(50.58878pt, 693.79243pt, 50.58878pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=513.11745pt
-* \textheight=686.56499pt
+* \textheight=693.79243pt
 * \oddsidemargin=-21.68121pt
 * \evensidemargin=-21.68121pt
-* \topmargin=-55.06749pt
+* \topmargin=-58.68121pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -401,35 +400,82 @@ LaTeX Font Info:    ... okay on input line 101.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 112.
+
+Overfull \hbox (41.67621pt too wide) in paragraph at lines 127--129
+\OT1/cmr/m/n/12 of ad-jec-tive or-der-ing pref-er-ences syn-the-sizes strate-gi
+es from the []|   []   |   [][][]|   [][],
+ []
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 133.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 112.
+LaTeX Font Info:    Try loading font information for U+msb on input line 133.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+wasy on input line 112.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 133.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
+Overfull \hbox (11.05351pt too wide) in paragraph at lines 149--151
+|   []   |   [][][]|   []   |   [][]\OT1/cmr/m/n/12 ) and in com-pre-hen-sion (
+[]|   []   |   []   |   []   |   []   |   []   |   [][][]|   []   |   [][]),
+ []
+
+[1
+
+]
 File: plots/expt_results.eps Graphic file (type eps)
-
-<plots/expt_results.eps>
+ <plots/expt_results.eps>
 File: plots/comparison2.eps Graphic file (type eps)
- <plots/comparison2.eps> [1
+ <plots/comparison2.eps>
+Underfull \hbox (badness 2626) in paragraph at lines 157--196
+|   []   [][]|   []   |   []   |   []   |   []   |   []   |   []   |   []   |  
+ []   |   []   |   []   |   []   []
+ []
 
-] [2] [3]
-(./DGfS-adj-order-abstract.aux) ) 
+
+Overfull \hbox (45.25703pt too wide) in paragraph at lines 196--216
+[][]|   [][][]|   []
+ []
+
+
+Underfull \hbox (badness 1609) in paragraph at lines 217--220
+[]|   []   |   []   |   []   |   []   |   []   |   []   |   []
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 217--220
+|   []   |   []   |   []   |   []   |   []   |   []   []\OT1/cmr/m/n/12 To eval
+-
+ []
+
+
+Underfull \hbox (badness 3919) in paragraph at lines 217--220
+\OT1/cmr/m/n/12 u-ate the []|   []   []power of sub-jec-tiv-ity in
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 217--220
+[]\OT1/cmr/m/n/12 fault-less dis-agree-ment scores []|   []   |   []   |   []
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 221--222
+[][]\OT1/cmr/m/n/12 Adjective or-der-ing pref-er-ences have re-ceived
+ []
+
+[2] [3] [4] (./diff.aux) ) 
 Here is how much of TeX's memory you used:
- 3557 strings out of 493118
- 45667 string characters out of 6135459
- 110721 words of memory out of 5000000
- 6939 multiletter control sequences out of 15000+600000
+ 3571 strings out of 493118
+ 45633 string characters out of 6135459
+ 136811 words of memory out of 5000000
+ 6953 multiletter control sequences out of 15000+600000
  14277 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,8n,43p,868b,265s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,8n,43p,1509b,265s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on DGfS-adj-order-abstract.dvi (3 pages, 16224 bytes).
+Output written on diff.dvi (4 pages, 39728 bytes).

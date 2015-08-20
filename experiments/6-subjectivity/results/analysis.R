@@ -11,6 +11,10 @@ head(s)
 
 d$language = s$language[match(d$workerid,s$workerid)]
 
+d <- d[d$language != "Bosnian" & d$language != "Russian",]
+
+unique(d$workerid) # n=28
+
 aggregate(response~class,data=d,mean)
 
 d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
