@@ -1,4 +1,10 @@
 *.DS_Store*
 *adj-ord-pnas.pdf
 *adjective-ordering.pdf
-
+*.aux
+*.dvi
+*.bbl
+*.log
+*DGfS-adj-order-abstract-submission.pdf
+*DGfS-adj-order-abstract-jd.pdf
+*diff.pdf
