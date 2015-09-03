@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  9 JUL 2015 15:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=latex 2014.5.25)  3 SEP 2015 09:17
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -316,12 +316,19 @@ LaTeX Warning: Citation `kemmereretal2009' on page 1 undefined on input line 70
 
 ]
 
-LaTeX Warning: Citation `hetzron1978' on page 2 undefined on input line 85.
+LaTeX Warning: Citation `hetzron1978' on page 2 undefined on input line 91.
 
 
-LaTeX Warning: Citation `lapollahuang2004' on page 2 undefined on input line 85
+LaTeX Warning: Citation `lapollahuang2004' on page 2 undefined on input line 91
 .
 
+
+LaTeX Warning: Citation `sproat1985' on page 2 undefined on input line 93.
+
+
+LaTeX Warning: Citation `guilfoyle1987' on page 2 undefined on input line 93.
+
+[2]
 
  ======================================================================== 
  C A R E F U L !!!!!
@@ -335,40 +342,11 @@ LaTeX Warning: Citation `lapollahuang2004' on page 2 undefined on input line 85
  
  ======================================================================== 
 
-File: plots/corpus_distance_plot.eps Graphic file (type eps)
-<plots/corpus_distance_plot.eps>
+File: plots/expt_results.eps Graphic file (type eps)
+<plots/expt_results.eps>
 
-LaTeX Warning: Reference `REFS' on page 2 undefined on input line 115.
-
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/faultless_class_plot.eps Graphic file (type eps)
-<plots/faultless_class_plot.eps> [2]
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/class_distance_by_adj.eps Graphic file (type eps)
-<plots/class_distance_by_adj.eps>
-
-
- C A R E F U L !! \begin{figure}[h] used on this page !
-
-
-File: plots/faultless_order_preference.eps Graphic file (type eps)
-<plots/faultless_order_preference.eps>
-
-LaTeX Warning: Reference `TABLREFER' on page 3 undefined on input line 163.
-
-\figandtabbox0=\box52
-\figandtabbox1=\box53
-\figandtabbox2=\box54
-
-LaTeX Warning: Reference `corpus' on page 3 undefined on input line 240.
+LaTeX Warning: Citation `kemmereretal2009' on page 3 undefined on input line 12
+7.
 
 [3]
 
@@ -376,24 +354,46 @@ LaTeX Warning: Reference `corpus' on page 3 undefined on input line 240.
  C A R E F U L !! \begin{figure}[h] used on this page !
 
 
+File: plots/comparison2.eps Graphic file (type eps)
+<plots/comparison2.eps>
+
+LaTeX Warning: Reference `TABLREFER' on page 4 undefined on input line 158.
+
+\figandtabbox0=\box52
+
+LaTeX Warning: Reference `fig:distance' on page 4 undefined on input line 171.
+
+
+LaTeX Warning: Reference `fig:distance' on page 4 undefined on input line 171.
+
+\figandtabbox1=\box53
+\figandtabbox2=\box54
+
+LaTeX Warning: Reference `corpus' on page 4 undefined on input line 235.
+
+
+
+ C A R E F U L !! \begin{figure}[h] used on this page !
+
+
 File: images/order_trial.eps Graphic file (type eps)
-<images/order_trial.eps>
+<images/order_trial.eps> [4]
 \figandtabbox3=\box55
 Missing character: There is no â in font cmssbx10!
 Missing character: There is no € in font cmssbx10!
 Missing character: There is no ’ in font cmssbx10!
- [4] [5] (./adj-ord-pnas.aux)
+ [5] (./adj-ord-pnas.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3022 strings out of 493118
- 38028 string characters out of 6135459
- 124068 words of memory out of 5000000
- 6442 multiletter control sequences out of 15000+600000
- 14989 words of font info for 54 fonts, out of 8000000 for 9000
+ 3017 strings out of 493118
+ 37838 string characters out of 6135459
+ 126039 words of memory out of 5000000
+ 6438 multiletter control sequences out of 15000+600000
+ 15338 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,11n,37p,1181b,348s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,11n,37p,1373b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on adj-ord-pnas.dvi (5 pages, 39272 bytes).
+Output written on adj-ord-pnas.dvi (5 pages, 51900 bytes).
