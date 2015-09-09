@@ -32,10 +32,11 @@ fs$subjectivity = s_agr$response[match(fs$predicate,s_agr$predicate)]
 head(fs)
 ggplot(fs, aes(x=response,y=subjectivity)) +
   geom_point() +
-  geom_smooth(method=lm) +
+  geom_smooth(method=lm,color="black") +
   xlab("\nfaultless disagreement")+
   ylab("subjectivity\n")+
   theme_bw()
+ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/subjectivity-faultless.pdf",height=3,width=3.5)
 
 
 
@@ -43,12 +44,12 @@ ggplot(fs, aes(x=response,y=subjectivity)) +
 o = read.csv("order-preference_results.csv",header=T)
 head(o)
 o$class = paste(o$class1,o$class2)
-o$predicate = paste(o$class1,o$class2)
-#o$predicate = paste(o$predicate1,o$predicate2)
+#o$predicate = paste(o$class1,o$class2) # class-level estimate
+o$predicate = paste(o$predicate1,o$predicate2) # predicate-level estimate
 o$workerID = o$workerid + 1
 
 # get Spearman-Brown prophecy (explainable variance)
-prophet(splithalf(o, 1000), 2) # 0.94
+prophet(splithalf(o, 100), 2) # 0.94 class configuration
 
 # add in faultless difference
 o_agr = aggregate(response~class+class1+class2,data=o,mean)
@@ -67,7 +68,39 @@ gof(o_agr$s_diff,o_agr$response) # r = .91, r2 = .83
 
 ggplot(o_agr, aes(x=f_diff,y=response)) +
   geom_point() +
-  geom_smooth(method=lm) +
-  xlab("\nfaultless disagreement")+
-  ylab("acceptability\n")+
+  geom_smooth(method=lm,color="black") +
+  xlab("\nfaultless disagreement difference")+
+  ylab("configuration naturalness\n")+
+  ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
+ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless.pdf",height=3,width=3.5)
+
+
+
+################
+# compare order preference with corpus
+
+
+#load in inferred distance from order preference
+io = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/inferred_distance_by_adj.csv",header=T)
+head(io)
+colnames(io) = c("number","predicate","inferred_distance")
+
+# load in mean distance from corpus
+c = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_averages.csv")
+head(c)
+
+io$corpus = NA
+io$corpus = c$Distance[match(io$predicate,c$Adjective)]
+head(io)
+
+gof(io$inferred_distance,io$corpus) # r2 = .72
+
+ggplot(io, aes(x=inferred_distance,y=corpus)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\ninferred distance")+
+  ylab("corpus distance\n")+
+  theme_bw()
+ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/corpus-naturalness.pdf",height=3,width=3.5)

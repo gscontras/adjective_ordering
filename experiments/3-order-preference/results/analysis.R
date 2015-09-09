@@ -57,7 +57,7 @@ for (first in levels(o_adj_agg$predicate1)) {
 
 d$configuration = paste(d$class1,d$class2)
 d$adj_configuration = paste(d$predicate1,d$predicate2)
-all_agg <- aggregate(response~configuration*adj_configuration*class1*class2,data=d,mean)
+all_agg <- aggregate(response~configuration*adj_configuration*class1*class2*predicate1*predicate2,data=d,mean)
 
 all_agg$Ratio = o_agg[as.character(all_agg$configuration),]$Ratio
 all_agg[is.na(all_agg$Ratio),]$Ratio = -555
@@ -73,6 +73,9 @@ nrow(all_agg[all_agg$Preferred=="preferred",])
 all_agg$adj_preferred_10 = 0
 all_agg[all_agg$adj_Preferred=="preferred",]$adj_preferred_10 = 1
 
+# get inferred mean distance from noun by adjective for PNAS figure
+agg_adj = aggregate(adj_preferred_10~predicate1,data=all_agg,mean)
+write.csv(agg_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/inferred_distance_by_adj.csv")
 
 pairwise.t.test(all_agg$adj_preferred_10, all_agg$class1, p.adj = "bonf")
 

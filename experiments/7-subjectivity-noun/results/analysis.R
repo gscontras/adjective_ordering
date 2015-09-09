@@ -11,6 +11,10 @@ head(s)
 
 d$language = s$language[match(d$workerid,s$workerid)]
 
+#d_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
+# save data for aggregate plot
+#write.csv(d_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/subjectivity.csv")
+
 aggregate(response~class,data=d,mean)
 
 d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))

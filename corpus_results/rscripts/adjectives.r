@@ -83,7 +83,7 @@ d$logFreqDist3 = log(d$BNCFreqDist3)
 ggplot(d, aes(x=logFreqDist1,y=logFreqDist2)) +
   geom_point() +
   geom_text(aes(label=Adjective,x=logFreqDist1+.2)) 
-ggsave(file="graphs/adj_freqs.pdf",height=6)
+#ggsave(file="graphs/adj_freqs.pdf",height=6)
 
 
 # get most frequent nouns by adjective
@@ -140,9 +140,10 @@ head(d_exp[d_exp$PrevPrevAdj == "yes",])
 d_exp[d_exp$PrevAdjective == "",]$PrevAdjective = NA
 d_exp[d_exp$PrevPrevAdjective == "",]$PrevPrevAdjective = NA
 
+## need dplyr
 gathered = d_exp %>% 
-            select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) %>% 
-            gather(Position, Adjective,  Adjective:PrevPrevAdjective)
+  select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) %>% 
+  gather(Position, Adjective,  Adjective:PrevPrevAdjective)
 gathered = gathered[!is.na(gathered$Adjective),]
 gathered$Corpus = as.factor(as.character(gathered$Corpus))
 nrow(gathered)
@@ -224,6 +225,11 @@ nrow(bynoun)
 
 sort(table(bynoun$Class),decreasing=T)
 round(sort(prop.table(table(bynoun$Class)),decreasing=T),3)
+
+# calculate mean distance from noun by adjective
+agr_adj = aggregate(DistanceFromNoun ~ Adjective, data=gathered, FUN=mean)
+agr_adj$Distance = agr_adj$DistanceFromNoun - 1
+write.csv(agr_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_averages.csv")
 
 agr = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun,FUN="ci.low")$DistanceFromNoun
