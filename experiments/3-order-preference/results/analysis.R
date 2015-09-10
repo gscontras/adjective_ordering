@@ -16,6 +16,7 @@ all <- d
 d = d[d$language!="DUTCH, ENGLISH"&d$language!="English, Spanish"&d$language!="Vietnamese"&d$language!="Spanish",]
 unique(d$workerid)
 summary(d)
+#write.csv(d,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/order-preference-trimmed.csv")
 
 o <- d
 
@@ -75,7 +76,7 @@ all_agg[all_agg$adj_Preferred=="preferred",]$adj_preferred_10 = 1
 
 # get inferred mean distance from noun by adjective for PNAS figure
 agg_adj = aggregate(adj_preferred_10~predicate1,data=all_agg,mean)
-write.csv(agg_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/inferred_distance_by_adj.csv")
+#write.csv(agg_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/inferred_distance_by_adj.csv")
 
 pairwise.t.test(all_agg$adj_preferred_10, all_agg$class1, p.adj = "bonf")
 

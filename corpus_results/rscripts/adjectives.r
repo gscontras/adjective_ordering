@@ -140,7 +140,7 @@ head(d_exp[d_exp$PrevPrevAdj == "yes",])
 d_exp[d_exp$PrevAdjective == "",]$PrevAdjective = NA
 d_exp[d_exp$PrevPrevAdjective == "",]$PrevPrevAdjective = NA
 
-## need dplyr
+## 
 gathered = d_exp %>% 
   select(Adjective, PrevAdjective, PrevPrevAdjective, Corpus, Noun) %>% 
   gather(Position, Adjective,  Adjective:PrevPrevAdjective)
@@ -174,7 +174,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_bar(stat="identity") +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1)
-ggsave("graphs/mean_distance_from_noun_all.pdf")
+#ggsave("graphs/mean_distance_from_noun_all.pdf")
 
 #plot by class and corpus
 agr = aggregate(DistanceFromNoun ~ Class + Corpus, data=gathered, FUN=mean)
@@ -190,7 +190,7 @@ ggplot(agr, aes(x=AdjClass,y=DistanceFromNoun)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.25) +
   geom_hline(yintercept =1) +
   facet_wrap(~Corpus)
-ggsave("graphs/mean_distance_from_noun_all_bycorpus.pdf")
+#ggsave("graphs/mean_distance_from_noun_all_bycorpus.pdf")
 
 # plot adjective's mean distance from noun by class, only for cases where there's more than one prenominal modifier -- THIS IS THE STUFF YOU"RE REPORTING IN THE PAPER
 d_subexp = d_exp[d_exp$PrevAdj == "yes" | d_exp$PrevPrevAdj == "yes",]
@@ -227,9 +227,15 @@ sort(table(bynoun$Class),decreasing=T)
 round(sort(prop.table(table(bynoun$Class)),decreasing=T),3)
 
 # calculate mean distance from noun by adjective
-agr_adj = aggregate(DistanceFromNoun ~ Adjective, data=gathered, FUN=mean)
-agr_adj$Distance = agr_adj$DistanceFromNoun - 1
-write.csv(agr_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_averages.csv")
+nrow(gathered) # 39199 total cases
+nrow(gathered[gathered$DistanceFromNoun < 3,]) # 38418 adj-adj cases
+two_adj <- gathered[gathered$DistanceFromNoun < 3,]
+two_adj$Distance = two_adj$DistanceFromNoun - 1
+head(two_adj)
+agr_adj = bootsSummary(data=two_adj, measurevar="Distance", groupvars=c("Adjective","Class"))
+agr_class = bootsSummary(data=two_adj, measurevar="Distance", groupvars=c("Class"))
+#write.csv(agr_adj,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_pred_averages.csv")
+#write.csv(agr_class,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_class_averages.csv")
 
 agr = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun, FUN=mean)
 agr$CILow = aggregate(DistanceFromNoun ~ NounClass + Class + Adjective, data=bynoun,FUN="ci.low")$DistanceFromNoun

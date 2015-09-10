@@ -8,6 +8,10 @@ prophet <- function(reliability, length) {
 # returns average split-half correlation
 
 splithalf <- function(data, N) {
+  #data <- o
+  #data$workerID = as.factor(as.character(data$workerID))
+  #data$workerid=NULL
+  #o$workerID = factor(o$workerid,labels=seq(1,45))
   cors <- numeric(0)
   t <- 1
   while (t <= N) {
@@ -21,11 +25,12 @@ splithalf <- function(data, N) {
     ##########
     # hard-coded, should modify
     ##########
-    subset1.mean <- aggregate(data=subset1, response ~ predicate + class, FUN=mean)
-    subset2.mean <- aggregate(data=subset2, response ~ predicate + class, FUN=mean)
+    subset1.mean <- aggregate(data=subset1, response ~ predicate , FUN=mean)
+    subset2.mean <- aggregate(data=subset2, response ~ predicate , FUN=mean)
     subset1.mean <- rename(subset1.mean, replace=c("response" = "mean1"))
     subset2.mean <- rename(subset2.mean, replace=c("response" = "mean2"))
-    subset.comp <- join(subset1.mean, subset2.mean, by=c("predicate", "class"))
+    subset.comp <- join(subset1.mean, subset2.mean, by=c("predicate"))
+    subset.comp = na.omit(subset.comp)
     r <- with(subset.comp, cor(mean1, mean2))
     if (!is.na(r)) {
       t <- t+1
@@ -36,4 +41,4 @@ splithalf <- function(data, N) {
 }
 
 
-prophet(splithalf(affect.pca, 100), 2)
+prophet(splithalf(o, 100), 2)
