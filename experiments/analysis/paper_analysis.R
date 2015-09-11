@@ -1,3 +1,5 @@
+library(hydroGOF)
+library(ggplot2)
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/analysis")
 
@@ -18,10 +20,19 @@ source("splithalf.R")
 ######
 
 r = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/results-by-class.csv",header=T)
+r$X.1 = NULL
+r$X = NULL
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+o_s = bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctclass"))
+o_s$expt = "preference"
+head(o_s)
+colnames(o_s) <- c("class","N","average","YMin","YMax","expt")
+new_r = rbind(r[r$expt!="preference",],o_s)
   
-r$expt = factor(r$expt,levels=c("preference","corpus","subjectivity","faultless"))
+new_r$expt = factor(new_r$expt,levels=c("preference","corpus","faultless","subjectivity"))
 
-ggplot(data=r,aes(x=reorder(class,-average,mean),y=average,fill=expt))+
+ggplot(data=new_r,aes(x=reorder(class,-average,mean),y=average,fill=expt))+
     geom_bar(stat="identity",position=position_dodge(.9),color="black")+
     geom_errorbar(aes(ymin=YMin, ymax=YMax, x=reorder(class,-average,mean), width=0.1),position=position_dodge(.9))+
     xlab("\nadjective class")+
@@ -30,7 +41,7 @@ ggplot(data=r,aes(x=reorder(class,-average,mean),y=average,fill=expt))+
     ylim(0,1)+
     theme_bw()+
     scale_fill_manual(values=c("gray25","gray75","gray50","gray100"))
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/expt_results.pdf",height=2.1,width=6.75)  
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/expt_results-new.pdf",height=2.1,width=6.75)  
 
 ######
 ## Correlation coefficients and CIs
@@ -61,28 +72,90 @@ boot.ci(results, type="bca") # 95%   ( 0.8174,  0.9291 )
 c_agr_pred = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_pred_averages.csv",header=T)
 c_agr_class = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_class_averages.csv",header=T)
 #load in naturalness preferences
-o_agr_pred = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/average-naturalness.csv",header=T)
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
+head(o_agr_pred)
+#o_agr_pred = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/average-naturalness.csv",header=T)
 # combine naturalness and corpus
 oc <- c_agr_pred
-oc$naturalness = o_agr_pred$response[match(oc$Adjective,o_agr_pred$predicate1)]
+oc$naturalness = o_agr_pred$correctresponse[match(oc$Adjective,o_agr_pred$predicate)]
 # PREDICATE compare naturalness and corpus distance
-gof(oc$naturalness,oc$Distance) # r = .91, r2 = .82
+gof(oc$naturalness,oc$Distance) # r = .91, r2 = .83
 # get 95% CI
 results <- boot(data=oc, statistic=rsq, R=10000, formula=naturalness~Distance)
-boot.ci(results, type="bca") # 95%   ( 0.6405,  0.9000 )
+boot.ci(results, type="bca") # 95%   ( 0.6408,  0.9031 )  
 
 #####
 ## compare subjectivity/faultless and naturalness
 #####
 
-# load in order preference
-o = read.csv("order-preference-trimmed.csv",header=T)
-o$class = paste(o$class1,o$class2)
-o$predicate = paste(o$predicate1,o$predicate2) # predicate-level estimate
+# explainable variance
 o$workerID = o$workerid + 1
+o$response = o$correctresponse
+o$class = o$correctclass
+#library(plyr)
+prophet(splithalf_class(o, 100), 2) # 0.99 class configuration
+prophet(splithalf_pred(o, 100), 2) # 0.98 predicate configuration
+
+## FAULTLESS
+# PREDICATE
+o_agr_pred$faultless = f_agr_pred$response[match(o_agr_pred$predicate,f_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$faultless) # r = .94, r2 = .88
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~faultless)
+boot.ci(results, type="bca") # 95%   ( 0.7713,  0.9479 )  
+# CLASS
+o_agr_class$faultless = f_agr_class$response[match(o_agr_class$correctclass,f_agr_class$class)]
+gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = .93, r2 = .86
+results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless)
+boot.ci(results, type="bca") # 95%   ( 0.3596,  0.9939 ) 
+
+## SUBJECTIVITY
+# PREDICATE
+o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .90, r2 = .81
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 )  
+
+# plot order preference against subjectivity
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity-new.pdf",height=3,width=3.5)
+
+# plot order preference against faultless
+ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nfaultless")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless-new.pdf",height=3,width=3.5)
+
+
+
+#####
+## configuration analysis
+#####
+
+# load in order preference
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-configuration-duplicated.csv",header=T)
+head(o)
+o$predicate = o$correct_configuration
+o$class = o$correctclass
+o$workerID = o$workerid + 1
+o$response = o$correctresponse
 # get Spearman-Brown prophecy (explainable variance)
-prophet(splithalf_class(o, 100), 2) # 0.94 class configuration
-prophet(splithalf_pred(o, 100), 2) # 0.80 predicate configuration
+prophet(splithalf_class(o, 100), 2) # 0.97 class configuration
+prophet(splithalf_pred(o, 100), 2) # 0.82 predicate configuration
 
 # CLASS add in faultless difference
 o_agr = aggregate(response~class+class1+class2,data=o,mean)

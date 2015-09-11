@@ -1,5 +1,4 @@
 library(ggplot2)
-library(reshape2)
 library(lme4)
 library(hydroGOF)
 
@@ -18,7 +17,71 @@ unique(d$workerid)
 summary(d)
 #write.csv(d,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/order-preference-trimmed.csv")
 
+#####
+## duplicate observations by first predicate
+#####
+
 o <- d
+o$rightpredicate1 = o$predicate2
+o$rightpredicate2 = o$predicate1
+o$rightresponse = 1-o$response
+agr = o %>% 
+        select(predicate1,rightpredicate1,response,rightresponse,workerid,noun,nounclass,class1,class2) %>%
+        gather(predicateposition,predicate,predicate1:rightpredicate1,-workerid,-noun,-nounclass,-class1,-class2)
+agr$correctresponse = agr$response
+agr[agr$predicateposition == "rightpredicate1",]$correctresponse = agr[agr$predicateposition == "rightpredicate1",]$rightresponse
+agr$correctclass = agr$class1
+agr[agr$predicateposition == "rightpredicate1",]$correctclass = agr[agr$predicateposition == "rightpredicate1",]$class2
+head(agr[agr$predicateposition == "rightpredicate1",])
+agr$response = NULL
+agr$rightresponse = NULL
+agr$class1 = NULL
+agr$class2 = NULL
+head(agr) #2340
+#write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
+
+#####
+## duplicate observations by adjective configuration
+#####
+
+o <- d
+o$configuration = paste(o$predicate1,o$predicate2)
+o$class_configuration = paste(o$class1,o$class2)
+o$rightconfiguration = paste(o$predicate2,o$predicate1)
+o$right_class_configuration = paste(o$class2,o$class1)
+#o$rightpredicate1 = o$predicate2
+#o$rightpredicate2 = o$predicate1
+o$rightresponse = 1-o$response
+agr = o %>% 
+  select(configuration,rightconfiguration,response,rightresponse,workerid,noun,nounclass,class_configuration,right_class_configuration,class1,class2,predicate1,predicate2) %>%
+  gather(predicateposition,correct_configuration,configuration:rightconfiguration,-workerid,-noun,-nounclass,-class_configuration,-right_class_configuration,-class1,-class2,-predicate1,-predicate2)
+agr$correctresponse = agr$response
+agr[agr$predicateposition == "rightconfiguration",]$correctresponse = agr[agr$predicateposition == "rightconfiguration",]$rightresponse
+agr$correctclass = agr$class_configuration
+agr[agr$predicateposition == "rightconfiguration",]$correctclass = agr[agr$predicateposition == "rightconfiguration",]$right_class_configuration
+agr$correctclass1 = agr$class1
+agr[agr$predicateposition == "rightconfiguration",]$correctclass1 = agr[agr$predicateposition == "rightconfiguration",]$class2
+agr$correctclass2 = agr$class2
+agr[agr$predicateposition == "rightconfiguration",]$correctclass2 = agr[agr$predicateposition == "rightconfiguration",]$class1
+agr$correctpred1 = agr$predicate1
+agr[agr$predicateposition == "rightconfiguration",]$correctpred1 = agr[agr$predicateposition == "rightconfiguration",]$predicate2
+agr$correctpred2 = agr$predicate2
+agr[agr$predicateposition == "rightconfiguration",]$correctpred2 = agr[agr$predicateposition == "rightconfiguration",]$predicate1
+head(agr[agr$predicateposition == "rightconfiguration",])
+agr$response = NULL
+agr$rightresponse = NULL
+agr$predicate1 = NULL
+agr$predicate2 = NULL
+agr$class1 = NULL
+agr$class2 = NULL
+agr$class_configuration = NULL
+agr$right_class_configuration = NULL
+nrow(agr) #2340
+head(agr)
+#write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-configuration-duplicated.csv")
+
+
+
 
 ## compute class configuration ratio
 

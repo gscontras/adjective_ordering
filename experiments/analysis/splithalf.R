@@ -11,7 +11,7 @@ splithalf_pred <- function(data, N) {
   #data <- o
   #data$workerID = as.factor(as.character(data$workerID))
   #data$workerid=NULL
-  #o$workerID = factor(o$workerid,labels=seq(1,45))
+  #data$workerID = factor(data$workerid,labels=seq(1,45))
   cors <- numeric(0)
   t <- 1
   while (t <= N) {
@@ -25,11 +25,23 @@ splithalf_pred <- function(data, N) {
     ##########
     # hard-coded, should modify
     ##########
-    subset1.mean <- aggregate(data=subset1, response ~ predicate , FUN=mean)
-    subset2.mean <- aggregate(data=subset2, response ~ predicate , FUN=mean)
-    subset1.mean <- rename(subset1.mean, replace=c("response" = "mean1"))
-    subset2.mean <- rename(subset2.mean, replace=c("response" = "mean2"))
-    subset.comp <- join(subset1.mean, subset2.mean, by=c("predicate"))
+    subset1.mean = subset1 %>%
+                    group_by(predicate) %>%
+                    summarise(mean1 = mean(response))
+    subset1.mean = as.data.frame(subset1.mean)
+    subset2.mean = subset2 %>%
+      group_by(predicate) %>%
+      summarise(mean2 = mean(response))
+    subset2.mean = as.data.frame(subset2.mean)    
+    
+#     subset1.mean <- aggregate(data=subset1, response ~ predicate , FUN=mean)
+#     subset2.mean <- aggregate(data=subset2, response ~ predicate , FUN=mean)
+#     subset1.mean <- rename(subset1.mean, replace=c("response" = "mean1"))
+#     subset2.mean <- rename(subset2.mean, replace=c("response" = "mean2"))
+    row.names(subset2.mean) = subset2.mean$predicate
+    subset.comp = subset1.mean
+    subset.comp$mean2 = subset2.mean[as.character(subset.comp$predicate),]$mean2
+#     subset.comp <- join(subset1.mean, subset2.mean, by=c("predicate"))
     subset.comp = na.omit(subset.comp)
     r <- with(subset.comp, cor(mean1, mean2))
     if (!is.na(r)) {
@@ -58,11 +70,17 @@ splithalf_class <- function(data, N) {
     ##########
     # hard-coded, should modify
     ##########
-    subset1.mean <- aggregate(data=subset1, response ~ class , FUN=mean)
-    subset2.mean <- aggregate(data=subset2, response ~ class , FUN=mean)
-    subset1.mean <- rename(subset1.mean, replace=c("response" = "mean1"))
-    subset2.mean <- rename(subset2.mean, replace=c("response" = "mean2"))
-    subset.comp <- join(subset1.mean, subset2.mean, by=c("class"))
+    subset1.mean = subset1 %>%
+      group_by(class) %>%
+      summarise(mean1 = mean(response))
+    subset1.mean = as.data.frame(subset1.mean)
+    subset2.mean = subset2 %>%
+      group_by(class) %>%
+      summarise(mean2 = mean(response))
+    subset2.mean = as.data.frame(subset2.mean)   
+    row.names(subset2.mean) = subset2.mean$class
+    subset.comp = subset1.mean
+    subset.comp$mean2 = subset2.mean[as.character(subset.comp$class),]$mean2
     subset.comp = na.omit(subset.comp)
     r <- with(subset.comp, cor(mean1, mean2))
     if (!is.na(r)) {
