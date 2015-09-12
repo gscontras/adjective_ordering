@@ -133,8 +133,8 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
 ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nfaultless")+
-  ylab("naturalness\n")+
+  xlab("\nfaultless disagreement rating")+
+  ylab("naturalness rating\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
@@ -157,46 +157,48 @@ o$response = o$correctresponse
 prophet(splithalf_class(o, 100), 2) # 0.97 class configuration
 prophet(splithalf_pred(o, 100), 2) # 0.82 predicate configuration
 
+## FAULTLESS
 # CLASS add in faultless difference
-o_agr = aggregate(response~class+class1+class2,data=o,mean)
-o_agr$class1_f = f_agr_class$response[match(o_agr$class1,f_agr_class$class)]
-o_agr$class2_f = f_agr_class$response[match(o_agr$class2,f_agr_class$class)]
+o_agr = aggregate(correctresponse~correctclass+correctclass1+correctclass2,data=o,mean)
+o_agr$class1_f = f_agr_class$response[match(o_agr$correctclass1,f_agr_class$class)]
+o_agr$class2_f = f_agr_class$response[match(o_agr$correctclass2,f_agr_class$class)]
 o_agr$f_diff = (o_agr$class1_f-o_agr$class2_f)
 #compare faultless disagreement with order-preference
-gof(o_agr$f_diff,o_agr$response) # r = .9, r2 = .81
-results <- boot(data=o_agr, statistic=rsq, R=10000, formula=response~f_diff)
-boot.ci(results, type="bca") # 95%   ( 0.6931,  0.8746 )  
+gof(o_agr$f_diff,o_agr$correctresponse) # r = .90, r2 = .82
+results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~f_diff)
+boot.ci(results, type="bca") # 95%   ( 0.7060,  0.8839 ) 
 
 # PREDICATE add in faultless difference
-o_agr_pred = aggregate(response~predicate+predicate1+predicate2,data=o,mean)
-o_agr_pred$pred1_f = f_agr_pred$response[match(o_agr_pred$predicate1,f_agr_pred$predicate)]
-o_agr_pred$pred2_f = f_agr_pred$response[match(o_agr_pred$predicate2,f_agr_pred$predicate)]
+o_agr_pred = aggregate(correctresponse~correct_configuration+correctpred1+correctpred2+class,data=o,mean)
+o_agr_pred$pred1_f = f_agr_pred$response[match(o_agr_pred$correctpred1,f_agr_pred$predicate)]
+o_agr_pred$pred2_f = f_agr_pred$response[match(o_agr_pred$correctpred2,f_agr_pred$predicate)]
 o_agr_pred$f_diff = (o_agr_pred$pred1_f-o_agr_pred$pred2_f)
 #compare faultless disagreement with order-preference
-gof(o_agr_pred$f_diff,o_agr_pred$response) # r = .79, r2 = .63
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=response~f_diff)
-boot.ci(results, type="bca") # 95%   ( 0.5647,  0.6769 ) 
+gof(o_agr_pred$f_diff,o_agr_pred$correctresponse) # r = .84, r2 = .70
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~f_diff)
+boot.ci(results, type="bca") # 95%   ( 0.6658,  0.7359 ) 
 
+##SUBJECTIVITY
 # CLASS add in subjectivity difference
-o_agr$class1_s = s_agr_class$response[match(o_agr$class1,s_agr_class$class)]
-o_agr$class2_s = s_agr_class$response[match(o_agr$class2,s_agr_class$class)]
+o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$class)]
+o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
 o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
 #compare subjectivity with order-preference
-gof(o_agr$s_diff,o_agr$response) # r = .88, r2 = .77
-results <- boot(data=o_agr, statistic=rsq, R=10000, formula=response~s_diff)
-boot.ci(results, type="bca") # 95%   ( 0.6419,  0.8570 )
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .88, r2 = .78
+results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ( 0.6574,  0.8579 )  
 
 # PREDICATE add in subjectivity difference
-o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$predicate1,s_agr_pred$predicate)]
-o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$predicate2,s_agr_pred$predicate)]
+o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
 o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
 #compare subjectivity with order-preference
-gof(o_agr_pred$s_diff,o_agr_pred$response) # r = .76, r2 = .57
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=response~s_diff)
-boot.ci(results, type="bca") # 95%   ( 0.5045,  0.6249 )
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .80, r2 = .64
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ( 0.5929,  0.6769 )
 
 # plot order preference against subjectivity
-ggplot(o_agr, aes(x=s_diff,y=response)) +
+ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
   xlab("\nsubjectivity difference")+
@@ -206,8 +208,21 @@ ggplot(o_agr, aes(x=s_diff,y=response)) +
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity.pdf",height=3,width=3.5)
 
+## CLASS
 # plot order preference against faultless
-ggplot(o_agr, aes(x=f_diff,y=response)) +
+ggplot(o_agr, aes(x=f_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nfaultless disagreement difference")+
+  ylab("naturalness rating\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless-configuration.pdf",height=3,width=3.5)
+
+##PREDICATE
+# plot order preference against faultless
+ggplot(o_agr_pred, aes(x=f_diff,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
   xlab("\nfaultless difference")+
@@ -215,4 +230,4 @@ ggplot(o_agr, aes(x=f_diff,y=response)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless.pdf",height=3,width=3.5)
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless-configuration.pdf",height=3,width=3.5)
