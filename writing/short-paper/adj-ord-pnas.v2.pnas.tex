@@ -25,6 +25,9 @@
 \definecolor{Red}{RGB}{255,0,0}
 \newcommand{\red}[1]{\textcolor{Red}{#1}}
 
+\definecolor{Green}{RGB}{50,200,50}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
+
 %%%%%%%%%%%%
 %% For P--S Only:
 \url{www.pnas.org/cgi/doi/10.1073/pnas.0709640104}
@@ -55,6 +58,7 @@ of the United States of America}
 
 \begin{article}
 \begin{abstract}
+\ndg{a bit dry}
 {The relative order of adjectives in multi-adjective strings is stable not only among speakers within a language, but among speakers across languages. We advance the hypothesis that adjective meaning, specifically the subjectivity of the properties that the adjectives name, determines ordering preferences. To test this hypothesis, we establish two empirical constructs: 1) the preferences themselves, and 2) adjective subjectivity. We then demonstrate that adjective subjectivity does in fact predict ordering preferences.}
 \end{abstract}
 
@@ -62,24 +66,33 @@ of the United States of America}
 
 %\abbreviations{SAM, self-assembled monolayer; OTS, octadecyltrichlorosilane}
 
-\dropcap{R}egularities in the behavior of speakers and speech communities provide a window onto the psychology of language. Here we take up one such regularity: adjective ordering. Speakers and listeners exhibit strong preferences when two or more adjectives are used to modify a noun, as in ``the big blue box'' or ``the good smooth purple plastic chair.'' Deviate from the preferred order, and the construction becomes marked. Something feels particularly unwieldy about ``the blue big box,'' even more so with ``the plastic good purple smooth chair.'' Indeed, for any string of adjectives, chances are their order is non-arbitrary. The question is why. We investigate the role of adjective meaning, specifically the subjectivity of the properties that the adjectives name, in predicting ordering preferences.
+\dropcap{R}egularities in the behavior of speakers and speech communities provide a window onto the psychology of language. Here we take up one such regularity: adjective ordering. Speakers and listeners exhibit strong preferences when two or more adjectives are used to modify a noun, as in ``the big blue box'' or ``the good smooth purple plastic chair.'' Deviate from the preferred order, and the construction becomes marked. Something feels particularly unwieldy about ``the blue big box,'' even more so with ``the plastic good purple smooth chair.'' 
+Why do most strings of adjectives have tightly-constrained order?
+%for any string of adjectives, chances are their order is non-arbitrary. 
+%The question is why. 
+We investigate the role of adjective meaning, specifically the subjectivity of the properties that the adjectives name, in predicting ordering preferences.
 
 Adjective ordering preferences stand as a particularly striking case of regularity in language. More remarkable than their robustness in English is their cross-linguistic systematicity: we continually find the \emph{same} preferences across the world's languages. Hungarian (Uralic), Telugu (Dravidian), Mandarin Chinese, and Dutch are just a handful of languages with pre-nominal adjectives (i.e., languages where adjectives precede nouns) reported to have the same ordering preferences as English \cite{martin1969competence,hetzron1978,dixon1982,sproatshih1991,lapollahuang2004}.  In languages like Selepet (Papuan) and Mokilese (Micronesian) with post-nominal adjectives (i.e., where adjectives follow nouns), these preferences are preserved in the reverse \cite{hetzron1978,dixon1982,sproatshih1991}: the preferences determine the linear distance of an adjective from the noun it modifies.
 
-There have been two styles of approaches to the investigation of adjective ordering preferences. 
+There have been two general approaches to the investigation of adjective ordering preferences. 
 As part of a larger project mapping the syntax and semantics of adjectives (a ``cartographic'' approach, one could say), the linguistics literature advances a universal hierarchy of semantic classes of adjectives. Leading the charge, Dixon set out to uncover language-internal structure by which to organize ordering preferences \cite{dixon1982}. The preferences were assumed to be hard-coded in the grammar; the researcher's job was simply to uncover them. 
 Building on the ordering of semantic classes proposed by Dixon, Cinque advanced a fully syntactic account of ordering preferences under which different classes of adjectives populate dedicated syntactic categories which inhabit specialized projections in the syntactic tree \cite{cinque1994}. For example, color adjectives project a Color Phrase, shape adjectives project a Shape Phrase. The Shape Phrase syntactically dominates the Color Phrase; with left-branching structure, hierarchical dominance results in linear precedence. The ultimate source of this rigid structure was immaterial; at issue was a comprehensive and deterministic account of the facts (see \cite{scott2002} for a similar proposal).
 
-In contrast to the grammatical approaches, which map, as it were, the terrain of adjective \emph{structure}, psychological approaches advance the idea that aspects of adjectives' \emph{meaning} determine their relative order. The trouble lies in deciding precisely which aspects of meaning. Kicking off the enterprise in 1898, Sweet proposed that adjectives which are more closely connected with the noun in meaning occur closer to the noun, and that adjectives with a more specialized meaning occur closer to the noun \cite{sweet1898}. Similarly, Whorf proposed that adjectives describing more ``inherent'' properties occur closer to the noun \cite{whorf1945}. Ziff proposed that adjectives with less context-dependent meaning occur closer to the noun, and that adjectives that felicitously describe a narrower set of nouns occur closer to the noun \cite{ziff1960}. The proposals and others like them circle around similar aspects of adjective meaning in their account of ordering preferences; unfortunately, operationalizing metrics like meaning distance, specificity, inherence, and context-dependence is not a trivial task (but see the attempts in \cite{martin1969determinants,martin1970}). Without clear empirical constructs of the aspects of adjective meaning that were meant to determine ordering preferences, these psychological accounts gave way to the more descriptive, grammatical ones that settle for innate syntax as the ultimate arbiter.  %Moreover, the , for a psychological theory of ordering preferences to get off the ground, we would need a mapping hypothesis between the relevant aspects of meaning and the cognitive processes that attend to them.
+Before the grammatical approaches, which map, as it were, the terrain of adjective \emph{structure}, psychological approaches advanced the idea that aspects of adjectives' \emph{meaning} determine their relative order. The trouble lies in deciding precisely which aspects of meaning are relevant. 
+Kicking off the enterprise in 1898, Sweet proposed that adjectives which are more closely connected with the noun in meaning occur closer to the noun, and that adjectives with a more specialized meaning occur closer to the noun \cite{sweet1898}. Similarly, Whorf proposed that adjectives describing more ``inherent'' properties occur closer to the noun \cite{whorf1945}. Ziff proposed that adjectives with less context-dependent meaning occur closer to the noun, and that adjectives that felicitously describe a narrower set of nouns occur closer to the noun \cite{ziff1960}. The proposals and others like them circle around similar aspects of adjective meaning in their account of ordering preferences; unfortunately, operationalizing metrics like meaning distance, specificity, inherence, and context-dependence is not a trivial task (but see the attempts in \cite{martin1969determinants,martin1970}). 
+Lacking clear empirical measures of the relevant aspects of adjective meaning, these psychological accounts gave way to the more descriptive, grammatical ones that settle for innate syntax as the ultimate arbiter. 
+%Without clear empirical constructs of the aspects of adjective meaning that were meant to determine ordering preferences, these psychological accounts gave way to the more descriptive, grammatical ones that settle for innate syntax as the ultimate arbiter.  %Moreover, the , for a psychological theory of ordering preferences to get off the ground, we would need a mapping hypothesis between the relevant aspects of meaning and the cognitive processes that attend to them.
 
-Rather than falling back on a rigid syntax, we attempt to revive the idea that ordering preferences emerge from aspects of adjective meaning. We adopt strategies from the grammatical approach, using semantic classes of adjectives to structure and inform our investigation, while advancing a psychological account of the preferences. We distill the psychological proposals that precede us into a single feature and advance the hypothesis that it is the \emph{subjectivity} of the property named that determines ordering preferences \cite{hetzron1978,quirketal1985,hill2012}.
- The extent to which two people can disagree about a description without one necessarily being wrong determines the subjectivity of that description.
- Less subjective adjectives are thus reliably more useful at communicating the speaker's intended message; the chance of miscommunication decreases with decreasing subjectivity. 
+We revisit the idea that ordering preferences emerge from aspects of adjective meaning, attempting to provide more thorough empirical grounding to these notions;
+from the grammatical approach we adopt the strategy of using semantic classes of adjectives to structure our investigation and smooth our data. 
+Distilling the psychological proposals that precede us into a single feature, we advance the hypothesis that it is the \emph{subjectivity} of the property named that determines ordering preferences \cite{hetzron1978,quirketal1985,hill2012}.
+Less subjective adjectives are reliably more useful at communicating the speaker's intended message; the chance of miscommunication decreases with decreasing subjectivity. 
+Perhaps for this reason, less subjective adjectives occur closer to the substantive head of the nominal projection, that is, to the modified noun.  
+While subjectivity can be assessed directly (by asking participants), we show it can more reliably be measured as the extent to which two people can disagree about a description without one necessarily being wrong. 
  %informative in that it is less likely that there would be disagreement about judgments; there is little question about what the speaker meant to communicate. 
- Less subjective adjectives occur closer to the substantive head of the nominal projection, that is, to the modified noun.  
  In ``the big blue box,'' judgments about bigness are likely less consistent than judgments about blueness; ``blue'' is less subjective than ``big,'' and so it occurs closer to the noun ``box.''
 
-To test the hypothesis that adjective subjectivity predicts ordering preferences, we validated two key empirical constructs: 1) the ordering preferences themselves, and 2) an adjective's subjectivity. With reliable estimates of both, we then evaluated the predictive power of subjectivity in adjective ordering preferences.
+To test the hypothesis that adjective subjectivity predicts ordering preferences, we created and validated empirical measures of the ordering preferences themselves and of an adjective's subjectivity. With reliable estimates of both, we then evaluated the predictive power of subjectivity in adjective ordering preferences.
 
 \section{Ordering preferences}
 
