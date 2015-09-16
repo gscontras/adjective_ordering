@@ -98,6 +98,10 @@ o$class = o$correctclass
 #library(plyr)
 prophet(splithalf_class(o, 100), 2) # 0.99 class configuration
 prophet(splithalf_pred(o, 100), 2) # 0.98 predicate configuration
+f$workerID = f$workerid
+prophet(splithalf_pred(f, 100), 2) # 0.9746947
+s$workerID = s$workerid
+prophet(splithalf_pred(s, 100), 2) # 0.9688392
 
 ## FAULTLESS
 # PREDICATE
@@ -117,6 +121,11 @@ o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_p
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .90, r2 = .81
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 )  
+# CLASS
+o_agr_class$subjectivity = s_agr_class$response[match(o_agr_class$correctclass,s_agr_class$class)]
+gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .90, r2 = .82
+results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.0081,  0.9311 ) 
 
 # plot order preference against subjectivity
 ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
