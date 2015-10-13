@@ -37,7 +37,7 @@ agr$response = NULL
 agr$rightresponse = NULL
 agr$class1 = NULL
 agr$class2 = NULL
-head(agr) #2340
+nrow(agr) #2340
 #write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
 
 #####
@@ -157,7 +157,7 @@ ggplot(data=all_agg_s,aes(x=reorder(class1,-adj_preferred_10,mean),y=adj_preferr
   #labs("order\npreference")+
   theme_bw()#+
   #theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
-ggsave("../results/class_distance_by_adj.pdf",height=3)
+#ggsave("../results/class_distance_by_adj.pdf",height=3)
 
 
 ggplot(data=all_agg[all_agg$Preferred=="preferred",],aes(x=reorder(configuration,-Ratio,mean),y=Ratio))+
@@ -167,7 +167,7 @@ ggplot(data=all_agg[all_agg$Preferred=="preferred",],aes(x=reorder(configuration
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
-ggsave("../results/order_ratio.pdf",height=4)
+#ggsave("../results/order_ratio.pdf",height=4)
 
 ## average distance from noun
 
@@ -181,7 +181,7 @@ ggplot(data=dist,aes(x=reorder(class,-distance,mean),y=distance))+
   ylab("distance from noun\n")+
   #labs("order\npreference")+
   theme_bw()
-ggsave("../results/class_distance.pdf",height=4)
+#ggsave("../results/class_distance.pdf",height=4)
 
 
 ggplot(data=all_agg,aes(x=reorder(configuration,-response,mean),y=response,fill=Preferred))+
