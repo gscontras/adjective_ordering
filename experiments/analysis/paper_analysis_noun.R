@@ -35,7 +35,7 @@ ggplot(data=o_agr_class,aes(x=reorder(correctclass,-correctresponse,mean),y=corr
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("o_class-by-nounclass.pdf",height=3)  
+#ggsave("o_class-by-nounclass.png",height=3)  
 ####### adjclass by noun plot
 o_agr_noun <- bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctclass","noun","nounclass"))
 ggplot(data=o_agr_noun,aes(x=reorder(correctclass,-correctresponse,mean),y=correctresponse,fill=noun))+
@@ -46,7 +46,7 @@ ggplot(data=o_agr_noun,aes(x=reorder(correctclass,-correctresponse,mean),y=corre
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("o_class-by-noun.pdf",height=3)  
+#ggsave("o_class-by-noun.png",height=3)  
 ####### adj by nounclass plot
 o_agr_pred <- bootsSummary(data=o, measurevar="correctresponse", groupvars=c("predicate","correctclass","nounclass"))
 ggplot(data=o_agr_pred,aes(x=reorder(predicate,-correctresponse,mean),y=correctresponse,fill=nounclass))+
@@ -59,7 +59,7 @@ ggplot(data=o_agr_pred,aes(x=reorder(predicate,-correctresponse,mean),y=correctr
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("o_predicate-by-nounclass.pdf",width=8,height=3)  
+#ggsave("o_predicate-by-nounclass.png",width=8,height=3)  
 ####### adj by noun plot
 o_agr_pred_noun <- bootsSummary(data=o, measurevar="correctresponse", groupvars=c("predicate","correctclass","nounclass","noun"))
 ggplot(data=o_agr_pred_noun,aes(x=reorder(predicate,-correctresponse,mean),y=correctresponse,fill=noun))+
@@ -72,7 +72,7 @@ ggplot(data=o_agr_pred_noun,aes(x=reorder(predicate,-correctresponse,mean),y=cor
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("o_predicate-by-noun.pdf",height=6,width=12)  
+#ggsave("o_predicate-by-noun.png",height=6,width=12)  
 
 
 #####
@@ -93,7 +93,7 @@ ggplot(data=f_agr_class,aes(x=reorder(class,-response,mean),y=response,fill=noun
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("f_class-by-nounclass.pdf",height=3)  
+#ggsave("f_class-by-nounclass.png",height=3)  
 ####### adjclass by noun plot
 f_agr_noun <- bootsSummary(data=f, measurevar="response", groupvars=c("class","noun","nounclass"))
 ggplot(data=f_agr_noun,aes(x=reorder(class,-response,mean),y=response,fill=noun))+
@@ -104,7 +104,7 @@ ggplot(data=f_agr_noun,aes(x=reorder(class,-response,mean),y=response,fill=noun)
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("f_class-by-noun.pdf",height=3)  
+#ggsave("f_class-by-noun.png",height=3)  
 ####### adj by nounclass plot
 f_agr_pred <- bootsSummary(data=f, measurevar="response", groupvars=c("predicate","class","nounclass"))
 ggplot(data=f_agr_pred,aes(x=reorder(predicate,-response,mean),y=response,fill=nounclass))+
@@ -117,7 +117,7 @@ ggplot(data=f_agr_pred,aes(x=reorder(predicate,-response,mean),y=response,fill=n
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("f_predicate-by-nounclass.pdf",width=8,height=3)  
+#ggsave("f_predicate-by-nounclass.png",width=8,height=3)  
 ####### adj by noun plot
 f_agr_pred_noun <- bootsSummary(data=f, measurevar="response", groupvars=c("predicate","class","nounclass","noun"))
 ggplot(data=f_agr_pred_noun,aes(x=reorder(predicate,-response,mean),y=response,fill=noun))+
@@ -130,7 +130,7 @@ ggplot(data=f_agr_pred_noun,aes(x=reorder(predicate,-response,mean),y=response,f
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("f_predicate-by-noun.pdf",height=6,width=12)  
+#ggsave("f_predicate-by-noun.png",height=6,width=12)  
 
 
 
@@ -152,7 +152,7 @@ ggplot(data=s_agr_class,aes(x=reorder(class,-response,mean),y=response,fill=noun
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("s_class-by-nounclass.pdf",height=3)  
+#ggsave("s_class-by-nounclass.png",height=3)  
 ####### adjclass by noun plot
 s_agr_noun <- bootsSummary(data=s, measurevar="response", groupvars=c("class","noun","nounclass"))
 ggplot(data=s_agr_noun,aes(x=reorder(class,-response,mean),y=response,fill=noun))+
@@ -163,7 +163,7 @@ ggplot(data=s_agr_noun,aes(x=reorder(class,-response,mean),y=response,fill=noun)
   ylim(0,1)+
   #labs("order\npreference")+
   theme_bw()#+
-#ggsave("s_class-by-noun.pdf",height=3)  
+#ggsave("s_class-by-noun.png",height=3)  
 ####### adj by nounclass plot
 s_agr_pred <- bootsSummary(data=s, measurevar="response", groupvars=c("predicate","class","nounclass"))
 ggplot(data=s_agr_pred,aes(x=reorder(predicate,-response,mean),y=response,fill=nounclass))+
@@ -176,7 +176,7 @@ ggplot(data=s_agr_pred,aes(x=reorder(predicate,-response,mean),y=response,fill=n
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("s_predicate-by-nounclass.pdf",width=8,height=3)  
+#ggsave("s_predicate-by-nounclass.png",width=8,height=3)  
 ####### adj by noun plot
 s_agr_pred_noun <- bootsSummary(data=s, measurevar="response", groupvars=c("predicate","class","nounclass","noun"))
 ggplot(data=s_agr_pred_noun,aes(x=reorder(predicate,-response,mean),y=response,fill=noun))+
@@ -189,4 +189,4 @@ ggplot(data=s_agr_pred_noun,aes(x=reorder(predicate,-response,mean),y=response,f
   #labs("order\npreference")+
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-#ggsave("s_predicate-by-noun.pdf",height=6,width=12)  
+#ggsave("s_predicate-by-noun.png",height=6,width=12)  
