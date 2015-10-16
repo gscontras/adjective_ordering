@@ -1,4 +1,4 @@
-## Looking for effects of noun
+## Concept-formability results
 
 
 [the concept-formability experiment](http://web.stanford.edu/~scontras/adjective_ordering/experiments/9-concept-formability/concept-formability.html)
