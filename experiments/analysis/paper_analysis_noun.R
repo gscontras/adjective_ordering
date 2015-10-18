@@ -294,11 +294,27 @@ o_agr_class$class_noun = paste(o_agr_class$correctclass,o_agr_class$noun)
 f = read.csv("faultless_results.csv",header=T)
 head(f)
 f_agr_pred = aggregate(response~predicate*class*noun,data=f,mean)
+f_agr_pred_no_noun = aggregate(response~predicate*class,data=f,mean)
 f_agr_class = aggregate(response~class*noun,data=f,mean)
+f_agr_class_no_noun = aggregate(response~class,data=f,mean)
 f_agr_pred$pred_noun = paste(f_agr_pred$predicate,f_agr_pred$noun)
 f_agr_class$class_noun = paste(f_agr_class$class,f_agr_class$noun)
-o_agr_pred$faultless = f_agr_pred$response[match(o_agr_pred$pred_noun,f_agr_pred$pred_noun)]
-o_agr_class$faultless = f_agr_class$response[match(o_agr_class$class_noun,f_agr_class$class_noun)]
+o_agr_pred$faultless_noun = f_agr_pred$response[match(o_agr_pred$pred_noun,f_agr_pred$pred_noun)]
+o_agr_pred$faultless = f_agr_pred_no_noun$response[match(o_agr_pred$predicate,f_agr_pred_no_noun$predicate)]
+o_agr_class$faultless_noun = f_agr_class$response[match(o_agr_class$class_noun,f_agr_class$class_noun)]
+o_agr_class$faultless = f_agr_class_no_noun$response[match(o_agr_class$correctclass,f_agr_class_no_noun$class)]
 
-gof(o_agr_pred$correctresponse,o_agr_pred$faultless) # r = 0.67, r2 = 0.45
-gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = 0.83, r2 = 0.68
+
+gof(o_agr_pred$correctresponse,o_agr_pred$faultless_noun) # r = 0.67, r2 = 0.45
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~faultless_noun)
+boot.ci(results, type="bca") # 95%   ( 0.3470,  0.5401 )     
+gof(o_agr_pred$correctresponse,o_agr_pred$faultless) # r = 0.84, r2 = 0.70
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~faultless)
+boot.ci(results, type="bca") # 95%   ( 0.6264,  0.7585 )  
+
+gof(o_agr_class$correctresponse,o_agr_class$faultless_noun) # r = 0.83, r2 = 0.68
+results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless_noun)
+boot.ci(results, type="bca") # 95%   ( 0.5366,  0.7821 )  
+gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = 0.89, r2 = 0.80
+results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless)
+boot.ci(results, type="bca") # 95%   ( 0.3470,  0.5401 )   
