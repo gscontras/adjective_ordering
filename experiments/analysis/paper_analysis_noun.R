@@ -317,4 +317,4 @@ results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctrespons
 boot.ci(results, type="bca") # 95%   ( 0.5366,  0.7821 )  
 gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = 0.89, r2 = 0.80
 results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless)
-boot.ci(results, type="bca") # 95%   ( 0.3470,  0.5401 )   
+boot.ci(results, type="bca") # 95%   ( 0.6788,  0.8720 )    
