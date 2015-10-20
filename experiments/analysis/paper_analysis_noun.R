@@ -206,7 +206,7 @@ o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
 ## load in subjectivity
 s = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
-s = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
+s = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.csv",sep="\t",header=T)
 s_sub = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
 s_sub = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
 s$language = s_sub$language[match(s$workerid,s_sub$workerid)]
@@ -241,6 +241,9 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
 ## load in subjectivity-noun
 sn = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
 sn_sub = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
+sn = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-trials.csv",sep="\t",header=T)
+sn_sub = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master/subjectivity-subject_information.csv",sep="\t",header=T)
+
 head(sn)
 sn$workerid = paste("sn",sn$workerid)
 sn$expt = "noun"
@@ -274,6 +277,7 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
 ## compare faultless and order preference with noun
 #############################################
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 
 #### without noun info
@@ -324,3 +328,30 @@ boot.ci(results, type="bca") # 95%   ( 0.5366,  0.7821 )
 gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = 0.89, r2 = 0.80
 results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless)
 boot.ci(results, type="bca") # 95%   ( 0.6788,  0.8720 )    
+
+############################################################################
+# JUDITH'S ANALYSIS -- DOES ADJ_NOUN FAULTLESS DISAGREEMENT ADD ANYTHING BEYOND JUST ADJ FAULTLESS DISAGREEMENT IN PREDICTING PREFERENCES?
+############################################################################
+
+d = droplevels(o_agr_pred[!is.na(o_agr_pred$faultless_noun),])
+
+m.adj = lm(correctresponse ~ faultless, data=d)
+summary(m.adj)
+
+m.adj.noun = lm(correctresponse ~ faultless + faultless_noun, data=d)
+summary(m.adj.noun)
+
+anova(m.adj,m.adj.noun) # no value in adding faultless_noun (F(1,255) = .44, p < .51)
+
+
+d = droplevels(o_agr_class[!is.na(o_agr_class$faultless_noun),])
+
+m.adj = lm(correctresponse ~ faultless, data=d)
+summary(m.adj)
+
+m.adj.noun = lm(correctresponse ~ faultless + faultless_noun, data=d)
+summary(m.adj.noun)
+
+anova(m.adj,m.adj.noun) # no value in adding faultless_noun
+
+
