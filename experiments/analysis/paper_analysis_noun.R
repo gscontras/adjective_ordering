@@ -14,6 +14,7 @@ rsq <- function(formula, data, indices) {
 } 
 
 source("splithalf.R")
+source("helpers.R")
 
 #############################################
 ## load in order preference data
@@ -199,11 +200,14 @@ ggplot(data=s_agr_pred_noun,aes(x=reorder(predicate,-response,mean),y=response,f
 #############################################
 ## order preference
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
 ## load in subjectivity
 s = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
+s = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-trials.tsv",sep="\t",header=T)
+s_sub = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
 s_sub = read.table("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master/subjectivity-subject_information.tsv",sep="\t",header=T)
 s$language = s_sub$language[match(s$workerid,s_sub$workerid)]
 s = s[s$language!="Bosnian"&s$language!="Russian",]
