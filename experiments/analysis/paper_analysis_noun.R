@@ -2,6 +2,7 @@ library(hydroGOF)
 library(ggplot2)
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/analysis")
+setwd("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/analysis")
 
 # Bootstrap 95% CI for R-Squared
 library(boot)
@@ -18,6 +19,7 @@ source("splithalf.R")
 ## load in order preference data
 #############################################
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_agr_pred = aggregate(correctresponse~predicate*correctclass*nounclass,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass*nounclass,data=o,mean)
