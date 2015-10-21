@@ -48,7 +48,7 @@ class_plot
 
 
 #############################################
-## compare concept-formability and order preference
+## compare adjective concept-formability and order preference
 #############################################
 
 
@@ -64,7 +64,7 @@ d_agr_class = aggregate(adj_response~class,data=d,mean)
 o_agr_pred$concept = d_agr_pred$adj_response[match(o_agr_pred$predicate,d_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = -0.28, r2 = 0.08
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
-boot.ci(results, type="bca") # 95%   ( 0.0005,  0.3167 )    
+boot.ci(results, type="bca") # 95%   ( 0.0004,  0.3276 )     
 # CLASS
 o_agr_class$concept = d_agr_class$adj_response[match(o_agr_class$correctclass,d_agr_class$class)]
 gof(o_agr_class$correctresponse,o_agr_class$concept) # r = -0.74, r2 = 0.55
@@ -108,6 +108,29 @@ ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
   ylim(0,1)+
   theme_bw()
 #ggsave("../results/naturalness-concept-noun.png",height=3,width=4)
+
+
+#############################################
+## compare adjective concept-formability and order preference
+#############################################
+
+
+## order preference
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
+head(d)
+d_agr_pred = aggregate(noun_response~predicate,data=d,mean)
+d_agr_class = aggregate(noun_response~class,data=d,mean)
+# PREDICATE
+o_agr_pred$concept = d_agr_pred$noun_response[match(o_agr_pred$predicate,d_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = 0.60, r2 = 0.36
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
+boot.ci(results, type="bca") # 95%   ( 0.0712,  0.6160 )    
+
+
+
 
 
 
