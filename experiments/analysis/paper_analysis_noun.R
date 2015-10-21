@@ -355,3 +355,36 @@ summary(m.adj.noun)
 anova(m.adj,m.adj.noun) # no value in adding faultless_noun
 
 
+########################################################################
+# JUDITH'S ANALYSIS -- RANDOMLY RESAMPLE 30 OF 40 PARTICIPANTS AND RE-RUN CORRELATIONS BETWEEN ADJECTIVE-SPECIFIC NATURALNESS AND ADJECTIVE-SPECIFIC FAULTLESS DISAGREEMENT -- DO CORRELATION RESULTS HOLD UP? -- YES.
+o = read.csv("~/cogsci/projects/stanford/projects/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+f = read.csv("faultless_results.csv",header=T)
+head(f)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+workerids = unique(f$workerid)
+rs = c()
+r.squareds = c()
+lower.ci = c()
+upper.ci = c()
+
+for (i in 1:100)
+{
+  wids = sample(workerids,30)
+  f_agr_pred = aggregate(response~predicate*class,data=f[f$workerid %in% wids,],mean)
+  row.names(f_agr_pred) = f_agr_pred$predicate
+  rs = c(rs,gof(o_agr_pred$correctresponse,f_agr_pred$response)[16])
+  r.squareds = c(r.squareds,gof(o_agr_pred$correctresponse,f_agr_pred$response)[17])  
+  o_agr_pred$faultless = f_agr_pred[as.character(o_agr_pred$predicate),]$response
+  results = boot(data=o_agr_pred, statistic=rsq, R=1000, formula=correctresponse~faultless)  
+  lower.ci = c(lower.ci,boot.ci(results, type="bca")$bca[4])
+  upper.ci = c(upper.ci,boot.ci(results, type="bca")$bca[5])
+}
+mean(rs)
+mean(rs)-ci.low(rs)
+mean(rs)+ci.high(rs)
+mean(r.squareds)
+mean(r.squareds)-ci.low(r.squareds)
+mean(r.squareds)+ci.high(r.squareds)
+mean(lower.ci)
+mean(upper.ci)
