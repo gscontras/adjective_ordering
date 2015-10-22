@@ -247,6 +247,11 @@ sn_sub = read.table("~/cogsci/projects/stanford/projects/adjective_ordering/expe
 head(sn)
 sn$workerid = paste("sn",sn$workerid)
 sn$expt = "noun"
+#sn_agr_pred = aggregate(response~predicate,data=sn,mean)
+#sn_agr_pred$no_noun = s_agr_pred$response[match(sn_agr_pred$predicate,s_agr_pred$predicate)]
+#gof(sn_agr_pred$response,sn_agr_pred$no_noun) # r=.98, r2=.97
+#results <- boot(data=sn_agr_pred, statistic=rsq, R=10000, formula=response~no_noun)
+#boot.ci(results, type="bca") # 95%   ( 0.9458,  0.9800 ) 
 s_agr_pred = aggregate(response~predicate,data=sn,mean)
 s_agr_class = aggregate(response~class,data=sn,mean)
 # PREDICATE
