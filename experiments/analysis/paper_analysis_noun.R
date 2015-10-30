@@ -28,6 +28,41 @@ head(o_agr_pred)
 head(o_agr_class)
 #o_agr_pred = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/average-naturalness.csv",header=T)
 
+model.0 = lmer(correctresponse~(1+correctclass|nounclass),data=o)
+model.0 = lmer(correctresponse~(1|noun),data=o)
+model.1 = lmer(correctresponse~predicate + (1|noun),data=o)
+model.3 = lmer(correctresponse~(1|predicate),data=o)
+model.4 = lmer(correctresponse~noun + (1+noun|predicate),data=o)
+model.5 = lmer(correctresponse~noun + (1|predicate),data=o)
+model.6 = lm(correctresponse~noun*predicate, data=o)
+model.7 = lm(correctresponse~predicate, data=o)
+model.8 = lm(correctresponse~1,data=o)
+model.9 = lm(correctresponse~noun,data=o)
+model.10 = lm(correctresponse~noun+predicate, data=o)
+model.11 = lm(correctresponse~predicate+noun:predicate, data=o)
+anova(model.7,model.11)
+anova(model.7,model.10)
+anova(model.9,model.8)
+anova(model.8,model.7)
+anova(model.7,model.6)
+anova(model.0,model.1)
+anova(model.3,model.4)
+summary(model.6)
+contrasts(o$noun)
+contrasts(o$predicate)
+
+model = lmer(correctresponse~correctclass+(1+correctclass|nounclass),data=o)
+summary(model)
+a_model = lmer(correctresponse~correctclass + (1|nounclass),data=o)
+summary(a_model)
+anova(a_model,model)
+
+table(o$correctclass,o$nounclass)
+
+
+###### noun analysis in order preference
+
+
 ####### adjclass by nounclass plot
 o_agr_class <- bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctclass","nounclass"))
 ggplot(data=o_agr_class,aes(x=reorder(correctclass,-correctresponse,mean),y=correctresponse,fill=nounclass))+
