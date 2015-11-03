@@ -47,7 +47,7 @@ anova(model.8,model.7)
 anova(model.7,model.6)
 anova(model.0,model.1)
 anova(model.3,model.4)
-summary(model.6)
+summary(model.11)
 contrasts(o$noun)
 contrasts(o$predicate)
 
