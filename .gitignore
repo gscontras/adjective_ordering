@@ -1,3 +1,4 @@
+*.Rhistory
 *.DS_Store*
 *adj-ord-pnas.pdf
 *adjective-ordering.pdf
