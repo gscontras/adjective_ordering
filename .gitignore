@@ -2,6 +2,8 @@
 *.DS_Store*
 *adj-ord-pnas.pdf
 *adjective-ordering.pdf
+*adj-ord-revised.pdf
+*adj-ord\ cover\ letter.pdf
 *.aux
 *.dvi
 *.bbl
@@ -10,6 +12,3 @@
 *DGfS-adj-order-abstract-jd.pdf
 *diff.pdf
 *.tab
-*.pdf
-
-*.pdf
