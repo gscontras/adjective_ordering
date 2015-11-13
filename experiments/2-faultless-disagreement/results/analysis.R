@@ -6,8 +6,16 @@ setwd("~/Documents/git/cocolab/adjective_ordering/experiments/2-faultless-disagr
 
 d = read.table("faultless-disagreement-2-trials.tsv",sep="\t",header=T)
 head(d)
-
+s = read.table("faultless-disagreement-2-subject_information.tsv",sep="\t",header=T)
+head(s)
+d$language = s$language[match(d$workerid,s$workerid)]
 summary(d)
+
+model.7 = lm(response~predicate, data=d)
+model.11 = lm(response~predicate+noun:predicate, data=d)
+anova(model.7,model.11)
+summary(model.7)
+summary(model.11)
 
 pairwise.t.test(d$response, d$class, p.adj = "bonf")
 
