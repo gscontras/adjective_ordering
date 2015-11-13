@@ -10,6 +10,13 @@ s = read.table("subjectivity-subject_information.tsv",sep="\t",header=T)
 head(s)
 
 d$language = s$language[match(d$workerid,s$workerid)]
+summary(d)
+
+model.7 = lm(response~predicate, data=d)
+model.11 = lm(response~predicate+noun:predicate, data=d)
+anova(model.7,model.11)
+summary(model.7)
+summary(model.11)
 
 #d_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
 # save data for aggregate plot
