@@ -101,6 +101,7 @@ highly collocational with that adjective. We thus searched for nouns that occur 
 To find these nouns, we estimated the probability $p(A)$ of each adjective from our set of 26 by computing its relative frequency in an adjective-noun sequence in the BNC. We then computed the relative frequency of each noun $p(N)$ occurring in an adjective-noun sequence. Finally, we estimated the predicted joint probability of each adjective-noun combination by taking the product of each individual probability estimate: $\hat{p}(A,N) = p(A)\cdot p(N)$. Comparing  $\hat{p}(A,N)$ to the empirically estimated $p(A,N)$ establishes which adjective-noun combinations are under-predicted---more collocational---and thus likely to form complex concepts. We then restricted nouns to those 50 that maximize the observed range of under-predictedness while simultaneously requiring that each noun naturalistically occur with at least 11 of the 26 adjectives; from these 50 nouns, we selected the following four: \emph{apple, cheese, eyes, hair}. (Recall that \emph{cheese} occurred in our original materials, where it suggested possible by-noun effects with the adjectives \emph{hard} and \emph{soft}.) To these four nouns we added a fifth: \emph{thing}.
 While \emph{thing} did not occur in the top 50, it did occur naturalistically with the most adjectives (23) out of the set of 26, thus allowing it to serve as a filler for the various object descriptions. The selected nouns, together with the number of adjectives they occur with, their range of ratios of empirical to predicted joint probabilities, and their minimum / maximum ratios, are shown in Table \ref{tab:nouns}.
 
+\renewcommand\thetable{S.\arabic{table}}
 \begin{table}
 \centering
 \begin{tabular}{l c c c c}
@@ -141,7 +142,7 @@ This experiment was a direct replication of our original faultless disagreement 
 \paragraph{Results.}
 
 To evaluate the power of subjectivity in predicting adjective ordering preferences, we compared our new adjective subjectivity scores to the naturalness ratings collected in the previous experiment. 
-Faultless disagreement scores account for  84\% of the variance in the new naturalness ratings ($r^2$ 0.84, 95\% CI [0.64,  0.91]; Fig.~S.1). 
+Faultless disagreement scores account for  84\% of the variance in the new naturalness ratings ($r^2$ 0.84, 95\% CI [0.64,  0.91]; Fig.~\ref{fig:faultless}). 
 %At the class level, faultless disagreement scores account for 86\% of the variance ($r^2$ = 0.86, 95\% CI [0.36, 0.99]).
 %Given the greater ecological validity and better performance of our faultless disagreement measure, we  
 As with our original materials, more subjective adjectives are preferred farther from the noun; subjectivity continues to predict adjective ordering preferences.
@@ -151,7 +152,7 @@ As with our original materials, more subjective adjectives are preferred farther
 %\setcounter{figure}{}  
 \begin{figure}
 	\centering\includegraphics[width=2.8in]{plots/naturalness-faultless-new-nouns.eps}
-	\caption{Mean naturalness ratings plotted against mean faultless disagreement scores for each of the 26 adjectives tested.}\label{naturalness-faultless-pred}
+	\caption{Mean naturalness ratings plotted against mean faultless disagreement scores for each of the 26 adjectives tested.}\label{fig:faultless}
 \end{figure}
 
 
