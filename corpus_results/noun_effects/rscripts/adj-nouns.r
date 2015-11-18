@@ -4,6 +4,8 @@ setwd("~/cogsci/projects/stanford/projects/adjective_ordering/corpus_results/nou
 #for greg
 #setwd("~/Documents/git/CoCoLab/adjective_ordering/corpus_results/")
 source("rscripts/helpers.r")
+load("data/dsub.bnc.RData")
+nrow(dsub)
 
 # set corpus to one of "swbd" or "bnc"
 corpus = "swbd"
@@ -104,6 +106,7 @@ agr[agr$MeanRatio < .2,]
 agr[agr$MeanRatio > 7000,]
 
 
+
 # to see which nouns occur with the most fo the 26 adjectives
 adjtest = un %>% 
   group_by(Noun) %>%
@@ -113,11 +116,12 @@ nrow(adjtest)
 max(adjtest$Freq)
 ordered = adjtest[order(adjtest[,c("Freq")],decreasing=T),]
 head(ordered,20)
+ordered[ordered$Noun %in% c("thing","eyes","hair","apple","cheese"),]
 
-# to get the range of ratios for each noun
+# to get the range of ratios for each noun -- to be reported in paper supplement
 adjtest = un %>% 
   group_by(Noun) %>%
-  summarise(Range=max(RatioOfEmpToExpJP) - min(RatioOfEmpToExpJP),Freq=length(RatioOfEmpToExpJP))
+  summarise(Range=max(RatioOfEmpToExpJP) - min(RatioOfEmpToExpJP),Freq=length(RatioOfEmpToExpJP),MinRatio=min(RatioOfEmpToExpJP),MaxRatio=max(RatioOfEmpToExpJP))
 adjtest = as.data.frame(adjtest)
 adjtest = droplevels(adjtest[adjtest$Freq > 10,])
 nrow(adjtest)
@@ -125,11 +129,13 @@ max(adjtest$Range)
 min(adjtest$Range)
 
 ordered = adjtest[order(adjtest[,"Range"],decreasing=T),]
+ordered$Order = seq(1,nrow(ordered))
 head(ordered,30)
+ordered[ordered$Noun %in% c("thing","eyes","hair","apple","cheese"),]
 
 # plot range of predicted vs empirical joint probabilities for 10 good-looking nouns
 nouns = c("thing","eyes","hair","cheese","apple")
-nouns = ordered$Noun[1:20]
+#nouns = ordered$Noun[1:20]
 ggplot(toplot[toplot$Noun %in% nouns,], aes(x=expJPFromAN,y=JointProbabilityAN)) +
   geom_point() +
   geom_text(aes(label=Combination)) +

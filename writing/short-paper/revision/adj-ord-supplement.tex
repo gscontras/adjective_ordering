@@ -14,6 +14,7 @@
 \usepackage{wasysym}
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
+\usepackage{booktabs}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.25mm}}
 
@@ -95,7 +96,29 @@ We recruited 50 participants through Amazon.com's Mechanical Turk crowd-sourcing
 
 \subsubsection{Design and methods}
 
-The design was identical to our original naturalness ratings experiment: participants were asked to indicate which of two object descriptions sounded more natural, using a sliding scale. Each description featured a noun modified by two adjectives; description pairs contained the same words with the relative adjective order reversed (e.g., ``the big blue thing'' vs.~``the blue big thing''). Adjectives were chosen at random from the original set of 26. The nouns XXX
+The design was identical to our original naturalness ratings experiment: participants were asked to indicate which of two object descriptions sounded more natural, using a sliding scale. Each description featured a noun modified by two adjectives; description pairs contained the same words with the relative adjective order reversed (e.g., ``the big blue thing'' vs.~``the blue big thing''). Adjectives were chosen at random from the original set of 26. The nouns were a reduced set of five (compared to the original ten). Nouns were chosen to maximize the probability of detecting noun-specific effects on adjective ordering preferences. In particular, we expected that nouns that are likely to form complex concepts should be more likely to be involved in deviant adjective ordering preferences. Nouns that are likely to form complex concepts with an adjective are highly collocational with that adjective. We thus searched for nouns that occur in particular adjective-noun phrases more frequently than predicted by the individual noun and adjective probabilities, i.e., nouns whose adjective-noun combinations were under-predicted by the individual probabilities. However, it was also important that the nouns exhibit a large range in under-predictedness (and consequently, in their collocational status). 
+
+To find these nouns, we estimated the probability $p(A)$ of each adjective from our set of 26 occurring right before a noun by computing its relative frequency in an adjective-noun sequence in the BNC. We then computed the relative frequency of each noun $p(N)$ occurring in an adjective-noun sequence. Finally, we estimated the predicted joint probability of each adjective-noun combination by taking the product of each individual probability estimate: $\hat{p}(A,N) = p(A)\cdot p(N)$. Comparing  $\hat{p}(A,N)$ to the empirically estimated $p(A,N)$ establishes which adjective-noun combinations are under-predicted and thus likely to form complex concepts. We arrived at the final five nouns \emph{thing, apple, cheese, eyes}, and \emph{hair} by selecting them from the set of 50 nouns that maximize the observed range of under-predictedness while simultaneously requiring that each noun naturalistically occur with at least 11 of the 26 adjectives. While \emph{thing} did not occur in the top 50, it occurred with the most adjectives (23) out of the set of 26 and in addition is semantically very bleached, which increases the probability that it will give rise to complex concepts. The selected nouns, together with the number of adjectives they occur with, their range of ratios of empirical to predicted joint probabilities, and their minimum / maximum ratios, are shown in Table \ref{tab:nouns}.
+
+\begin{table}
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Noun & \# of adjectives & range of ratios & minimum ratio & maximum ratio\\
+\midrule
+thing & 23 & 10.4 & 0.1 & 10.5 \\
+eyes & 18 & 120.6 & 0.12 & 120.7 \\
+hair & 15 & 82.9 & 0.03 & 83.0 \\
+cheese & 13 & 114.0 & 0.4 & 114.4 \\
+apple & 11 & 674.0 & 1.1 & 675.1 \\
+\bottomrule
+\end{tabular}
+\caption{For each chosen noun, the number of adjectives (out of 26) that it occurs with; and for each adjective $A$ that the noun occurs with, the range of ratios $p(A,N) / \hat{p}(A,N)$ (empirical to predicted probability of occurrence); the minimum ratio; and the maximum ratio.}
+\label{tab:nouns}
+\end{table}
+
+
+
 
 \subsubsection{Results}
 
