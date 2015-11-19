@@ -81,3 +81,15 @@ o_agr_class$faultless = f_agr_class$response[match(o_agr_class$correctclass,f_ag
 gof(o_agr_class$correctresponse,o_agr_class$faultless) # r = .92, r2 = .85
 results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~faultless)
 boot.ci(results, type="bca") # 95%   ( 0.1281,  0.9546 )   
+
+
+# plot order preference against faultless
+ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nfaultless disagreement rating")+
+  ylab("naturalness rating\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("../results/naturalness-faultless-new-nouns.png",height=3,width=3.5)
