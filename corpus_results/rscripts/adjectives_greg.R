@@ -21,17 +21,17 @@ nrow(d) # 544 two adjective cases
 ## trim non-adjectives
 # comparatives: further, other, smaller, bigger, upper, larger, higher, older
 # non-adjectives: many, various, only, few, several, whole, most
-d <- d[d$PrevAdjective!="many"&d$PrevAdjective!="various"&d$PrevAdjective!="only"&d$PrevAdjective!="few"&d$PrevAdjective!="several"&d$PrevAdjective!="whole"&d$PrevAdjective!="most",]
+d <- d[d$PrevAdjective!="many"&d$PrevAdjective!="various"&d$PrevAdjective!="only"&d$PrevAdjective!="few"&d$PrevAdjective!="several"&d$PrevAdjective!="whole"&d$PrevAdjective!="most"&d$PrevAdjective!="last"&d$PrevAdjective!="next"&d$PrevAdjective!="past"&d$PrevAdjective!="first"&d$PrevAdjective!="particular",] 
 nrow(d) # 473 two adjective cases
-d <- d[d$Adjective!="further"&d$Adjective!="other"&d$Adjective!="smaller"&d$Adjective!="bigger"&d$Adjective!="upper"&d$Adjective!="larger"&d$Adjective!="higher"&d$Adjective!="older",]
+d <- d[d$Adjective!="further"&d$Adjective!="other"&d$Adjective!="smaller"&d$Adjective!="bigger"&d$Adjective!="upper"&d$Adjective!="larger"&d$Adjective!="higher"&d$Adjective!="older"&d$Adjective!="few",]
 nrow(d) # 469 two adjective cases
 length(unique(d$Adjective)) # 241 unique Adjective
 length(unique(d$PrevAdjective)) # 165 unique PrevAdjective
 a = unique(d$Adjective)
 pa = unique(d$PrevAdjective)
 all_as = factor(c(as.character(a),as.character(pa)))
-length(unique(all_as)) # 360 unique adjectives
-length(unique(d$Noun)) # 310 unique nouns
+length(unique(all_as)) # 350 unique adjectives
+length(unique(d$Noun)) # 295 unique nouns
 # $16 for 40 people on 26 adjectives with 10 nouns
 # $3181.29 for 360 adjectives
 # $243.69 for 100 adjectives
