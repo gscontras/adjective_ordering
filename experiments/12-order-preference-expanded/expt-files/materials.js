@@ -370,7 +370,7 @@ var nouns = [
 			{	"Noun":"research",	"NounClass":"X"	},
 			{	"Noun":"issue",	"NounClass":"X"	},
 			{	"Noun":"spirit",	"NounClass":"X"	}							
-];
+]; // 166 unique nouns from swbd
 
 var stimuli =  makeStims();
 
@@ -407,7 +407,6 @@ function makeStims() {
 				  }
 				}
 				if (stims.filter(filterReverse).length<1) {
-					for (l=0; l<nouns.length; l++) {
 						noun = _.sample(nouns);
 						stims.push(
 							{
@@ -421,7 +420,6 @@ function makeStims() {
 							}			
 						);	
 					}
-				}
 			}
 		}
 	}
