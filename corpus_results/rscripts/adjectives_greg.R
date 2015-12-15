@@ -38,3 +38,6 @@ length(unique(d$Noun)) # 295 unique nouns
 
 as = unique(all_as)
 #write.csv(as,"data/swbd_adjectives.csv")
+
+ns = unique(d$Noun)
+#write.csv(ns,"data/swbd_nouns.csv")
