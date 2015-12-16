@@ -44,7 +44,8 @@
   <div class="slide" id="i0" >
     <img src="../_shared/images/cocologo.png" alt="Stanford CoCoLab" id="cocologo"></img>
     <p id="cocolab">Stanford CoCoLab</p>
-    <p id="instruct-text">This HIT involves interpreting sentences of English. The task should take about six minutes. Please pay attention. Thanks!</p>
+    <p id="instruct-text">This HIT involves interpreting sentences of English. The task should take about six minutes.<br>
+    Please pay attention. Thanks!</p>
     <button id="start_button" type="button">Start Experiment</button>
     <p id="legal">Legal information: By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact Greg Scontras at <a href="mailto://scontras@stanford.edu">scontras@stanford.edu</a> or Noah Goodman, at ngoodman@stanford.edu. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
   </div>
@@ -52,7 +53,10 @@
   <div class="slide" id="instructions1">
     <h3>Instructions</h3>
     <p> You will see 26 pairs of short object descriptions.<br>
-    Your task is to decide which description sounds better.</p>
+    Your task is to decide which description sounds better.<br>
+    You will have the option to indicate that neither option makes sense.<br>
+    If neither option makes sense, please still adjust the slider to indicate a preference.</p>
+
     <!-- <p class="instruction_condition">{{}}</p> -->
     <button onclick="_s.button()">Continue</button>
   </div>
@@ -90,8 +94,15 @@
 
     <p>Adjust the slider to indicate your preference.</p><br>
 
+    <p><label><input type="radio"  name="sense" value="no"/> Neither option makes sense.</label></p><br>
+
     <button onclick="_s.button()">Continue</button>
-    <div class="err">Please adjust the slider before continuing.</div>
+    
+    <div class="err">Please adjust the slider before continuing, even if neither option makes sense.</div>
+    <div class="err2">Please adjust the slider before continuing.</div>
+
+    
+
   </div>
 
   <div class="slide"  id="subj_info">
