@@ -27,7 +27,9 @@ function make_slides(f) {
     present : _.sample(stimuli,30),
     present_handle : function(stim) {
       $(".err").hide();
-      this.init_sliders();      
+      $(".err2").hide();
+      this.init_sliders();   
+      $('input[name="sense"]:checked').attr('checked',false);   
       exp.sliderPost = null;
       // $('input[name="sense"]:checked').attr('checked',false);
       this.stim = stim; //FRED: allows you to access stim in helpers
@@ -67,8 +69,13 @@ function make_slides(f) {
         this.log_responses();
         _stream.apply(this); //use exp.go() if and only if there is no "present" data.
       } else {
+      if ($("input[type=radio]:checked").length != 0) {
         $(".err").show();
+      } else {
+        $(".err").hide();
+        $(".err2").show();
       }
+    }
     },
 
     init_sliders : function() {
@@ -86,7 +93,8 @@ function make_slides(f) {
           "predicate2" : this.stim.Predicate2,
           "class1" : this.stim.Class1,
           "class2" : this.stim.Class2,                     
-          "slide_number" : exp.phase
+          "slide_number" : exp.phase,
+          "sense" : $('input[name="sense"]:checked').val()
         });
     },
   });
