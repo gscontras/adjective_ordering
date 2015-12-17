@@ -4,6 +4,7 @@ setwd("~/cogsci/projects/stanford/projects/adjective_ordering/corpus_results/")
 #for greg
 #setwd("~/Documents/git/CoCoLab/adjective_ordering/corpus_results/")
 source("rscripts/helpers.r")
+library(ggplot2)
 
 adjs = read.table("data/adjs_to_choose_from.txt",sep="\t", header=T,quote="")
 row.names(adjs) = adjs$Adjective

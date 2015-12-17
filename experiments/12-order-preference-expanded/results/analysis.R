@@ -2,43 +2,184 @@ library(ggplot2)
 library(lme4)
 library(hydroGOF)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/3-order-preference/Submiterator-master")
+setwd("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master")
 
-d = read.table("order-preference-trials.tsv",sep="\t",header=T)
-head(d)
-s = read.table("order-preference-subject_information.tsv",sep="\t",header=T)
-head(s)
-d$language = s$language[match(d$workerid,s$workerid)]
-unique(d$language)
-all <- d
-# only native English speakers (n=45)
-d = d[d$language!="DUTCH, ENGLISH"&d$language!="English, Spanish"&d$language!="Vietnamese"&d$language!="Spanish",]
-unique(d$workerid)
+library(tidyr)
+library(dplyr)
+
+num_round_dirs = 3
+df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
+  return (read.csv(paste(
+    'round', i, '/order-preference-expanded.csv', sep='')) %>%
+      mutate(workerid = (workerid + (i-1)*9)))}))
+#unique(df$comments)
+
+unique(df$workerid)
+unique(df$language)
+str(df)
+d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1","language"))
 summary(d)
-#write.csv(d,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/order-preference-trimmed.csv")
+d$makes_sense = "yes"
+d[!is.na(d$sense),]$makes_sense = "no"
 
-#####
-## duplicate observations by first predicate
-#####
-
-o <- d
-o$rightpredicate1 = o$predicate2
-o$rightpredicate2 = o$predicate1
-o$rightresponse = 1-o$response
-agr = o %>% 
-        select(predicate1,rightpredicate1,response,rightresponse,workerid,noun,nounclass,class1,class2) %>%
-        gather(predicateposition,predicate,predicate1:rightpredicate1,-workerid,-noun,-nounclass,-class1,-class2)
-agr$correctresponse = agr$response
-agr[agr$predicateposition == "rightpredicate1",]$correctresponse = agr[agr$predicateposition == "rightpredicate1",]$rightresponse
-agr$correctclass = agr$class1
-agr[agr$predicateposition == "rightpredicate1",]$correctclass = agr[agr$predicateposition == "rightpredicate1",]$class2
-head(agr[agr$predicateposition == "rightpredicate1",])
-agr$response = NULL
-agr$rightresponse = NULL
-agr$class1 = NULL
-agr$class2 = NULL
-nrow(agr) #2340
-#write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
+levels(d$class1) <- c("age","color", "dimension","human", "location", "material","nationality","physical","shape","speed","temporal","value","X")
+levels(d$predicate1) <- c("biggest",
+"large",
+"long",
+"mini",
+"narrow",
+"open",
+"thick",
+"thin",
+"civilized",
+"creative",
+"entrepreneurial",
+"playful",
+"professional",
+"sad",
+"selfish",
+"strict",
+"brazilian",
+"english",
+"european",
+"hispanic",
+"international",
+"japanese",
+"national",
+"vietnamese",
+"creamy",
+"curly",
+"frozen",
+"lacy",
+"smooth",
+"solid",
+"spicy",
+"sweet",
+"best",
+"exciting",
+"favorite",
+"lavish",
+"plain",
+"pleasant",
+"prestigious",
+"strange",
+"designated",
+"different",
+"individual",
+"last",
+"mixed",
+"potential",
+"token",
+"unique",
+"junior",
+"new",
+"old",
+"old-time",
+"senior",
+"young",
+"black",
+"blonde",
+"blue",
+"green",
+"purple",
+"red",
+"white",
+"yellow",
+"closest",
+"internal",
+"overhead",
+"corduroy",
+"crocheted",
+"gold",
+"wooden",
+"circular",
+"square",
+"fast",
+"slow",
+"speedy",
+"current",
+"daily",
+"everyday",
+"historical")
+levels(d$predicate2) <- c("biggest",
+                          "large",
+                          "long",
+                          "mini",
+                          "narrow",
+                          "open",
+                          "thick",
+                          "thin",
+                          "civilized",
+                          "creative",
+                          "entrepreneurial",
+                          "playful",
+                          "professional",
+                          "sad",
+                          "selfish",
+                          "strict",
+                          "brazilian",
+                          "english",
+                          "european",
+                          "hispanic",
+                          "international",
+                          "japanese",
+                          "national",
+                          "vietnamese",
+                          "creamy",
+                          "curly",
+                          "frozen",
+                          "lacy",
+                          "smooth",
+                          "solid",
+                          "spicy",
+                          "sweet",
+                          "best",
+                          "exciting",
+                          "favorite",
+                          "lavish",
+                          "plain",
+                          "pleasant",
+                          "prestigious",
+                          "strange",
+                          "designated",
+                          "different",
+                          "individual",
+                          "last",
+                          "mixed",
+                          "potential",
+                          "token",
+                          "unique",
+                          "junior",
+                          "new",
+                          "old",
+                          "old-time",
+                          "senior",
+                          "young",
+                          "black",
+                          "blonde",
+                          "blue",
+                          "green",
+                          "purple",
+                          "red",
+                          "white",
+                          "yellow",
+                          "closest",
+                          "internal",
+                          "overhead",
+                          "corduroy",
+                          "crocheted",
+                          "gold",
+                          "wooden",
+                          "circular",
+                          "square",
+                          "fast",
+                          "slow",
+                          "speedy",
+                          "current",
+                          "daily",
+                          "everyday",
+                          "historical")
+levels(d$class2) <- c("color", "dimension","human", "location", "material","nationality","physical","shape","speed","temporal","value","X","age")
 
 #####
 ## duplicate observations by adjective configuration
@@ -53,8 +194,8 @@ o$right_class_configuration = paste(o$class2,o$class1)
 #o$rightpredicate2 = o$predicate1
 o$rightresponse = 1-o$response
 agr = o %>% 
-  select(configuration,rightconfiguration,response,rightresponse,workerid,noun,nounclass,class_configuration,right_class_configuration,class1,class2,predicate1,predicate2) %>%
-  gather(predicateposition,correct_configuration,configuration:rightconfiguration,-workerid,-noun,-nounclass,-class_configuration,-right_class_configuration,-class1,-class2,-predicate1,-predicate2)
+  select(configuration,rightconfiguration,response,rightresponse,workerid,makes_sense,noun,nounclass,class_configuration,right_class_configuration,class1,class2,predicate1,predicate2) %>%
+  gather(predicateposition,correct_configuration,configuration:rightconfiguration,-workerid,-makes_sense,-noun,-nounclass,-class_configuration,-right_class_configuration,-class1,-class2,-predicate1,-predicate2)
 agr$correctresponse = agr$response
 agr[agr$predicateposition == "rightconfiguration",]$correctresponse = agr[agr$predicateposition == "rightconfiguration",]$rightresponse
 agr$correctclass = agr$class_configuration
@@ -78,10 +219,67 @@ agr$class_configuration = NULL
 agr$right_class_configuration = NULL
 nrow(agr) #2340
 head(agr)
-#write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-configuration-duplicated.csv")
+##write.csv(agr,"order-preference-duplicated.csv")
+
+##############################################################
+########## END SCRIPT ########################################
+##############################################################
 
 
 
+
+all_agg_s = aggregate(correctresponse~correctclass1*makes_sense,data=agr,mean)
+#save for aggregate plot
+#write.csv(all_agg_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/preference.csv")
+
+
+ggplot(data=all_agg_s,aes(x=reorder(correctclass1,-correctresponse,mean),y=correctresponse,fill=makes_sense))+
+  geom_bar(stat="identity",position=position_dodge())+
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class1,-adj_preferred_10,mean), width=0.1),alpha=0.5)+
+  xlab("\nadjective class")+
+  ylab("rating\n")+
+  ylim(0,1)+
+  #labs("order\npreference")+
+  theme_bw()#+
+#theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+#ggsave("../results/preferred_class_distance.pdf",height=3,width=11)
+
+
+
+
+
+
+
+
+
+
+
+
+#####
+## duplicate observations by first predicate
+#####
+
+#d = read.csv("order-preference-expanded.csv",header=T)
+
+o <- d
+#o <- d[d$sense!="no",]
+o$rightpredicate1 = o$predicate2
+o$rightpredicate2 = o$predicate1
+o$rightresponse = 1-o$response
+agr = o %>% 
+  select(predicate1,rightpredicate1,response,rightresponse,workerid,noun,nounclass,class1,class2) %>%
+  gather(predicateposition,predicate,predicate1:rightpredicate1,-workerid,-noun,-nounclass,-class1,-class2)
+agr$correctresponse = agr$response
+agr[agr$predicateposition == "rightpredicate1",]$correctresponse = agr[agr$predicateposition == "rightpredicate1",]$rightresponse
+agr$correctclass = agr$class1
+agr[agr$predicateposition == "rightpredicate1",]$correctclass = agr[agr$predicateposition == "rightpredicate1",]$class2
+head(agr[agr$predicateposition == "rightpredicate1",])
+agr$response = NULL
+agr$rightresponse = NULL
+agr$class1 = NULL
+agr$class2 = NULL
+nrow(agr) #2340
+#write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
 
 ## compute class configuration ratio
 
