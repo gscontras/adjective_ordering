@@ -3,6 +3,11 @@ source("../results/helpers.R")
 
 agr = read.csv("order-preference-duplicated.csv",header=T)
 
+ggplot(data=agr,aes(x=reorder(correctclass1,-correctresponse,mean),y=correctresponse,fill=makes_sense))+
+  geom_violin()+
+  geom_point(position=position_dodge(.9))+
+  theme_bw()
+
 agr_s = bootsSummary(data=agr, measurevar="correctresponse", groupvars=c("correctclass1","makes_sense"))
 #all_agg_s = aggregate(correctresponse~correctclass1*makes_sense,data=agr,mean)
 
