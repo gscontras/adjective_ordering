@@ -3,9 +3,13 @@ source("../results/helpers.R")
 
 agr = read.csv("order-preference-duplicated.csv",header=T)
 
-ggplot(data=agr,aes(x=reorder(correctclass1,-correctresponse,mean),y=correctresponse,fill=makes_sense))+
-  geom_violin()+
-  geom_point(position=position_dodge(.9))+
+length(unique(agr$correct_configuration))
+
+ggplot(data=agr,aes(x=reorder(correctclass1,-correctresponse,mean),y=correctresponse,fill=makes_sense,color=makes_sense))+
+  geom_violin(alpha=.5)+
+  geom_point(alpha=1,position=position_dodge(.9))+
+  xlab("class")+
+  ylab("response\n")+
   theme_bw()
 
 agr_s = bootsSummary(data=agr, measurevar="correctresponse", groupvars=c("correctclass1","makes_sense"))

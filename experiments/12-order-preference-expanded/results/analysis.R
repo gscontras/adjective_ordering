@@ -7,17 +7,31 @@ setwd("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preferenc
 library(tidyr)
 library(dplyr)
 
-num_round_dirs = 3
+#d = read.csv("round4/order-preference-expanded.csv")
+
+#d[sapply(d, is.factor)] <- lapply(d[sapply(d, is.factor)], as.character)
+#df[sapply(df, is.factor)] <- lapply(df[sapply(df, is.factor)], as.character)
+#e = rbind(df,d)
+
+num_round_dirs = 18
 df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
-    'round', i, '/order-preference-expanded.csv', sep='')) %>%
+    'round', i, '/order-preference-expanded-trials.csv', sep='')) %>%
       mutate(workerid = (workerid + (i-1)*9)))}))
 #unique(df$comments)
+num_round_dirs = 18
+sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
+  return (read.csv(paste(
+    'round', i, '/order-preference-expanded-subject_information.csv', sep='')) %>%
+      mutate(workerid = (workerid + (i-1)*9)))}))
+head(sf)
+unique(sf$language)
 
-unique(df$workerid)
-unique(df$language)
+length(unique(df$workerid))
 str(df)
-d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1","language"))
+#d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1","language"))
+d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1"))
+
 summary(d)
 d$makes_sense = "yes"
 d[!is.na(d$sense),]$makes_sense = "no"
@@ -208,7 +222,7 @@ agr$correctpred1 = agr$predicate1
 agr[agr$predicateposition == "rightconfiguration",]$correctpred1 = agr[agr$predicateposition == "rightconfiguration",]$predicate2
 agr$correctpred2 = agr$predicate2
 agr[agr$predicateposition == "rightconfiguration",]$correctpred2 = agr[agr$predicateposition == "rightconfiguration",]$predicate1
-head(agr[agr$predicateposition == "rightconfiguration",])
+#head(agr[agr$predicateposition == "rightconfiguration",])
 agr$response = NULL
 agr$rightresponse = NULL
 agr$predicate1 = NULL
