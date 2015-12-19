@@ -4,3 +4,7 @@ workerid,OS,screenH,screenW,Browser
 2,Windows,768,1366,Chrome
 3,Windows,768,1366,Chrome
 4,Windows,768,1366,Chrome
+5,Windows,864,1536,Firefox
+6,Windows,900,1600,Firefox
+7,an unknown OS,1024,768,Safari
+8,Windows,900,1440,Chrome

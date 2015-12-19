@@ -6,6 +6,8 @@ Fri Dec 18 08:23:34 PST 2015,A3K5843EPTOEQ6,0.3
 Fri Dec 18 12:21:39 PST 2015,A3JYLADN4LCABW,0.3
 Fri Dec 18 12:24:26 PST 2015,A13COBI91JOSZW,0.3
 Fri Dec 18 12:56:24 PST 2015,A222AS1V52ZON4,0.3
-,total paid to workers:,=SUM(c2:c8)
-,10% paid to Amazon:,=.1*c9
-,total:,=SUM(c9:c10
+Fri Dec 18 19:11:44 PST 2015,A366JCV00ETS7V,0.3
+Fri Dec 18 19:46:24 PST 2015,AVKET098LG8V0,0.3
+,total paid to workers:,=SUM(c2:c10)
+,10% paid to Amazon:,=.1*c11
+,total:,=SUM(c11:c12

@@ -1,2 +1,10 @@
-workerid
-0
+workerid,language,enjoyment,gender,age,comments,asses,education
+0,English,2,Female,33,,Yes,2
+1,English,2,Male,36,Odd but interesting hit.,Yes,2
+2,english,1,Female,36,,Yes,3
+3,English,1,Female,23,,Yes,2
+4,English,2,Male,21,,Yes,2
+5,english,1,Female,27,,Yes,3
+6,english,2,Female,42,,Yes,3
+7,English,1,Female,28,None,Yes,3
+8,English,1,Male,22,,Yes,3

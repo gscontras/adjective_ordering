@@ -3,3 +3,8 @@ workerid,OS,screenH,screenW,Browser
 1,Windows,1080,1920,Chrome
 2,Linux,640,360,Chrome
 3,Linux,640,360,Chrome
+4,Windows,1050,1680,Chrome
+5,Windows,512,911,Firefox
+6,Windows,1200,1920,Chrome
+7,Linux,640,360,Chrome
+8,Windows,960,1440,Chrome

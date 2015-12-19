@@ -2,3 +2,9 @@ workerid,OS,screenH,screenW,Browser
 0,Windows,768,1366,Chrome
 1,Windows,614,1093,Firefox
 2,Windows,704,1252,Firefox
+3,Windows,800,1280,Chrome
+4,Windows,800,1280,Chrome
+5,Windows,1050,1680,Firefox
+6,Windows,768,1366,Firefox
+7,Windows,768,1366,Chrome
+8,Windows,768,1366,Chrome

@@ -1,2 +1,10 @@
-workerid
-0
+workerid,language,enjoyment,gender,age,comments,asses,education
+0,English,2,Female,30,,Yes,3
+1,English,2,Male,30,I enjoyed the HIT. Thank you,Yes,3
+2,English,2,Male,22,That was certainly interesting to do. Thanks!,Yes,3
+3,english,1,Male,37,,Yes,2
+4,English,1,Female,37,,Yes,3
+5,English,2,Female,32,,No,4
+6,english,2,Male,23,,Yes,1
+7,English,2,Male,38,Thanks.,No,2
+8,english,2,Male,25,,Yes,3

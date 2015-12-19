@@ -4,3 +4,7 @@ workerid,language,enjoyment,gender,age,comments,asses,education
 2,English,1,Male,55,,Yes,3
 3,English,1,Female,52,,Yes,2
 4,English,1,Male,27,,Yes,3
+5,English,2,Male,33,,Yes,3
+6,English,2,Male,24,,Confused,1
+7,English,1,Male,34,None,Yes,3
+8,English,2,Other,22,Font could be bigger/more accessible ,Yes,3

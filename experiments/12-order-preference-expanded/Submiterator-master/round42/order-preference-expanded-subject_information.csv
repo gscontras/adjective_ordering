@@ -3,3 +3,8 @@ workerid,language,enjoyment,gender,age,comments,asses,education
 1,english ,1,Male,24,none,Yes,-1
 2,English,2,Female,40,"I like it, it was a brain tickler ",Yes,3
 3,English,2,Female,64,,Yes,4
+4,English,1,Male,19,,Yes,2
+5,English,1,Female,48,,Confused,1
+6,English,1,Female,24,,Yes,2
+7,English,2,Male,18,,Yes,2
+8,English,2,Male,25,,Yes,3

@@ -2,3 +2,9 @@ workerid,language,enjoyment,gender,age,comments,asses,education
 0,English,1,Male,56,,Yes,1
 1,English,2,Male,51,,Yes,1
 2,English,1,Male,23,Interesting HIT,Yes,2
+3,English,2,Female,33,,Yes,2
+4,Russian,2,Female,30,Some didn&quotechart make sense to me.,Yes,3
+5,English,1,Male,29,,Yes,3
+6,English,2,Female,31 ,,Yes,3
+7,English,0,Male,24,,Yes,3
+8,english,2,Female,28,,Yes,1

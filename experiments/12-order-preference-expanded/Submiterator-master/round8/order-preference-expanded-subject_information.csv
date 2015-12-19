@@ -5,3 +5,6 @@ workerid,language,enjoyment,gender,age,comments,asses,education
 3,English,2,Female,30,None,Yes,3
 4,English,2,Female,57,Hope this helps!,Yes,3
 5,english,1,Male,46,neat,Yes,3
+6,English,2,Female,30,,Yes,4
+7,English (U.S.),1,Female,36,"Some of the phrases seemed really bizarre, and I wasn&quotechart sure if I was supposed to check that they made no sense only if the syntax was off (example: ""closet fluffy creamy"") or if the idea was just really strange and would never appear in real life (""creamy fluffy closet"").",Yes,1
+8,English,1,Male,26,,Yes,3

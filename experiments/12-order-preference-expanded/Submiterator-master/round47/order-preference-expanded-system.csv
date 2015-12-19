@@ -3,3 +3,8 @@ workerid,OS,screenH,screenW,Browser
 1,Windows,900,1600,Chrome
 2,Windows,768,1366,Chrome
 3,Windows,1050,1680,Chrome
+4,Windows,768,1366,Chrome
+5,Windows,720,1280,Firefox
+6,Mac,800,1280,Safari
+7,Mac,900,1440,Chrome
+8,Windows,768,1366,Chrome

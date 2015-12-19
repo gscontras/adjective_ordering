@@ -1,3 +1,10 @@
 workerid,OS,screenH,screenW,Browser
 0,iPhone/iPod,667,375,Safari
 1,Windows,1050,1680,Chrome
+2,Windows,768,1366,Firefox
+3,Windows,768,1366,Chrome
+4,Windows,1125,2000,Firefox
+5,Windows,768,1366,Chrome
+6,Windows,1080,1920,Firefox
+7,Mac,720,1152,Safari
+8,Mac,900,1440,Safari
