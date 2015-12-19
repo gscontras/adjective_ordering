@@ -13,19 +13,24 @@ library(dplyr)
 #df[sapply(df, is.factor)] <- lapply(df[sapply(df, is.factor)], as.character)
 #e = rbind(df,d)
 
-num_round_dirs = 18
+num_round_dirs = 33
 df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
     'round', i, '/order-preference-expanded-trials.csv', sep='')) %>%
       mutate(workerid = (workerid + (i-1)*9)))}))
 #unique(df$comments)
-num_round_dirs = 18
+num_round_dirs = 33
 sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
     'round', i, '/order-preference-expanded-subject_information.csv', sep='')) %>%
       mutate(workerid = (workerid + (i-1)*9)))}))
 head(sf)
 unique(sf$language)
+sf[sf$language=="Spanish",]
+sf[sf$language=="Indonesian",]
+
+# remove non-English
+df = df[df$workerid!=40&df$workerid!=75&df$workerid!=209,]
 
 length(unique(df$workerid))
 str(df)
