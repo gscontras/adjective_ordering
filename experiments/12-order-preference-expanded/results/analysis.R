@@ -13,13 +13,13 @@ library(dplyr)
 #df[sapply(df, is.factor)] <- lapply(df[sapply(df, is.factor)], as.character)
 #e = rbind(df,d)
 
-num_round_dirs = 33
+num_round_dirs = 55
 df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
     'round', i, '/order-preference-expanded-trials.csv', sep='')) %>%
       mutate(workerid = (workerid + (i-1)*9)))}))
 #unique(df$comments)
-num_round_dirs = 33
+num_round_dirs = 55
 sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
     'round', i, '/order-preference-expanded-subject_information.csv', sep='')) %>%
@@ -28,11 +28,28 @@ head(sf)
 unique(sf$language)
 sf[sf$language=="Spanish",]
 sf[sf$language=="Indonesian",]
+sf[sf$language=="Russian",]
+sf[sf$language=="English, Spanish",]
+sf[sf$language=="english, spanish",]
+sf[sf$language=="English, Chinese",]
+sf[sf$language=="Tagalog/Cebuano",]
+sf[sf$language=="cantonese",]
+sf[sf$language=="",]
+sf[sf$language=="English and Spanish",]
+sf[sf$language=="korean",]
+sf[sf$language=="Tamil",]
+sf[sf$language=="vietnamese",]
+sf[sf$language=="Filipino",]
+sf[sf$language=="Mandarin",]
+sf[sf$language=="Indonesian",]
+sf[sf$language=="English, Malayalam",]
+sf[sf$language=="chinese",]
+sf[sf$language=="Chinese",]
 
 # remove non-English
-df = df[df$workerid!=40&df$workerid!=75&df$workerid!=209,]
+df = df[df$workerid!=40&df$workerid!=75&df$workerid!=209&df$workerid!=103&df$workerid!=169&df$workerid!=333&df$workerid!=385&df$workerid!=415&df$workerid!=116&df$workerid!=194&df$workerid!=365&df$workerid!=355&df$workerid!=409&df$workerid!=419&df$workerid!=34&df$workerid!=434&df$workerid!=124&df$workerid!=179&df$workerid!=166&df$workerid!=209&df$workerid!=307&df$workerid!=411&df$workerid!=480,]
 
-length(unique(df$workerid))
+length(unique(df$workerid)) #473 English participants
 str(df)
 #d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1","language"))
 d = subset(df, select=c("workerid", "noun","nounclass","slide_number","sense","predicate2","predicate1","class2","response","class1"))
@@ -236,7 +253,7 @@ agr$class1 = NULL
 agr$class2 = NULL
 agr$class_configuration = NULL
 agr$right_class_configuration = NULL
-nrow(agr) #2340
+nrow(agr) #28380
 head(agr)
 ##write.csv(agr,"order-preference-duplicated.csv")
 
