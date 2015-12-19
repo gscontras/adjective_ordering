@@ -1,0 +1,9 @@
+date,workerid,amount
+Fri Dec 18 09:45:40 PST 2015,AM036835CRE22,0.3
+Fri Dec 18 11:07:26 PST 2015,A2F8YFFRKK14QD,0.3
+Fri Dec 18 11:30:03 PST 2015,AQ9F0W1HKUF2J,0.3
+Fri Dec 18 12:27:02 PST 2015,A1X7ULCVLKDPRH,0.3
+Fri Dec 18 15:00:43 PST 2015,A2IOALUR617NNE,0.3
+,total paid to workers:,=SUM(c2:c6)
+,10% paid to Amazon:,=.1*c7
+,total:,=SUM(c7:c8
