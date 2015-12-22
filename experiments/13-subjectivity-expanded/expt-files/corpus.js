@@ -53,13 +53,13 @@ function makeStims() {
 	stims = [];
 
 	for (var i=0; i<adjectives.length; i++) {
-		noun = _.sample(nouns);
+		// noun = _.sample(nouns);
 		stims.push(
 			{
 				"Predicate":adjectives[i].Predicate,
 				"Class":adjectives[i].Class,				
-				"Noun":noun.Noun,
-				"NounClass":noun.NounClass
+				// "Noun":noun.Noun,
+				// "NounClass":noun.NounClass
 			}
 			);
 		}

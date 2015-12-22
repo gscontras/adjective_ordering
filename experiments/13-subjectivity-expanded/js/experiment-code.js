@@ -27,15 +27,13 @@ function make_slides(f) {
     present : _.sample(stimuli,30),
     present_handle : function(stim) {
       $(".err").hide();
-      $(".err2").hide();
-      this.init_sliders();   
-      $('input[name="sense"]:checked').attr('checked',false);   
+      this.init_sliders();      
       exp.sliderPost = null;
       // $('input[name="sense"]:checked').attr('checked',false);
       this.stim = stim; //FRED: allows you to access stim in helpers
 
 
-      $(".adjective").html(stim.Predicate + " " + stim.Noun);
+      $(".adjective").html(stim.Predicate);
 
 
 //      this.n_sliders = this.sentence_types.length;
@@ -44,29 +42,14 @@ function make_slides(f) {
     },
 
     button : function() {
-      console.log(exp.sliderPost);
+    	console.log(exp.sliderPost);
       if (exp.sliderPost != null) {
         this.log_responses();
         _stream.apply(this); //use exp.go() if and only if there is no "present" data.
       } else {
-      if ($("input[type=radio]:checked").length != 0) {
         $(".err").show();
-      } else {
-        $(".err").hide();
-        $(".err2").show();
       }
-    }
     },
-
-    // button : function() {
-    // 	console.log(exp.sliderPost);
-    //   if (exp.sliderPost != null) {
-    //     this.log_responses();
-    //     _stream.apply(this); //use exp.go() if and only if there is no "present" data.
-    //   } else {
-    //     $(".err").show();
-    //   }
-    // },
 
     init_sliders : function() {
       utils.make_slider("#slider0", function(event, ui) {
@@ -81,12 +64,12 @@ function make_slides(f) {
     log_responses : function() {
         exp.data_trials.push({
           "response" : exp.sliderPost,
-          "noun" : this.stim.Noun,          
+          // "noun" : this.stim.Noun,          
           "predicate" : this.stim.Predicate,
-          "nounclass" : this.stim.NounClass,
+          // "nounclass" : this.stim.NounClass,
           "class" : this.stim.Class,                    
           // "firstutterance" : this.verbs[0],
-          "sense" : $('input[name="sense"]:checked').val(),        
+          // "sense" : $('input[name="sense"]:checked').val(),        
           "slide_number" : exp.phase
         });
     },
@@ -129,16 +112,6 @@ function make_slides(f) {
 
 /// init ///
 function init() {
-  repeatWorker = false;
-  (function(){
-      var ut_id = "subjectivity-noun-expanded";
-      if (UTWorkerLimitReached(ut_id)) {
-        $('.slide').empty();
-        repeatWorker = true;
-        alert("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
-      }
-  })();
-
   exp.trials = [];
   exp.catch_trials = [];
   exp.instruction = _.sample(["instruction1","instruction2"]);

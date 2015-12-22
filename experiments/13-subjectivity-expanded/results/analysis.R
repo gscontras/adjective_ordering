@@ -2,7 +2,7 @@ library(ggplot2)
 library(reshape2)
 library(lme4)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/7-subjectivity-noun/Submiterator-master")
+setwd("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master")
 
 d = read.table("subjectivity-trials.tsv",sep="\t",header=T)
 head(d)
@@ -10,17 +10,10 @@ s = read.table("subjectivity-subject_information.tsv",sep="\t",header=T)
 head(s)
 
 d$language = s$language[match(d$workerid,s$workerid)]
-summary(d)
 
-model.7 = lm(response~predicate, data=d)
-model.11 = lm(response~predicate+noun:predicate, data=d)
-anova(model.7,model.11)
-summary(model.7)
-summary(model.11)
+d <- d[d$language != "Bosnian" & d$language != "Russian",]
 
-#d_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
-# save data for aggregate plot
-#write.csv(d_s,"~/Documents/git/cocolab/adjective_ordering/presentations/DGfS/plots/subjectivity.csv")
+unique(d$workerid) # n=28
 
 aggregate(response~class,data=d,mean)
 
