@@ -2,16 +2,21 @@ library(ggplot2)
 library(reshape2)
 library(lme4)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master")
+setwd("~/Documents/git/cocolab/adjective_ordering/experiments/13-subjectivity-expanded/Submiterator-master")
 
-d = read.table("subjectivity-trials.tsv",sep="\t",header=T)
-head(d)
-s = read.table("subjectivity-subject_information.tsv",sep="\t",header=T)
-head(s)
-
-d$language = s$language[match(d$workerid,s$workerid)]
-
-d <- d[d$language != "Bosnian" & d$language != "Russian",]
+num_round_dirs = 55
+df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
+  return (read.csv(paste(
+    'round', i, '/order-preference-expanded-trials.csv', sep='')) %>%
+      mutate(workerid = (workerid + (i-1)*9)))}))
+#unique(df$comments)
+num_round_dirs = 55
+sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
+  return (read.csv(paste(
+    'round', i, '/order-preference-expanded-subject_information.csv', sep='')) %>%
+      mutate(workerid = (workerid + (i-1)*9)))}))
+head(sf)
+unique(sf$language)
 
 unique(d$workerid) # n=28
 
