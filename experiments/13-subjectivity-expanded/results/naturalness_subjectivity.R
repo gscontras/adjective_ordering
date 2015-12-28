@@ -113,15 +113,15 @@ ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity_class-difference.pdf",height=3,width=3.5)
+#ggsave("results/naturalness-subjectivity_class-difference.pdf",height=3,width=3.5)
 
 #PREDICATE
-ggplot(o_agr_pred, aes(x=f_diff,y=correctresponse)) +
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nfaultless difference")+
+  xlab("\nsubjectivity difference")+
   ylab("configuration naturalness\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-faultless_difference.pdf",height=3,width=3.5)
+#ggsave("results/naturalness-subjectivity_difference.pdf",height=3,width=3.5)

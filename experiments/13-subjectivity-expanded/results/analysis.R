@@ -19,16 +19,16 @@ unique(d$language)
 
 length(unique(d$workerid)) # n=189
 
-write.csv(d,"../results/subjectivity-expanded_results.csv")
+#write.csv(d,"../results/subjectivity-expanded_results.csv")
 
 
 ## predicate plot by class
-#c_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
-c_s = aggregate(response~class,data=d,mean)
+c_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
+#c_s = aggregate(response~class,data=d,mean)
 
 class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response)) +
   geom_bar(stat="identity",position=position_dodge()) +
-  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
   ylab("subjectivity\n")+
   xlab("adjective class") +
   #facet_wrap(~class,scale="free_x") +

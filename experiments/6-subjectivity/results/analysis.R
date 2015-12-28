@@ -20,6 +20,139 @@ aggregate(response~class,data=d,mean)
 d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
 
 
+#load in naturalness preferences
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
+head(o_agr_pred)
+
+#####
+## compare subjectivity/faultless and naturalness
+#####
+
+# explainable variance
+o$workerID = o$workerid + 1
+o$response = o$correctresponse
+o$class = o$correctclass
+#library(plyr)
+prophet(splithalf_class(o, 100), 2) # 0.99 class configuration
+prophet(splithalf_pred(o, 100), 2) # 0.98 predicate configuration
+f$workerID = f$workerid
+prophet(splithalf_pred(f, 100), 2) # 0.9746947
+s$workerID = s$workerid
+prophet(splithalf_pred(s, 100), 2) # 0.9688392
+
+s_agr_pred = aggregate(response~predicate,data=d,mean)
+s_agr_class = aggregate(response~class,data=d,mean)
+
+## SUBJECTIVITY
+# PREDICATE
+o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .92, r2 = .85
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.7510,  0.9036 )  
+# CLASS
+o_agr_class$subjectivity = s_agr_class$response[match(o_agr_class$correctclass,s_agr_class$class)]
+gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .92, r2 = .85
+results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.1890,  0.9561 )  
+
+# plot order preference against subjectivity
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity-new.pdf",height=3,width=3.5)
+
+
+#####
+## configuration analysis
+#####
+
+# load in order preference
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-configuration-duplicated.csv",header=T)
+head(o)
+o$predicate = o$correct_configuration
+o$class = o$correctclass
+o$workerID = o$workerid + 1
+o$response = o$correctresponse
+# get Spearman-Brown prophecy (explainable variance)
+prophet(splithalf_class(o, 100), 2) # 0.97 class configuration
+prophet(splithalf_pred(o, 100), 2) # 0.82 predicate configuration
+
+
+
+o_agr = aggregate(correctresponse~correctclass+correctclass1+correctclass2,data=o,mean)
+
+# CLASS add in subjectivity difference
+o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$class)]
+o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
+o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
+#compare subjectivity with order-preference
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .90, r2 = .80
+results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ( 0.6801,  0.8787 )  
+
+o_agr_pred = aggregate(correctresponse~correct_configuration+correctpred1+correctpred2+class,data=o,mean)
+
+# PREDICATE add in subjectivity difference
+o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
+o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
+#compare subjectivity with order-preference
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .81, r2 = .66
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ( 0.6142,  0.6980 ) 
+
+## CLASS
+# plot order preference against subjectivity
+ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+
+## PREDICATE
+# plot order preference against subjectivity
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity.pdf",height=3,width=3.5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### comparing faultless disagreement and subjectivity
 
 f = read.table("~/Documents/git/CoCoLab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-trials.tsv",sep="\t",header=T)
