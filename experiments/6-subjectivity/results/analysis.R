@@ -17,7 +17,7 @@ unique(d$workerid) # n=28
 
 aggregate(response~class,data=d,mean)
 
-d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
+#d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
 
 
 #load in naturalness preferences
@@ -38,10 +38,8 @@ o$class = o$correctclass
 #library(plyr)
 prophet(splithalf_class(o, 100), 2) # 0.99 class configuration
 prophet(splithalf_pred(o, 100), 2) # 0.98 predicate configuration
-f$workerID = f$workerid
-prophet(splithalf_pred(f, 100), 2) # 0.9746947
-s$workerID = s$workerid
-prophet(splithalf_pred(s, 100), 2) # 0.9688392
+d$workerID = d$workerid
+prophet(splithalf_pred(d, 100), 2) # 0.98
 
 s_agr_pred = aggregate(response~predicate,data=d,mean)
 s_agr_class = aggregate(response~class,data=d,mean)

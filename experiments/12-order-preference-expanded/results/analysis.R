@@ -73,14 +73,15 @@ d$predicate2 <- as.character(d$predicate2)
 o <- d
 o$configuration = paste(o$predicate1,o$predicate2)
 o$class_configuration = paste(o$class1,o$class2)
+#write.csv(o,"order-preference.csv")
 o$rightconfiguration = paste(o$predicate2,o$predicate1)
 o$right_class_configuration = paste(o$class2,o$class1)
 #o$rightpredicate1 = o$predicate2
 #o$rightpredicate2 = o$predicate1
 o$rightresponse = 1-o$response
 agr = o %>% 
-  select(configuration,rightconfiguration,response,rightresponse,workerid,makes_sense,noun,nounclass,class_configuration,right_class_configuration,class1,class2,predicate1,predicate2) %>%
-  gather(predicateposition,correct_configuration,configuration:rightconfiguration,-workerid,-makes_sense,-noun,-nounclass,-class_configuration,-right_class_configuration,-class1,-class2,-predicate1,-predicate2)
+  select(configuration,rightconfiguration,response,rightresponse,workerid,makes_sense,noun,nounclass,class_configuration,right_class_configuration,class1,class2,predicate1,predicate2,slide_number) %>%
+  gather(predicateposition,correct_configuration,configuration:rightconfiguration,-workerid,-makes_sense,-noun,-nounclass,-class_configuration,-right_class_configuration,-class1,-class2,-predicate1,-predicate2,-slide_number)
 agr$correctresponse = agr$response
 agr[agr$predicateposition == "rightconfiguration",]$correctresponse = agr[agr$predicateposition == "rightconfiguration",]$rightresponse
 agr$correctclass = agr$class_configuration
