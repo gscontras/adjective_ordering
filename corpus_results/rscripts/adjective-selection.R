@@ -88,3 +88,17 @@ selection = merge(selection,extra,all=T)
 
 selection
 write.table(selection[,c("Adjective","Class")],file="data/sampled_adjectives.txt",sep="\t",col.names=T,row.names=F,quote=F)
+
+
+### JUDITH'S CODE TO LOAD THE ADJECTIVES THAT WERE ULTIMATELY USED, ADD FREQUENCY INFO, AND RE-WRITE FILE
+adjs = read.table("data/sampled_adjectives.txt",sep="\t",header=T,quote="")
+adjs
+# make sure to re-run the first 20 lines to get frequency info
+head(d)
+row.names(d) = d$Adjective
+adjs$Length = d[as.character(adjs$Adjective),]$Length
+adjs$Probability = d[as.character(adjs$Adjective),]$P_Adjective
+adjs$logProbability = d[as.character(adjs$Adjective),]$logProbability
+head(adjs)
+write.table(adjs[,c("Adjective","Class","Length","Probability","logProbability")],file="data/sampled_adjectives_with_freq.txt",sep="\t",col.names=T,row.names=F,quote=F)
+pairscor.fnc(adjs)
