@@ -91,6 +91,9 @@ write.table(selection[,c("Adjective","Class")],file="data/sampled_adjectives.txt
 
 
 ### JUDITH'S CODE TO LOAD THE ADJECTIVES THAT WERE ULTIMATELY USED, ADD FREQUENCY INFO, AND RE-WRITE FILE
+total = read.table("data/google_total.txt",sep=",")  # add square data separately because it doesn't occur in swbd
+square = read.table("data/google_square.txt",sep="\t")
+square_prob = sum(square$V3)/sum(total$V3) # this is the probability of "square" as an adjective in the Google Books corpus from 2000 to 2008
 adjs = read.table("data/sampled_adjectives.txt",sep="\t",header=T,quote="")
 adjs
 # make sure to re-run the first 20 lines to get frequency info
@@ -100,5 +103,6 @@ adjs$Length = d[as.character(adjs$Adjective),]$Length
 adjs$Probability = d[as.character(adjs$Adjective),]$P_Adjective
 adjs$logProbability = d[as.character(adjs$Adjective),]$logProbability
 head(adjs)
+adjs = merge(adjs, data.frame(Adjective="square",Class="shape",Length=nchar("square"),Probability=square_prob,logProbability=log(square_prob)),all=T)
 write.table(adjs[,c("Adjective","Class","Length","Probability","logProbability")],file="data/sampled_adjectives_with_freq.txt",sep="\t",col.names=T,row.names=F,quote=F)
 pairscor.fnc(adjs)
