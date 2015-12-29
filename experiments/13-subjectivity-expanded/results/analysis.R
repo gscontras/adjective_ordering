@@ -19,6 +19,9 @@ unique(d$language)
 
 length(unique(d$workerid)) # n=189
 
+table(d$predicate)
+table(d$class)
+
 #write.csv(d,"../results/subjectivity-expanded_results.csv")
 
 
