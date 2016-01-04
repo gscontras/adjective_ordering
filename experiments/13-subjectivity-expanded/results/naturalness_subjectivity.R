@@ -295,6 +295,26 @@ md = lmer(correctresponse~
          (1|workerid)+(1|noun),data=o)
 summary(md)
 
+m_sub = lmer(correctresponse~
+            #slide_number+
+            #sup1+
+            #sup2+
+            subDiff+
+            #lengthDiff+
+            #freqDiff+
+            #sup1:sup2+
+            #sup1:subDiff+
+            #sup2:subDiff+
+            #sup1:lengthDiff+
+            #sup2:lengthDiff+
+            #sup1:freqDiff+
+            #sup2:freqDiff+
+            #subDiff:lengthDiff+
+            #subDiff:freqDiff+
+            #lengthDiff:freqDiff+
+            (1|workerid)+(1|noun),data=o)
+summary(m_sub)
+
 
 ## NO SUPERLATIVES
 o_no_sup <- o[o$correctpred1!="best"&o$correctpred1!="biggest"&o$correctpred1!="closest"&o$correctpred1!="last"&o$correctpred2!="best"&o$correctpred2!="biggest"&o$correctpred2!="closest"&o$correctpred2!="last",]
@@ -359,6 +379,7 @@ summary(m_no_sup)
 
 
 r.squaredGLMM(md)
+r.squaredGLMM(m_sub)
 #r.squaredGLMM(md_sup)
 #r.squaredGLMM(md_sup_config)
 
