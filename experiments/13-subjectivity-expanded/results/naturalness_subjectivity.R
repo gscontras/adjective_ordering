@@ -2,6 +2,7 @@ library(hydroGOF)
 library(ggplot2)
 library(lme4)
 library(lmerTest)
+require(MuMIn)
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/13-subjectivity-expanded")
 
@@ -78,7 +79,7 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=correctclass1)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-ggsave("results/naturalness-subjectivity.pdf",height=4,width=5.5)
+#ggsave("results/naturalness-subjectivity.pdf",height=4,width=5.5)
 
 
 # plot order preference against subjectivity with text label
@@ -91,7 +92,8 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-ggsave("results/naturalness-subjectivity-labelled.pdf",height=4,width=5.5)
+#ggsave("results/naturalness-subjectivity-labelled.pdf",height=4,width=5.5)
+
 
 #####
 ## configuration analysis
@@ -152,11 +154,23 @@ ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   theme_bw()
 #ggsave("results/naturalness-subjectivity_difference.pdf",height=3,width=3.5)
 
+# PREDICATE FACETED BY CLASS CONFIGURATION
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  facet_wrap(~class)
+#ggsave("results/naturalness-subjectivity_class-facet.pdf",height=12,width=17)
 
 
-#######
+
+#################################################
 ## REGRESSION ANALYSES
-#######
+#################################################
 
 #load in subjectivity scores
 s = read.csv("results/subjectivity-expanded_results.csv",header=T)
@@ -168,7 +182,7 @@ lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep
 head(lf)
 
 #load in naturalness preferences
-o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master/order-preference-duplicated.csv",header=T)
+#o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master/order-preference-duplicated.csv",header=T)
 #non-duplicated data
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master/order-preference.csv",header=T)
 head(o)
@@ -177,8 +191,8 @@ o$correctpred2 <- o$predicate2
 o$correctresponse <- o$response
 o <- o[o$makes_sense=="yes",]
 
-o$freq1 = lf$Probability[match(o$correctpred1,lf$Adjective)]
-o$freq2 = lf$Probability[match(o$correctpred2,lf$Adjective)]
+o$freq1 = lf$logProbability[match(o$correctpred1,lf$Adjective)]
+o$freq2 = lf$logProbability[match(o$correctpred2,lf$Adjective)]
 o$length1 = lf$Length[match(o$correctpred1,lf$Adjective)]
 o$length2 = lf$Length[match(o$correctpred2,lf$Adjective)]
 o$sub1 = s_agr_pred$response[match(o$correctpred1,s_agr_pred$predicate)]
@@ -190,6 +204,7 @@ o[o$correctpred2!="best"&o$correctpred2!="biggest"&o$correctpred2!="closest"&o$c
 
 m = lmer(correctresponse~
            slide_number+
+           class_configuration+
            #makes_sense+
            length1+
            length2+
@@ -200,9 +215,19 @@ m = lmer(correctresponse~
            sup1+
            sup2+
            sub1:sup1+
+           #sub1:sup2+
+           #sub2:sup1+
            sub2:sup2+
            sub1:sub2+
            sup1:sup2+
+           sub1:length1+
+           #sub1:length2+
+           #sub2:length1+
+           sub2:length2+
+           sub1:freq1+
+           #sub1:freq2+
+           #sub2:freq1+
+           sub2:freq2+
            #sub1:makes_sense+
            #sub2:makes_sense+
            #sup1:makes_sense+
@@ -210,14 +235,108 @@ m = lmer(correctresponse~
            (1|workerid)+(1|noun),data=o)
 summary(m)
 
+m_no_config = lmer(correctresponse~
+           slide_number+
+           #class_configuration+
+           #makes_sense+
+           length1+
+           length2+
+           freq1+
+           freq2+
+           sub1+
+           sub2+
+           sup1+
+           sup2+
+           sub1:sup1+
+           #sub1:sup2+
+           #sub2:sup1+
+           sub2:sup2+
+           sub1:sub2+
+           sup1:sup2+
+           sub1:length1+
+           #sub1:length2+
+           #sub2:length1+
+           sub2:length2+
+           sub1:freq1+
+           #sub1:freq2+
+           #sub2:freq1+
+           sub2:freq2+
+           #sub1:makes_sense+
+           #sub2:makes_sense+
+           #sup1:makes_sense+
+           #sup2:makes_sense+
+           (1|workerid)+(1|noun),data=o)
+summary(m_no_config)
+
+anova(m,m_no_config)
+
+## DIFFERENCE SCORES
+o$subDiff = o$sub1 - o$sub2
+o$lengthDiff = o$length1 - o$length2
+o$freqDiff = o$freq1 - o$freq2
+
+md = lmer(correctresponse~
+           slide_number+
+           sup1+
+           sup2+
+           subDiff+
+           lengthDiff+
+           freqDiff+
+          #sup1:sup2+
+          #sup1:subDiff+
+          #sup2:subDiff+
+          #sup1:lengthDiff+
+          #sup2:lengthDiff+
+          #sup1:freqDiff+
+          #sup2:freqDiff+
+          subDiff:lengthDiff+
+          subDiff:freqDiff+
+          lengthDiff:freqDiff+
+         (1|workerid)+(1|noun),data=o)
+summary(md)
+
 
 ## NO SUPERLATIVES
 o_no_sup <- o[o$correctpred1!="best"&o$correctpred1!="biggest"&o$correctpred1!="closest"&o$correctpred1!="last"&o$correctpred2!="best"&o$correctpred2!="biggest"&o$correctpred2!="closest"&o$correctpred2!="last",]
-o_no_sup <- o_no_sup[o_no_sup$makes_sense=="yes",]
+#o_no_sup <- o_no_sup[o_no_sup$makes_sense=="yes",]
+o_no_sup$subDiff = o_no_sup$sub1 - o_no_sup$sub2
+o_no_sup$lengthDiff = o_no_sup$length1 - o_no_sup$length2
+o_no_sup$freqDiff = o_no_sup$freq1 - o_no_sup$freq2
+
+
+md_sup = lmer(correctresponse~
+            slide_number+
+            subDiff+
+            lengthDiff+
+            freqDiff+
+            subDiff:lengthDiff+
+            subDiff:freqDiff+
+            lengthDiff:freqDiff+
+            (1|workerid)+(1|noun),data=o_no_sup)
+summary(md_sup)
+
+md_sup_config = lmer(correctresponse~
+                slide_number+
+                class_configuration+
+                subDiff+
+                lengthDiff+
+                freqDiff+
+                subDiff:lengthDiff+
+                subDiff:freqDiff+
+                lengthDiff:freqDiff+
+                (1|workerid)+(1|noun),data=o_no_sup)
+summary(md_sup_config)
+
+anova(md_sup,md_sup_config)
+
 
 m_no_sup = lmer(correctresponse~
            slide_number+
            #makes_sense+
+           length1+
+           length2+
+           freq1+
+           freq2+ 
            sub1+
            sub2+
            #sup1+
@@ -230,5 +349,18 @@ m_no_sup = lmer(correctresponse~
            #sub2:makes_sense+
            #sup1:makes_sense+
            #sup2:makes_sense+
+           sub1:length1+
+           sub2:length2+
+           sub1:freq1+
+           sub2:freq2+
            (1|workerid)+(1|noun),data=o_no_sup)
 summary(m_no_sup)
+
+
+
+r.squaredGLMM(md)
+#r.squaredGLMM(md_sup)
+#r.squaredGLMM(md_sup_config)
+
+r.squaredGLMM(m)
+r.squaredGLMM(m_no_config)
