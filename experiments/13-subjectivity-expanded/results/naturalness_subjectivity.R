@@ -62,7 +62,7 @@ boot.ci(results, type="bca") # 95%   ( 0.0548,  0.9680 )
 o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
 gof(o_no_sup_pred$correctresponse,o_no_sup_pred$subjectivity) # r = .78, r2 = .61
 results <- boot(data=o_no_sup_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.4627,  0.7161 )  
+boot.ci(results, type="bca") # 95%   ( 0.4658,  0.7145 )  
 # CLASS
 o_agr_class$subjectivity = s_agr_class$response[match(o_agr_class$correctclass1,s_agr_class$class)]
 gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .86, r2 = .73

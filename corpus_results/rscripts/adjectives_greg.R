@@ -24,9 +24,9 @@ nrow(d) # 544 two adjective cases
 d <- d[d$PrevAdjective!="many"&d$PrevAdjective!="various"&d$PrevAdjective!="only"&d$PrevAdjective!="few"&d$PrevAdjective!="several"&d$PrevAdjective!="whole"&d$PrevAdjective!="most"&d$PrevAdjective!="last"&d$PrevAdjective!="next"&d$PrevAdjective!="past"&d$PrevAdjective!="first"&d$PrevAdjective!="particular",] 
 nrow(d) # 473 two adjective cases
 d <- d[d$Adjective!="further"&d$Adjective!="other"&d$Adjective!="smaller"&d$Adjective!="bigger"&d$Adjective!="upper"&d$Adjective!="larger"&d$Adjective!="higher"&d$Adjective!="older"&d$Adjective!="few",]
-nrow(d) # 469 two adjective cases
-length(unique(d$Adjective)) # 241 unique Adjective
-length(unique(d$PrevAdjective)) # 165 unique PrevAdjective
+nrow(d) #  421 two adjective cases
+length(unique(d$Adjective)) # 233 unique Adjective
+length(unique(d$PrevAdjective)) # 160 unique PrevAdjective
 a = unique(d$Adjective)
 pa = unique(d$PrevAdjective)
 all_as = factor(c(as.character(a),as.character(pa)))
