@@ -231,7 +231,7 @@ ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/naturalness-subjectivity.png",height=3,width=3.5)
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/naturalness-subjectivity-configuration.png",height=3,width=3.5)
 
 ## CLASS
 # plot order preference against faultless
