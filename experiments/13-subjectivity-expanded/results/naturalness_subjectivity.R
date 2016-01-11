@@ -166,6 +166,50 @@ ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   facet_wrap(~class)
 #ggsave("results/naturalness-subjectivity_class-facet.pdf",height=12,width=17)
 
+#####
+## configuration without superlatives
+#####
+head(o_no_sup)
+# CLASS add in subjectivity difference
+o_agr = aggregate(correctresponse~correctclass+correctclass1+correctclass2,data=o_no_sup,mean)
+o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$class)]
+o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
+o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
+#compare subjectivity with order-preference
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .86, r2 = .74
+results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ( 0.6614,  0.7938 ) 
+# PREDICATE add in subjectivity difference
+o_agr_pred = aggregate(correctresponse~correct_configuration+correctpred1+correctpred2+correctclass,data=o_no_sup,mean)
+o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
+o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
+#compare subjectivity with order-preference
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .58, r2 = .33
+results <- boot(data=o_agr_pred, statistic=rsq, R=100, formula=correctresponse~s_diff)
+boot.ci(results, type="bca") # 95%   ???
+## plot order preference against subjectivity
+# CLASS
+ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity_class-difference_no-sup.pdf",height=3,width=3.5)
+#PREDICATE
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity_difference_no-sup.pdf",height=3,width=3.5)
+
 
 
 #################################################
