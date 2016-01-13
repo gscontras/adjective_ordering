@@ -63,6 +63,11 @@ o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred
 gof(o_no_sup_pred$correctresponse,o_no_sup_pred$subjectivity) # r = .78, r2 = .61
 results <- boot(data=o_no_sup_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.4658,  0.7145 )  
+# PREDICATE WITHOUT SUPERLATIVES AND OUTLIERS (civilized* (human), *creative* (human), *current* (temporal), *daily* (temporal), *designated* (X), *entrepreneurial* (human), *frozen* (physical), and *solid* (physical))
+o_no_out_pred <- o_no_sup_pred[o_no_sup_pred$correctpred1!="civilized"&o_no_sup_pred$correctpred1!="creative"&o_no_sup_pred$correctpred1!="current"&o_no_sup_pred$correctpred1!="daily"&o_no_sup_pred$correctpred1!="designated"&o_no_sup_pred$correctpred1!="entrepreneurial"&o_no_sup_pred$correctpred1!="frozen"&o_no_sup_pred$correctpred1!="solid",]
+gof(o_no_out_pred$correctresponse,o_no_out_pred$subjectivity) # r = .87, r2 = .76
+results <- boot(data=o_no_out_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.6681,  0.8220 )  
 # CLASS
 o_agr_class$subjectivity = s_agr_class$response[match(o_agr_class$correctclass1,s_agr_class$class)]
 gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .86, r2 = .73
@@ -70,10 +75,10 @@ results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctrespons
 boot.ci(results, type="bca") # 95%   ( 0.3629,  0.8717 )
 
 # plot order preference against subjectivity
-ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=correctclass1)) +
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
   geom_point() +
-  #geom_text(aes(label=correctpred1),color="black")+
-  geom_smooth(method=lm,color="black") +
+  geom_text(aes(label=correctpred1),color="black")+
+  geom_smooth(method=lm,SE=FALSE,color="black") +
   xlab("\nsubjectivity")+
   ylab("naturalness\n")+
   #ylim(0,1)+
@@ -93,6 +98,80 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("results/naturalness-subjectivity-labelled.pdf",height=4,width=5.5)
+
+
+# plots with error bars
+
+head(s)
+head(o)
+s_s = bootsSummary(data=s, measurevar="response", groupvars=c("predicate","class"))
+o_s = bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctpred1","correctclass1"))
+sos <- o_s
+sos$subjectivity = s_s$response[match(sos$correctpred1,s_s$predicate)]
+sos$s_high = s_s$bootsci_high[match(sos$correctpred1,s_s$predicate)]
+sos$s_low = s_s$bootsci_low[match(sos$correctpred1,s_s$predicate)]
+ggplot(sos, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_text(aes(label=correctpred1),color="black")+
+  #geom_smooth(method=lm,color="black") +
+  geom_abline(slope=1,intercept=0)+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high,alpha=0.1,color="gray"))+
+  geom_errorbarh(aes(xmin=s_low, xmax=s_high,alpha=0.1,,color="gray"))+
+  xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  theme(legend.position="none")
+#ggsave("results/naturalness-subjectivity-labelled.pdf",height=4,width=5.5)
+# add in frequency and length 
+lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep="\t",header=T)
+head(lf)
+sos$freq = lf$logProbability[match(sos$correctpred1,lf$Adjective)]
+sos$length = lf$Length[match(sos$correctpred1,lf$Adjective)]
+ggplot(sos, aes(x=subjectivity,y=correctresponse,color=freq)) +
+  geom_point(size=1) +
+  geom_text(aes(label=correctpred1),size=2.5)+
+  #geom_smooth(method=lm,color="black") +
+  geom_abline(slope=1,intercept=0)+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high,alpha=0.1))+
+  geom_errorbarh(aes(xmin=s_low, xmax=s_high,alpha=0.1))+
+  xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  facet_wrap(~length)
+  #theme(legend.position="none")
+ggsave("results/naturalness-subjectivity-faceted.pdf",height=6,width=8.5)
+
+
+
+# plot order preference against subjectivity with class facet and r2
+
+lm_eqn = function(df){
+  m = lm(correctresponse ~ subjectivity, df);
+  eq <- substitute(~~italic(r)^2~"="~r2, 
+                   list(a = format(coef(m)[1], digits = 2), 
+                        b = format(coef(m)[2], digits = 2), 
+                        r2 = format(summary(m)$r.squared, digits = 3)))
+  as.character(as.expression(eq));                 
+}
+
+#eq <- ddply(o_agr_pred,.(correctclass1),lm_eqn)
+eq <- ddply(o_no_sup_pred,.(correctclass1),lm_eqn)
+
+ggplot(o_no_sup_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  #geom_text(aes(label=correctpred1),color="black")+
+  geom_smooth(method=lm,se=FALSE,color="black") +
+  xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  geom_text(data=eq,aes(x = 0.5, y = 0.2,label=V1), parse = TRUE, inherit.aes=FALSE) +
+  facet_wrap(~correctclass1)#,scales="free_y")
 
 
 #####
