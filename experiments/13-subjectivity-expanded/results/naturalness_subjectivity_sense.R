@@ -24,13 +24,20 @@ s_agr_class = aggregate(response~class,data=s,mean)
 
 #load in naturalness preferences
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master/order-preference-duplicated.csv",header=T)
-head(o)
-nrow(o) #28380 
+nrow(o) #28380
 o$string = paste(o$correctpred1,o$correctpred2,o$noun)
-o <- o[o$makes_sense=="yes",]
-nrow(o) #23790
-length(unique(o$string)) #23488
-length(unique(o$correct_configuration)) #5478
+length(unique(o$string)) #27966
+length(unique(o$correct_configuration)) #5516
+ns = o[o$makes_sense=="no",]
+ns$string = paste(ns$correctpred1,ns$correctpred2,ns$noun)
+length(unique(ns$string)) #4572
+length(unique(ns$correct_configuration)) #2910
+bad_configs = unique(ns$correct_configuration)
+d = droplevels(o[!(o$correct_configuration %in% as.character(bad_configs)),])
+nrow(d) #11734
+o <- d
+length(unique(o$string)) #11570
+length(unique(o$correct_configuration)) #2606
 o_no_sup <- o[o$correctpred1!="best"&o$correctpred1!="biggest"&o$correctpred1!="closest"&o$correctpred1!="last"&o$correctpred2!="best"&o$correctpred2!="biggest"&o$correctpred2!="closest"&o$correctpred2!="last",]
 o_no_sup_pred = aggregate(correctresponse~correctpred1*correctclass1,data=o_no_sup,mean)
 o_agr_pred = aggregate(correctresponse~correctpred1*correctclass1,data=o,mean)
@@ -42,42 +49,42 @@ o$workerID = o$workerid + 1
 o$response = o$correctresponse
 o$class = o$correctclass
 #library(plyr)
-prophet(splithalf_class(o, 100), 2) # 0.95 class configuration
-prophet(splithalf_correctpred(o, 100), 2) # 0.98 predicate configuration
+#prophet(splithalf_class(o, 100), 2) # 0.95 class configuration
+#prophet(splithalf_correctpred(o, 100), 2) # 0.98 predicate configuration
 s$workerID = s$workerid
-prophet(splithalf_pred(s, 100), 2) # 0.98
+#prophet(splithalf_pred(s, 100), 2) # 0.98
 
 ## SUBJECTIVITY
 # PREDICATE
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
-gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .72, r2 = .51
+gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .72, r2 = .52
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.3174,  0.6583 )  
+boot.ci(results, type="bca") # 95%   ( 0.3377,  0.6612 )
 # PREDICATE WITHOUT CLASS X
 o_x = o_agr_pred[o_agr_pred$correctclass1!="X",]
 gof(o_x$correctresponse,o_x$subjectivity) # r = .76, r2 = .58
 results <- boot(data=o_x, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.4128,  0.6960 )  
+boot.ci(results, type="bca") # 95%   ( 0.4183,  0.7002 )   
 # PREDICATE WITH ONLY ORIGINAL MATERIALS (there were 11)
 o_o = o_agr_pred[o_agr_pred$correctpred1=="blue"|o_agr_pred$correctpred1=="green"|o_agr_pred$correctpred1=="long"|o_agr_pred$correctpred1=="new"|o_agr_pred$correctpred1=="old"|o_agr_pred$correctpred1=="purple"|o_agr_pred$correctpred1=="red"|o_agr_pred$correctpred1=="smooth"|o_agr_pred$correctpred1=="square"|o_agr_pred$correctpred1=="wooden"|o_agr_pred$correctpred1=="yellow",]
-gof(o_o$correctresponse,o_o$subjectivity) # r = .95, r2 = .91
+gof(o_o$correctresponse,o_o$subjectivity) # r = .95, r2 = .90
 results <- boot(data=o_o, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.0548,  0.9680 )    
+boot.ci(results, type="bca") # 95%   ( 0.2304,  0.9621 )   
 # PREDICATE WITHOUT SUPERLATIVES (best, biggest, closest, last)
 o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
-gof(o_no_sup_pred$correctresponse,o_no_sup_pred$subjectivity) # r = .78, r2 = .61
+gof(o_no_sup_pred$correctresponse,o_no_sup_pred$subjectivity) # r = .79, r2 = .62
 results <- boot(data=o_no_sup_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.4658,  0.7145 )  
+boot.ci(results, type="bca") # 95%   ( 0.4881,  0.7255 )   
 # PREDICATE WITHOUT SUPERLATIVES AND OUTLIERS (civilized* (human), *creative* (human), *current* (temporal), *daily* (temporal), *designated* (X), *entrepreneurial* (human), *frozen* (physical), and *solid* (physical))
 o_no_out_pred <- o_no_sup_pred[o_no_sup_pred$correctpred1!="civilized"&o_no_sup_pred$correctpred1!="creative"&o_no_sup_pred$correctpred1!="current"&o_no_sup_pred$correctpred1!="daily"&o_no_sup_pred$correctpred1!="designated"&o_no_sup_pred$correctpred1!="entrepreneurial"&o_no_sup_pred$correctpred1!="frozen"&o_no_sup_pred$correctpred1!="solid",]
-gof(o_no_out_pred$correctresponse,o_no_out_pred$subjectivity) # r = .87, r2 = .76
+gof(o_no_out_pred$correctresponse,o_no_out_pred$subjectivity) # r = .86, r2 = .74
 results <- boot(data=o_no_out_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.6681,  0.8220 )  
+boot.ci(results, type="bca") # 95%   ( 0.6367,  0.8180   
 # CLASS
 o_agr_class$subjectivity = s_agr_class$response[match(o_agr_class$correctclass1,s_agr_class$class)]
-gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .86, r2 = .73
+gof(o_agr_class$correctresponse,o_agr_class$subjectivity) # r = .84, r2 = .71
 results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.3629,  0.8717 )
+boot.ci(results, type="bca") # 95%   ( 0.2484,  0.8763 )  
 
 # plot order preference against subjectivity
 ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
@@ -148,12 +155,11 @@ ggplot(sos, aes(x=subjectivity,y=correctresponse,color=freq)) +
   theme_bw()+
   facet_wrap(~length)
   #theme(legend.position="none")
-ggsave("results/naturalness-subjectivity-faceted.pdf",height=6,width=8.5)
+#ggsave("results/naturalness-subjectivity-faceted.pdf",height=6,width=8.5)
 
 
 
 # plot order preference against subjectivity with class facet and r2
-
 lm_eqn = function(df){
   m = lm(correctresponse ~ subjectivity, df);
   eq <- substitute(~~italic(r)^2~"="~r2, 
@@ -162,10 +168,8 @@ lm_eqn = function(df){
                         r2 = format(summary(m)$r.squared, digits = 3)))
   as.character(as.expression(eq));                 
 }
-
 #eq <- ddply(o_agr_pred,.(correctclass1),lm_eqn)
 eq <- ddply(o_no_sup_pred,.(correctclass1),lm_eqn)
-
 ggplot(o_no_sup_pred, aes(x=subjectivity,y=correctresponse)) +
   geom_point() +
   #geom_text(aes(label=correctpred1),color="black")+
@@ -201,7 +205,7 @@ o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$clas
 o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
 o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
 #compare subjectivity with order-preference
-gof(o_agr$s_diff,o_agr$correctresponse) # r = .83, r2 = .69
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .79, r2 = .63
 results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
 boot.ci(results, type="bca") # 95%   ( 0.6042,  0.7563 )  
 
@@ -211,7 +215,7 @@ o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_ag
 o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
 o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
 #compare subjectivity with order-preference
-gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .54, r2 = .29
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .59, r2 = .35
 results <- boot(data=o_agr_pred, statistic=rsq, R=100, formula=correctresponse~s_diff)
 boot.ci(results, type="bca") # 95%   ( 0.5929,  0.6769 )
 
@@ -260,7 +264,7 @@ o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$clas
 o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
 o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
 #compare subjectivity with order-preference
-gof(o_agr$s_diff,o_agr$correctresponse) # r = .86, r2 = .74
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .83, r2 = .68
 results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
 boot.ci(results, type="bca") # 95%   ( 0.6614,  0.7938 ) 
 # PREDICATE add in subjectivity difference
@@ -269,7 +273,7 @@ o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_ag
 o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
 o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
 #compare subjectivity with order-preference
-gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .58, r2 = .33
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .63, r2 = .39
 results <- boot(data=o_agr_pred, statistic=rsq, R=100, formula=correctresponse~s_diff)
 boot.ci(results, type="bca") # 95%   ???
 ## plot order preference against subjectivity
@@ -294,9 +298,113 @@ ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   theme_bw()
 #ggsave("results/naturalness-subjectivity_difference_no-sup.pdf",height=3,width=3.5)
 
+#####
+## configuration with only outliers
+#####
+#o_out <- o_no_sup[(o_no_sup$correctpred1=="civilized"|o_no_sup$correctpred1=="creative"|o_no_sup$correctpred1=="current"|o_no_sup$correctpred1=="daily"|o_no_sup$correctpred1=="designated"|o_no_sup$correctpred1=="entrepreneurial"|o_no_sup$correctpred1=="frozen"|o_no_sup$correctpred1=="solid")|(o_no_sup$correctpred2=="civilized"|o_no_sup$correctpred2=="creative"|o_no_sup$correctpred2=="current"|o_no_sup$correctpred2=="daily"|o_no_sup$correctpred2=="designated"|o_no_sup$correctpred2=="entrepreneurial"|o_no_sup$correctpred2=="frozen"|o_no_sup$correctpred2=="solid"),]
+o_out <- o_no_sup[(o_no_sup$correctpred1=="civilized"|o_no_sup$correctpred1=="creative"|o_no_sup$correctpred1=="current"|o_no_sup$correctpred1=="daily"|o_no_sup$correctpred1=="designated"|o_no_sup$correctpred1=="entrepreneurial"|o_no_sup$correctpred1=="frozen"|o_no_sup$correctpred1=="solid"),]
+# CLASS add in subjectivity difference
+o_agr = aggregate(correctresponse~correctclass+correctclass1+correctclass2,data=o_out,mean)
+o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$class)]
+o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
+o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
+#compare subjectivity with order-preference
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .34, r2 = .12
+#results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+#boot.ci(results, type="bca") # 95%   ( 0.6614,  0.7938 ) 
+# PREDICATE add in subjectivity difference
+o_agr_pred = aggregate(correctresponse~correct_configuration+correctpred1+correctpred2+correctclass,data=o_out,mean)
+o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
+o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
+#compare subjectivity with order-preference
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .32, r2 = .10
+#results <- boot(data=o_agr_pred, statistic=rsq, R=100, formula=correctresponse~s_diff)
+#boot.ci(results, type="bca") # 95%   ???
+## plot order preference against subjectivity
+# CLASS
+ggplot(o_agr, aes(x=s_diff,y=correctresponse)) + 
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity_class-difference_no-sup.pdf",height=3,width=3.5)
+#PREDICATE
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
+  geom_point(size=.5,alpha=.1) +
+  geom_text(aes(label=correctpred2),size=2,alpha=.75)+
+  geom_abline(intercept=0.5,slope=1)+
+  #geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  facet_wrap(~correctpred1)
+#ggsave("results/naturalness-subjectivity_outliers.pdf",height=9,width=10)
 
 
-#################################################
+#####
+## configuration with only outliers and noun information
+#####
+n = read.csv("results/nouns.csv",header=T)
+head(n)
+#o_out <- o_no_sup[(o_no_sup$correctpred1=="civilized"|o_no_sup$correctpred1=="creative"|o_no_sup$correctpred1=="current"|o_no_sup$correctpred1=="daily"|o_no_sup$correctpred1=="designated"|o_no_sup$correctpred1=="entrepreneurial"|o_no_sup$correctpred1=="frozen"|o_no_sup$correctpred1=="solid")|(o_no_sup$correctpred2=="civilized"|o_no_sup$correctpred2=="creative"|o_no_sup$correctpred2=="current"|o_no_sup$correctpred2=="daily"|o_no_sup$correctpred2=="designated"|o_no_sup$correctpred2=="entrepreneurial"|o_no_sup$correctpred2=="frozen"|o_no_sup$correctpred2=="solid"),]
+o_out <- o_no_sup[(o_no_sup$correctpred1=="civilized"|o_no_sup$correctpred1=="creative"|o_no_sup$correctpred1=="current"|o_no_sup$correctpred1=="daily"|o_no_sup$correctpred1=="designated"|o_no_sup$correctpred1=="entrepreneurial"|o_no_sup$correctpred1=="frozen"|o_no_sup$correctpred1=="solid"),]
+head(o_out)
+o_out$nounclass = n$nounClass[match(o_out$noun,n$noun)]
+# CLASS add in subjectivity difference
+o_agr = aggregate(correctresponse~correctclass+correctclass1+correctclass2+nounclass,data=o_out,mean)
+o_agr$class1_s = s_agr_class$response[match(o_agr$correctclass1,s_agr_class$class)]
+o_agr$class2_s = s_agr_class$response[match(o_agr$correctclass2,s_agr_class$class)]
+o_agr$s_diff = (o_agr$class1_s-o_agr$class2_s)
+#compare subjectivity with order-preference
+gof(o_agr$s_diff,o_agr$correctresponse) # r = .28, r2 = .08
+#results <- boot(data=o_agr, statistic=rsq, R=10000, formula=correctresponse~s_diff)
+#boot.ci(results, type="bca") # 95%   ( 0.6614,  0.7938 ) 
+# PREDICATE add in subjectivity difference
+o_agr_pred = aggregate(correctresponse~correct_configuration+correctpred1+correctpred2+correctclass+nounclass,data=o_out,mean)
+o_agr_pred$predicate1_s = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+o_agr_pred$predicate2_s = s_agr_pred$response[match(o_agr_pred$correctpred2,s_agr_pred$predicate)]
+o_agr_pred$s_diff = (o_agr_pred$predicate1_s-o_agr_pred$predicate2_s)
+#compare subjectivity with order-preference
+gof(o_agr_pred$s_diff,o_agr_pred$correctresponse) # r = .20, r2 = .04
+#results <- boot(data=o_agr_pred, statistic=rsq, R=100, formula=correctresponse~s_diff)
+#boot.ci(results, type="bca") # 95%   ???
+## plot order preference against subjectivity
+# CLASS
+ggplot(o_agr, aes(x=s_diff,y=correctresponse)) + 
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  facet_wrap(~nounclass)
+#ggsave("results/naturalness-subjectivity_class-difference_no-sup.pdf",height=3,width=3.5)
+#PREDICATE
+ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
+  geom_point(size=.5,alpha=.1) +
+  geom_text(aes(label=correctpred2),size=4,alpha=.75)+
+  geom_abline(intercept=0.5,slope=1)+
+  #geom_smooth(method=lm,color="black") +
+  xlab("\nsubjectivity difference")+
+  ylab("configuration naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  facet_grid(nounclass~correctpred1)
+#ggsave("results/naturalness-subjectivity_outliers.pdf",height=9,width=10)
+
+
+
+
+
+  #################################################
 ## REGRESSION ANALYSES
 #################################################
 
