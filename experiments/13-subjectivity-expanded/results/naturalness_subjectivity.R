@@ -47,6 +47,45 @@ prophet(splithalf_correctpred(o, 100), 2) # 0.98 predicate configuration
 s$workerID = s$workerid
 prophet(splithalf_pred(s, 100), 2) # 0.98
 
+## LINEAR REGRESSION TO FIND OUTLIERS
+o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
+m = glm(correctresponse~subjectivity,data=o_agr_pred)
+summary(m)
+o_agr_pred$Predicted = fitted(m)
+o_agr_pred$Diff = abs(o_agr_pred$correctresponse - o_agr_pred$Predicted)
+(2*sd(o_agr_pred$Diff)) #0.1545926
+o_agr_pred$outlier = F
+o_agr_pred[o_agr_pred$Diff>0.1545926,]$outlier = T
+table(o_agr_pred$outlier)
+o_agr_pred[o_agr_pred$outlier==T,]$correctpred1
+gof(o_agr_pred[o_agr_pred$outlier==F,]$correctresponse,o_agr_pred[o_agr_pred$outlier==F,]$subjectivity) #r2 = 0.74
+ggplot(o_agr_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
+  #geom_point(size=1) +
+  geom_text(aes(label=correctpred1),size=2)+
+  ylab("naturalness\n")+
+  xlab("\npredicted naturalness")+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity-outliers.pdf",height=4,width=5.5)
+# no superlatives
+o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
+m = glm(correctresponse~subjectivity,data=o_no_sup_pred)
+summary(m)
+o_no_sup_pred$Predicted = fitted(m)
+o_no_sup_pred$Diff = abs(o_no_sup_pred$correctresponse - o_no_sup_pred$Predicted)
+(2*sd(o_no_sup_pred$Diff)) #0.1240219
+o_no_sup_pred$outlier = F
+o_no_sup_pred[o_no_sup_pred$Diff>0.1240219,]$outlier = T
+table(o_no_sup_pred$outlier) #20 outliers
+o_no_sup_pred[o_no_sup_pred$outlier==T,]$correctpred1
+gof(o_no_sup_pred[o_no_sup_pred$outlier==F,]$correctresponse,o_no_sup_pred[o_no_sup_pred$outlier==F,]$subjectivity) #r2 = 0.85
+ggplot(o_no_sup_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
+  #geom_point(size=1) +
+  geom_text(aes(label=correctpred1),size=2)+
+  ylab("naturalness\n")+
+  xlab("\npredicted naturalness")+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity-outliers_no-superaltives.pdf",height=4,width=5.5)
+
 ## SUBJECTIVITY
 # PREDICATE
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
