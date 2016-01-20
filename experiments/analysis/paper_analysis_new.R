@@ -47,6 +47,8 @@ new_r = rbind(new_r[new_r$expt!="subjectivity",],s_s)
 
   
 new_r$expt = factor(new_r$expt,levels=c("preference","corpus","subjectivity","faultless"))
+head(new_r)
+new_r$class <- factor(new_r$class,labels=c("age","color","material","value","shape","dimension","physical"))
 
 ggplot(data=new_r,aes(x=reorder(class,-average,mean),y=average,fill=expt))+
     geom_bar(stat="identity",position=position_dodge(.9),color="black")+

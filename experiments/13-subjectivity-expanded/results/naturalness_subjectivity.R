@@ -37,6 +37,28 @@ o_agr_pred = aggregate(correctresponse~correctpred1*correctclass1,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass1,data=o,mean)
 head(o_agr_pred)
 
+# combined preference subjectivity plot
+o_s = bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctclass1"))
+o_s$expt = "preference"
+colnames(o_s) <- c("class","N","average","YMin","YMax","expt")
+s_s = bootsSummary(data=s, measurevar="response", groupvars=c("class"))
+s_s$expt = "subjectivity"
+colnames(s_s) <- c("class","N","average","YMin","YMax","expt")
+new_r = rbind(o_s,s_s)
+ggplot(data=new_r,aes(x=reorder(class,-average,mean),y=average,fill=expt))+
+  geom_bar(stat="identity",position=position_dodge(.9),color="black")+
+  geom_errorbar(aes(ymin=YMin, ymax=YMax, x=reorder(class,-average,mean), width=0.1),position=position_dodge(.9))+
+  xlab("\nadjective class")+
+  labs(fill="experiment") +
+  ylab("")+
+  ylim(0,1)+
+  theme_bw()+
+  scale_fill_manual(values=c("gray25","gray75","gray50","gray100"))+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_results.png",height=2.5,width=6.75)  
+
+
+
 # explainable variance
 o$workerID = o$workerid + 1
 o$response = o$correctresponse
@@ -51,6 +73,7 @@ prophet(splithalf_pred(s, 100), 2) # 0.98
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$correctpred1,s_agr_pred$predicate)]
 m = glm(correctresponse~subjectivity,data=o_agr_pred)
 summary(m)
+r.squaredGLMM(m) #0.51
 o_agr_pred$Predicted = fitted(m)
 o_agr_pred$Diff = abs(o_agr_pred$correctresponse - o_agr_pred$Predicted)
 (2*sd(o_agr_pred$Diff)) #0.1545926
@@ -66,10 +89,27 @@ ggplot(o_agr_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
   xlab("\npredicted naturalness")+
   theme_bw()
 #ggsave("results/naturalness-subjectivity-outliers.pdf",height=4,width=5.5)
+# partially-labeled plot
+o_agr_pred$text = o_agr_pred$correctpred1
+o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",]$text <- NA
+o_agr_pred$bad = TRUE
+o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",]$bad <- FALSE
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=bad)) +
+  geom_point() +
+  geom_smooth(data=o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",],method="lm",color="black")+
+  #stat_smooth(method="lm")+
+  geom_text(aes(label=text),size=2.5,vjust=1.5)+
+  ylab("naturalness\n")+
+  xlab("\nsubjectivity")+
+  theme_bw()+
+  scale_color_manual(values=c("black","red"))+
+  theme(legend.position="none")
+ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub.png",height=3,width=3.5)  
 # no superlatives
 o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
 m = glm(correctresponse~subjectivity,data=o_no_sup_pred)
 summary(m)
+r.squaredGLMM(m) #0.61
 o_no_sup_pred$Predicted = fitted(m)
 o_no_sup_pred$Diff = abs(o_no_sup_pred$correctresponse - o_no_sup_pred$Predicted)
 (3*sd(o_no_sup_pred$Diff)) #0.1860329
