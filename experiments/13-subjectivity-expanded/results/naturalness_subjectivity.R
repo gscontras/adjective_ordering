@@ -72,19 +72,52 @@ m = glm(correctresponse~subjectivity,data=o_no_sup_pred)
 summary(m)
 o_no_sup_pred$Predicted = fitted(m)
 o_no_sup_pred$Diff = abs(o_no_sup_pred$correctresponse - o_no_sup_pred$Predicted)
-(2*sd(o_no_sup_pred$Diff)) #0.1240219
+(3*sd(o_no_sup_pred$Diff)) #0.1860329
 o_no_sup_pred$outlier = F
-o_no_sup_pred[o_no_sup_pred$Diff>0.1240219,]$outlier = T
-table(o_no_sup_pred$outlier) #20 outliers
+o_no_sup_pred[o_no_sup_pred$Diff>0.1860329,]$outlier = T
+table(o_no_sup_pred$outlier) #4 outliers
 o_no_sup_pred[o_no_sup_pred$outlier==T,]$correctpred1
-gof(o_no_sup_pred[o_no_sup_pred$outlier==F,]$correctresponse,o_no_sup_pred[o_no_sup_pred$outlier==F,]$subjectivity) #r2 = 0.85
+gof(o_no_sup_pred[o_no_sup_pred$outlier==F,]$correctresponse,o_no_sup_pred[o_no_sup_pred$outlier==F,]$subjectivity) #r2 = 0.70
+results <- boot(data=o_no_sup_pred[o_no_sup_pred$outlier==F,], statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.5822,  0.7754 )  
 ggplot(o_no_sup_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
   #geom_point(size=1) +
   geom_text(aes(label=correctpred1),size=2)+
   ylab("naturalness\n")+
   xlab("\npredicted naturalness")+
   theme_bw()
-#ggsave("results/naturalness-subjectivity-outliers_no-superaltives.pdf",height=4,width=5.5)
+#ggsave("results/naturalness-subjectivity-outliers_3sd.pdf",height=4,width=5.5)
+# with frequency and length
+lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep="\t",header=T)
+o_no_sup_pred$freq = lf$logProbability[match(o_no_sup_pred$correctpred1,lf$Adjective)]
+o_no_sup_pred$length = lf$Length[match(o_no_sup_pred$correctpred1,lf$Adjective)]
+m = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred)
+summary(m)
+m
+o_no_sup_pred$Predicted = fitted(m)
+o_no_sup_pred$Diff = abs(o_no_sup_pred$correctresponse - o_no_sup_pred$Predicted)
+(3*sd(o_no_sup_pred$Diff)) #0.1603279
+o_no_sup_pred$outlier = F
+o_no_sup_pred[o_no_sup_pred$Diff>0.1603279,]$outlier = T
+table(o_no_sup_pred$outlier) #6 outliers
+o_no_sup_pred[o_no_sup_pred$outlier==T,]$correctpred1
+gof(o_no_sup_pred[o_no_sup_pred$outlier==F,]$correctresponse,o_no_sup_pred[o_no_sup_pred$outlier==F,]$subjectivity) #r2 = 0.72
+results <- boot(data=o_no_sup_pred[o_no_sup_pred$outlier==F,], statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.4700,  0.7185 )    
+ggplot(o_no_sup_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
+  #geom_point(size=1) +
+  geom_text(aes(label=correctpred1),size=2)+
+  ylab("naturalness\n")+
+  xlab("\npredicted naturalness")+
+  theme_bw()
+#ggsave("results/naturalness-subjectivity-outliers_lf.pdf",height=4,width=5.5)
+r.squaredGLMM(m) #0.7036081
+mo = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred[o_no_sup_pred$outlier==F,])
+summary(mo)
+r.squaredGLMM(mo) #0.7593991
+
+
+
 
 ## SUBJECTIVITY
 # PREDICATE
@@ -155,19 +188,19 @@ sos$subjectivity = s_s$response[match(sos$correctpred1,s_s$predicate)]
 sos$s_high = s_s$bootsci_high[match(sos$correctpred1,s_s$predicate)]
 sos$s_low = s_s$bootsci_low[match(sos$correctpred1,s_s$predicate)]
 ggplot(sos, aes(x=subjectivity,y=correctresponse)) +
-  geom_point() +
-  geom_text(aes(label=correctpred1),color="black")+
+  #geom_point() +
+  geom_text(aes(label=correctpred1),color="black",size=2)+
   #geom_smooth(method=lm,color="black") +
   geom_abline(slope=1,intercept=0)+
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high,alpha=0.1,color="gray"))+
-  geom_errorbarh(aes(xmin=s_low, xmax=s_high,alpha=0.1,,color="gray"))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high,color="gray"),alpha=0.5)+
+  geom_errorbarh(aes(xmin=s_low, xmax=s_high,color="gray"),alpha=0.5)+
   xlab("\nsubjectivity")+
   ylab("naturalness\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()+
   theme(legend.position="none")
-#ggsave("results/naturalness-subjectivity-labelled.pdf",height=4,width=5.5)
+#ggsave("results/naturalness-subjectivity-errorbars.pdf",height=4,width=5.5)
 # add in frequency and length 
 lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep="\t",header=T)
 head(lf)
