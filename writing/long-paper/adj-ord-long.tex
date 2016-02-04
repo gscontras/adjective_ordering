@@ -38,6 +38,9 @@
 \newcommand{\een}{\end{enumerate}}
 
 \newcommand{\gcs}[1]{\textcolor{blue}{[gcs: #1]}}
+\definecolor{Green}{RGB}{10,200,100}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}
+
 
 \thispagestyle{plain}
 
@@ -292,15 +295,20 @@ However, this already suggests that the effect of modified nouns explains only a
 
 \section{Experiment 3: Generalizing our findings}
 
-One might worry that the observed success of subjectivity in predicting ordering preferences is an artifact of the set of 26 adjectives we have so-far tested, and might not generalize to larger sets of materials. Therefore, to investigate the generalizability of our findings, in our final experiment we consider a much larger set of materials. This larger set includes many adjectives that are traditionally overlooked in investigations of ordering preferences.
+One might worry that the observed success of subjectivity in predicting ordering preferences is an artifact of the set of 26 adjectives we have so-far tested, and might not generalize to a broader set of adjectives. Therefore, we next consider a much larger set of adjectives. 
+We aimed to construct a set of adjectives that are attested in multi-adjective constructions and that span both grammatical classes, and a broad spectrum of frequencies and lengths.  
+The set of 78 adjectives we ultimately used includes many adjectives that are traditionally overlooked in investigations of ordering preferences.
 
 \subsection{Ordering preferences}
 
 \paragraph{Participants.} We recruited 495 participants through Amazon.com's Mechanical Turk. Participants were compensated for their participation.
 
-\paragraph{Design and methods.}
+\paragraph{Materials}
+To arrive at a new set of adjectives we began by extracting every unique adjective appearing in an ``A A N" NP from the Penn Treebank subset of the Switchboard corpus; there were 350 unique adjectives. Then, two of the authors (GS and JD) independently coded these 350 adjectives according to semantic classes from the literature \citep[e.g.,][]{dixon1982,Sproat1991}, indicated in Table~\ref{tab:large-materials}. We added a miscellaneous category ``X'' containing non-intersective adjectives (cf.~\citealp{Cinque2014}). After ignoring adjectives for which there was no obvious semantic class, as well as adjectives on which our classifications did not agree, we were left with 196 unique adjectives from 13 different classes.
 
-The design was identical to our previous naturalness rating experiments (Expts.~1.1 and 2.1): participants indicated which of two object descriptions sounded more natural, choosing between adjective-adjective-noun permutations that varied the relative order of the adjectives. Adjectives were chosen at random from the set in Table \ref{tab:large-materials}, with the constraint that adjectives from the same class were not paired together.
+To further refine this list of 196, we calculated adjective frequency, and on the basis of frequency divided the adjectives within each class into four quartiles. We also calculated adjective length on the basis of number of characters, and classified adjectives as either short or long. Then, for each adjective class with more than eight members, for each frequency quartile, we sampled a random adjective from each length (e.g., one short extremely frequent dimension adjective and one long extremely frequent dimension adjective). There were three cases without any observations from which to sample: ``nationality'' (Q3 short and Q4 short) and ``physical'' (Q4 short). We filled in these cases by randomly sampling from the leftovers in those two classes. Finally, we added an additional shape adjective, ``square'', because previously there was only ``circular''. This process yielded the 78 unique adjectives in Table~\ref{tab:large-materials}.%, with a minimum of two adjectives from each class and a maximum of eight.
+
+Nouns were chosen in a similar fashion. From the set of ``A A N" NPs in Switchboard, we extracted the 295 unique nouns, then restricted this set by 1) removing all plural or clearly collective nouns, and 2) removing nonsense words or words that might be confused with participles. This process yielded the 166 unique nouns in Table \ref{tab:large-materials}. \ndg{the nouns are not in the table, right??}
 
 \begin{table}
 	\centering
@@ -338,12 +346,11 @@ playful	&	human	&	spicy	&	physical	&	unique	&	X	\\	\bottomrule
 		\end{tabular}} 
 \end{table}
 
-We arrived at the new set of adjectives by extracting every unique adjective appearing in an ``A A N" NP from the Penn Treebank subset of the Switchboard corpus; there were 350 unique adjectives. Then, two of the authors (GS and JD) independently coded these 350 adjectives according to semantic classes from the literature \citep[e.g.,][]{dixon1982,Sproat1991}. We added a miscellaneous category ``X'' containing non-intersective adjectives (cf.~\citealp{Cinque2014}). After ignoring adjectives for which there was no obvious semantic class, as well as adjectives on which our classifications did not agree, we were left with 196 unique adjectives from 13 different classes.
 
-To further refine this list of 196, we calculated adjective frequency, and on the basis of frequency divided the adjectives within each class into four quartiles. We also calculated adjective length on the basis of number of characters, and classified adjectives as either short or long. Then, for each adjective class with more than eight members, for each frequency quartile, we sampled a random adjective from each length (e.g., one short extremely frequent dimension adjective and one long extremely frequent dimension adjective). There were three cases without any observations from which to sample: ``nationality'' (Q3 short and Q4 short) and ``physical'' (Q4 short). We filled in these cases by randomly sampling from the leftovers in those two classes. Finally, we added an additional shape adjective, ``square'', because previously there was only ``circular''. This process yielded the 78 unique adjectives in Table \ref{tab:large-materials}.%, with a minimum of two adjectives from each class and a maximum of eight.
+\paragraph{Design and methods.}
 
-Nouns were chosen in a similar fashion. From the set of ``A A N" NPs in Switchboard, we extracted the 295 unique nouns, then restricted this set by 1) removing all plural or clearly collective nouns, and 2) removing nonsense words or words that might be confused with participles. This process yielded the 166 unique nouns in Table \ref{tab:large-materials}.
-
+The design was identical to our previous naturalness rating experiments (Expts.~1.1 and 2.1): participants indicated which of two object descriptions sounded more natural, choosing between adjective-adjective-noun permutations that varied the relative order of the adjectives. Adjectives were chosen at random from the set in Table \ref{tab:large-materials}, with the constraint that adjectives from the same class were not paired together.
+%
 Participants completed 30 trials. On each trial, participants indicated their choice by adjusting the slider between endpoints labeled with the competing descriptions. Additionally, participants were able to indicate if a particular description did not make sense by checking a box labeled ``Neither option makes sense.'' Only native speakers of English with IP addresses located within the United States were included in the analyses; we analyzed data from 473 participants.
 
 \paragraph{Results.}
@@ -353,7 +360,7 @@ Participants completed 30 trials. On each trial, participants indicated their ch
 %	\caption{Mean naturalness ratings grouped by adjective class and whether or not the descriptions made sense to participants.}\label{fig:exp3-order}
 %\end{figure}
 
-Participants demonstrated little preference for adjective order when the descriptions were nonsense. For this reason, we excluded responses to nonsensical descriptions from the analyses of subjectivity below. Fig.~\ref{fig:exp3-results} (\emph{preference}) plots mean naturalness scores by adjective class for the descriptions that made sense to participants. Greater values signal that a class's adjectives are preferred in first position, farther from the modified noun; values around 0.5 indicate that neither order is preferred. 
+Participants demonstrated little preference for adjective order when the descriptions were nonsense. For this reason, we excluded responses to nonsensical descriptions from the analyses of subjectivity below. \ndg{how many excluded in this way?} Fig.~\ref{fig:exp3-results} (\emph{preference}) plots mean naturalness scores by adjective class for the descriptions that made sense to participants. Greater values signal that a class's adjectives are preferred in first position, farther from the modified noun; values around 0.5 indicate that neither order is preferred. 
 
 As with the previous ordering preference experiments, we performed a nested model comparison to investigate the role of specific noun information in determining ordering preferences. The models predicted naturalness ratings either by \textsc{adjective} only, or by \textsc{adjective} together with its interaction with \textsc{noun}. Once again, the model comparison revealed that noun-specific ratings did not explain any additional variance in ordering preference above and beyond adjective-level ratings ($F(1,10100) = 0.98, p < 0.87$).
 
@@ -363,11 +370,11 @@ Next, we evaluated the subjectivity of our new set of adjectives using the direc
 
 \paragraph{Participants.}
 
-We recruited 198 participants from Amazon.com's Mechanical Turk. Participants were compensated for their participants.
+We recruited 198 participants from Amazon.com's Mechanical Turk. Participants were compensated for their participation.
 
 \paragraph{Design and methods.}
 
-The design was identical to our previous direct ``subjectivity'' experiment: participants rated the subjectivity of an adjective on a sliding scale with endpoints labeled ``completely objective'' (coded as 0) and ``completely subjective'' (coded as 1). Adjectives were chosen at random from the set of 78 in Table \ref{tab:large-materials}. Participants completed a total of 30 trials. Only native speakers of English with IP addresses located within the United States were included in the analyses; we analyzed data from 189 participants.
+The design was identical to our previous direct ``subjectivity'' experiment: participants rated the subjectivity of an adjective on a sliding scale with endpoints labeled ``completely objective'' (coded as 0) and ``completely subjective'' (coded as 1). Participants completed a total of 30 trials. On each trial an adjective was chosen at random from the set of 78 in Table \ref{tab:large-materials}.  Only native speakers of English with IP addresses located within the United States were included in the analyses; we analyzed data from 189 participants.
 
 \paragraph{Results.}
 
@@ -376,21 +383,21 @@ The design was identical to our previous direct ``subjectivity'' experiment: par
 	\caption{Mean subjectivity ratings grouped by adjective class.}\label{fig:exp3-results}
 \end{figure}
 
-Fig.~\ref{fig:exp3-results} (\emph{subjectivity}) plots mean subjectivity scores by adjective class; greater values indicate that a class's adjectives are judged to be more subjective. To evaluate the power of subjectivity in predicting adjective ordering preferences, we compared subjectivity scores with the naturalness ratings (Fig.~\ref{fig:exp3-nat-subj}). Adjective subjectivity scores account for 51\% of the variance in the naturalness ratings ($r^2=0.51$, 95\% CI $[0.32, 0.66]$). Four observations clearly stood out in Fig.~\ref{fig:exp3-nat-subj}, corresponding to the superlatives \emph{best}, \emph{biggest}, \emph{closest}, and \emph{last}. Indeed, superlatives have been observed to eschew adjective ordering preferences, occurring farthest from the modified noun regardless of class or subjectivity \citep{dixon1982}; our naturalness ratings reflect this fact. Removing superlatives from the naturalness ratings, we find that subjectivity scores perform markedly better, accounting for 61\% of the variance ($r^2=0.61$, 95\% CI $[0.46, 0.71]$). At the level of adjective class configurations, subjectivity difference scores account for 74\% of the variance in the configuration ratings ($r^2=0.74$, 95\% CI $[0.66, 0.79]$; Fig.~\ref{fig:exp3-nat-subj-diff}).\footnote{This analysis and the plot in Fig.~\ref{fig:exp3-nat-subj-diff} exclude superlatives. If we include superlatives in the class configuration analysis, subjectivity difference scores account for 69\% of the variance in the naturalness ratings ($r^2=0.69$, 95\% CI $[0.60,  0.76]$).}
+Fig.~\ref{fig:exp3-results} (\emph{subjectivity}) plots mean subjectivity scores by adjective class; greater values indicate that a class's adjectives are judged to be more subjective. To evaluate the power of subjectivity in predicting adjective ordering preferences, we compared subjectivity scores with the naturalness ratings (Fig.~\ref{fig:exp3-nat-subj}). Adjective subjectivity scores account for 51\% of the variance in the naturalness ratings ($r^2=0.51$, 95\% CI $[0.32, 0.66]$). Four observations clearly stood out in Fig.~\ref{fig:exp3-nat-subj}, corresponding to the superlatives \emph{best}, \emph{biggest}, \emph{closest}, and \emph{last}. Indeed, superlatives have been observed to eschew adjective ordering preferences, occurring farthest from the modified noun regardless of class or subjectivity \citep{dixon1982}; our naturalness ratings reflect this fact. Removing superlatives, we find that subjectivity scores perform markedly better, accounting for 61\% of the variance ($r^2=0.61$, 95\% CI $[0.46, 0.71]$). At the level of adjective class configurations, subjectivity difference scores account for 74\% of the variance in the configuration ratings ($r^2=0.74$, 95\% CI $[0.66, 0.79]$; Fig.~\ref{fig:exp3-nat-subj-diff}).\footnote{This analysis and the plot in Fig.~\ref{fig:exp3-nat-subj-diff} exclude superlatives. If we include superlatives in the class configuration analysis, subjectivity difference scores account for 69\% of the variance in the naturalness ratings ($r^2=0.69$, 95\% CI $[0.60,  0.76]$).}
 
 \begin{figure}
 	\centering\includegraphics[width=3.5in]{plots/expt3_nat-sub.eps}
-	\caption{Mean naturalness ratings plotted against mean subjectivity scores for each of the 78 adjectives tested in Expt.~3. Superlatives and outlier adjectives are labeled in red.}\label{fig:exp3-nat-subj}
+	\caption{Mean naturalness ratings plotted against mean subjectivity scores for each of the 78 adjectives tested in Expt.~3. Superlatives and outlier adjectives are labeled in red. \ndg{how about putting the -est in green and the other outliers in blue or some other color?}}\label{fig:exp3-nat-subj}
 \end{figure}
 
 \begin{figure}
 	\centering\includegraphics[width=3.5in]{plots/naturalness-subjectivity_class-difference_no-sup.eps}
-	\caption{Mean configuration naturalness ratings plotted against subjectivity difference scores for each pair of adjective classes tested in Expt.~3.}\label{fig:exp3-nat-subj-diff}
+	\caption{Mean configuration naturalness ratings plotted against subjectivity difference scores for each pair of adjective classes tested in Expt.~3. \ndg{why is this so pixelated?}}\label{fig:exp3-nat-subj-diff}
 \end{figure}
 
 A post-hoc look at our data revealed a small number of outlier adjectives in addition to the four superlatives. To systematically detect these outlier adjectives, we fit a linear regression predicting naturalness ratings by subjectivity scores, then calculated the absolute difference between the actual naturalness ratings and the model's predicted values. Setting the cutoff for this difference score at 3 $\times$ standard deviation, four adjectives stood apart as outliers: ​\emph{entrepreneurial}​, ​\emph{solid}​, ​\emph{current}​, and ​\emph{daily} (labelled in red in Fig.~\ref{fig:exp3-nat-subj}). Without the four outlier adjectives (and the four superlatives), adjective subjectivity scores account for 70\% of the variance in the naturalness ratings ($r^2=0.70$, 95\% CI $[0.58,  0.78]$).
 
-We also looked at the contribution of frequency and length in predicting ordering preferences. Treating subjectivity, frequency, and length as predictors in a linear regression predicting naturalness ratings (excluding superlatives), the model accounts for 70\% of the variance ($r^{2}=0.70$). If we remove outlier adjectives that fall more than three standard deviations away from the predicted value of the model (there were six: \emph{mini}, \emph{frozen}, \emph{solid}, \emph{current}, \emph{daily}, \emph{designated}), the model performs better, accounting for 76\% of the variance ($r^{2}=0.76)$.
+We also looked at the contribution of frequency and length in predicting ordering preferences. Treating subjectivity, frequency, and length as predictors in a linear regression predicting naturalness ratings (excluding superlatives), the model accounts for 70\% of the variance ($r^{2}=0.70$). \ndg{and the extended model explains more variance? ie are freq and length predictive beyond subj? and vice versa?} If we remove outlier adjectives that fall more than three standard deviations away from the predicted value of the model (there were six: \emph{mini}, \emph{frozen}, \emph{solid}, \emph{current}, \emph{daily}, \emph{designated}), the model performs better, accounting for 76\% of the variance ($r^{2}=0.76)$.
 
 \subsection{Discussion}
 
