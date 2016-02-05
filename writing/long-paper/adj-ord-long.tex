@@ -308,7 +308,7 @@ To arrive at a new set of adjectives we began by extracting every unique adjecti
 
 To further refine this list of 196, we calculated adjective frequency, and on the basis of frequency divided the adjectives within each class into four quartiles. We also calculated adjective length on the basis of number of characters, and classified adjectives as either short or long. Then, for each adjective class with more than eight members, for each frequency quartile, we sampled a random adjective from each length (e.g., one short extremely frequent dimension adjective and one long extremely frequent dimension adjective). There were three cases without any observations from which to sample: ``nationality'' (Q3 short and Q4 short) and ``physical'' (Q4 short). We filled in these cases by randomly sampling from the leftovers in those two classes. Finally, we added an additional shape adjective, ``square'', because previously there was only ``circular''. This process yielded the 78 unique adjectives in Table~\ref{tab:large-materials}.%, with a minimum of two adjectives from each class and a maximum of eight.
 
-Nouns were chosen in a similar fashion. From the set of ``A A N" NPs in Switchboard, we extracted the 295 unique nouns, then restricted this set by 1) removing all plural or clearly collective nouns, and 2) removing nonsense words or words that might be confused with participles. This process yielded the 166 unique nouns in Table \ref{tab:large-materials}. \ndg{the nouns are not in the table, right??}
+Nouns were chosen in a similar fashion. From the set of ``A A N" NPs in Switchboard, we extracted the 295 unique nouns, then restricted this set by 1) removing all plural or clearly collective nouns, and 2) removing nonsense words or words that might be confused with participles. This process yielded 166 unique nouns. %\ndg{the nouns are not in the table, right??}
 
 \begin{table}
 	\centering
@@ -360,7 +360,8 @@ Participants completed 30 trials. On each trial, participants indicated their ch
 %	\caption{Mean naturalness ratings grouped by adjective class and whether or not the descriptions made sense to participants.}\label{fig:exp3-order}
 %\end{figure}
 
-Participants demonstrated little preference for adjective order when the descriptions were nonsense. For this reason, we excluded responses to nonsensical descriptions from the analyses of subjectivity below. \ndg{how many excluded in this way?} Fig.~\ref{fig:exp3-results} (\emph{preference}) plots mean naturalness scores by adjective class for the descriptions that made sense to participants. Greater values signal that a class's adjectives are preferred in first position, farther from the modified noun; values around 0.5 indicate that neither order is preferred. 
+Participants demonstrated little preference for adjective order when the descriptions were nonsense. For this reason, we excluded responses to nonsensical descriptions from the analyses of subjectivity below; this exclusion process removed 2295 observations (16\% of the total 14190).  %\ndg{how many excluded in this way?} 
+Fig.~\ref{fig:exp3-results} (\emph{preference}) plots mean naturalness scores by adjective class for the descriptions that made sense to participants. Greater values signal that a class's adjectives are preferred in first position, farther from the modified noun; values around 0.5 indicate that neither order is preferred. 
 
 As with the previous ordering preference experiments, we performed a nested model comparison to investigate the role of specific noun information in determining ordering preferences. The models predicted naturalness ratings either by \textsc{adjective} only, or by \textsc{adjective} together with its interaction with \textsc{noun}. Once again, the model comparison revealed that noun-specific ratings did not explain any additional variance in ordering preference above and beyond adjective-level ratings ($F(1,10100) = 0.98, p < 0.87$).
 
@@ -387,17 +388,23 @@ Fig.~\ref{fig:exp3-results} (\emph{subjectivity}) plots mean subjectivity scores
 
 \begin{figure}
 	\centering\includegraphics[width=3.5in]{plots/expt3_nat-sub.eps}
-	\caption{Mean naturalness ratings plotted against mean subjectivity scores for each of the 78 adjectives tested in Expt.~3. Superlatives and outlier adjectives are labeled in red. \ndg{how about putting the -est in green and the other outliers in blue or some other color?}}\label{fig:exp3-nat-subj}
+	\caption{Mean naturalness ratings plotted against mean subjectivity scores for each of the 78 adjectives tested in Expt.~3. Superlatives are labeled in green; outlier adjectives are labeled in blue. 
+		%\ndg{how about putting the -est in green and the other outliers in blue or some other color?}
+		}\label{fig:exp3-nat-subj}
 \end{figure}
 
 \begin{figure}
 	\centering\includegraphics[width=3.5in]{plots/naturalness-subjectivity_class-difference_no-sup.eps}
-	\caption{Mean configuration naturalness ratings plotted against subjectivity difference scores for each pair of adjective classes tested in Expt.~3. \ndg{why is this so pixelated?}}\label{fig:exp3-nat-subj-diff}
+	\caption{Mean configuration naturalness ratings plotted against subjectivity difference scores for each pair of adjective classes tested in Expt.~3. 
+		%\ndg{why is this so pixelated?}
+		}\label{fig:exp3-nat-subj-diff}
 \end{figure}
 
-A post-hoc look at our data revealed a small number of outlier adjectives in addition to the four superlatives. To systematically detect these outlier adjectives, we fit a linear regression predicting naturalness ratings by subjectivity scores, then calculated the absolute difference between the actual naturalness ratings and the model's predicted values. Setting the cutoff for this difference score at 3 $\times$ standard deviation, four adjectives stood apart as outliers: ​\emph{entrepreneurial}​, ​\emph{solid}​, ​\emph{current}​, and ​\emph{daily} (labelled in red in Fig.~\ref{fig:exp3-nat-subj}). Without the four outlier adjectives (and the four superlatives), adjective subjectivity scores account for 70\% of the variance in the naturalness ratings ($r^2=0.70$, 95\% CI $[0.58,  0.78]$).
+A post-hoc look at our data revealed a small number of outlier adjectives in addition to the four superlatives. To systematically detect these outlier adjectives, we fit a linear regression predicting naturalness ratings by subjectivity scores, then calculated the absolute difference between the actual naturalness ratings and the model's predicted values. Setting the cutoff for this difference score at 3 $\times$ standard deviation, four adjectives stood apart as outliers: ​\emph{entrepreneurial}, ​\emph{solid}, ​\emph{current}, and ​\emph{daily} (labelled in blue in Fig.~\ref{fig:exp3-nat-subj}). Without the four outlier adjectives (and the four superlatives), adjective subjectivity scores account for 70\% of the variance in the naturalness ratings ($r^2=0.70$, 95\% CI $[0.58,  0.78]$).
 
-We also looked at the contribution of frequency and length in predicting ordering preferences. Treating subjectivity, frequency, and length as predictors in a linear regression predicting naturalness ratings (excluding superlatives), the model accounts for 70\% of the variance ($r^{2}=0.70$). \ndg{and the extended model explains more variance? ie are freq and length predictive beyond subj? and vice versa?} If we remove outlier adjectives that fall more than three standard deviations away from the predicted value of the model (there were six: \emph{mini}, \emph{frozen}, \emph{solid}, \emph{current}, \emph{daily}, \emph{designated}), the model performs better, accounting for 76\% of the variance ($r^{2}=0.76)$.
+We also looked at the contribution of frequency and length in predicting ordering preferences. Treating subjectivity, frequency, and length as predictors in a linear regression predicting naturalness ratings (excluding superlatives), the model accounts for 70\% of the variance ($r^{2}=0.70$). 
+%\ndg{and the extended model explains more variance? ie are freq and length predictive beyond subj? and vice versa?} 
+If we remove outlier adjectives that fall more than three standard deviations away from the predicted value of the model (there were six: \emph{mini}, \emph{frozen}, \emph{solid}, \emph{current}, \emph{daily}, \emph{designated}), the model performs better, accounting for 76\% of the variance ($r^{2}=0.76)$.
 
 \subsection{Discussion}
 
