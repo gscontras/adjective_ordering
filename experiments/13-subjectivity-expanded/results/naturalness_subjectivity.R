@@ -92,8 +92,9 @@ ggplot(o_agr_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
 # partially-labeled plot
 o_agr_pred$text = o_agr_pred$correctpred1
 o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",]$text <- NA
-o_agr_pred$bad = TRUE
-o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",]$bad <- FALSE
+o_agr_pred$bad = "good"
+o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",]$bad = "outlier"
+o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last",]$bad = "superlative"
 ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=bad)) +
   geom_point() +
   geom_smooth(data=o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last"&o_agr_pred$correctpred1!="daily"&o_agr_pred$correctpred1!="current"&o_agr_pred$correctpred1!="solid"&o_agr_pred$correctpred1!="entrepreneurial",],method="lm",color="black")+
@@ -102,9 +103,9 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=bad)) +
   ylab("naturalness\n")+
   xlab("\nsubjectivity")+
   theme_bw()+
-  scale_color_manual(values=c("black","red"))+
+  scale_color_manual(values=c("green","black","blue"))+
   theme(legend.position="none")
-ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub.png",height=3,width=3.5)  
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub.png",height=3,width=3.5)  
 # no superlatives
 o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
 m = glm(correctresponse~subjectivity,data=o_no_sup_pred)
@@ -394,7 +395,7 @@ ggplot(o_agr, aes(x=s_diff,y=correctresponse)) +
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("results/naturalness-subjectivity_class-difference_no-sup.pdf",height=3,width=3.5)
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/naturalness-subjectivity_class-difference_no-sup.png",height=3,width=3.5)
 #PREDICATE
 ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   geom_point() +
