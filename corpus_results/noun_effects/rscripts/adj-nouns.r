@@ -2,7 +2,7 @@ library(ggplot2)
 theme_set(theme_bw(18))
 setwd("~/cogsci/projects/stanford/projects/adjective_ordering/corpus_results/noun_effects")
 #for greg
-#setwd("~/Documents/git/CoCoLab/adjective_ordering/corpus_results/")
+#setwd("~/Documents/git/CoCoLab/adjective_ordering/corpus_results/noun_effects")
 source("rscripts/helpers.r")
 load("data/dsub.bnc.RData")
 nrow(dsub)
@@ -137,8 +137,11 @@ ordered[ordered$Noun %in% c("thing","eyes","hair","apple","cheese"),]
 nouns = c("thing","eyes","hair","cheese","apple")
 #nouns = ordered$Noun[1:20]
 ggplot(toplot[toplot$Noun %in% nouns,], aes(x=expJPFromAN,y=JointProbabilityAN)) +
-  geom_point() +
-  geom_text(aes(label=Combination)) +
+  #geom_point() +
+  geom_text(aes(label=Adjective),size=3.5) +
   geom_abline(intercept=0,slope=1,color="gray60") +
-  facet_wrap(~Noun,scales="free")
-ggsave("graphs/by-noun-jps-bnc.pdf",width=20,height=15)
+  xlab("expected probability")+
+  ylab("observed probability")+
+  facet_wrap(~Noun,scales="free")+
+  theme(axis.text.x = element_blank(),axis.text.y = element_blank()) 
+ggsave("graphs/by-noun-jps-bnc-slide.pdf",width=10,height=5)

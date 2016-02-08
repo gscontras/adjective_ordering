@@ -74,11 +74,11 @@ boot.ci(results, type="bca") # 95%   ( 0.0001,  0.7918 )
 ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nconcept formability (no noun; r = -0.28)")+
-  ylab("naturalness\n")+
+  xlab("\nconcept formability")+
+  ylab("preferred distance from noun\n")+
   ylim(0,1)+
   theme_bw()
-#ggsave("../results/naturalness-concept-no-noun.png",height=3,width=4)
+#ggsave("../results/naturalness-concept-pred.png",height=3,width=3.5)
 
 ######
 ## with noun info
@@ -103,11 +103,11 @@ gof(o_agr_class$correctresponse,o_agr_class$concept) # r = -0.20, r2 = 0.04
 ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nconcept formability (w/ noun; r = -0.01)")+
-  ylab("naturalness\n")+
+  xlab("\nconcept formability")+
+  ylab("preferred distance from noun\n")+
   ylim(0,1)+
   theme_bw()
-#ggsave("../results/naturalness-concept-noun.png",height=3,width=4)
+#ggsave("../results/naturalness-concept-noun-pred.png",height=3,width=3.5)
 
 
 #############################################
@@ -128,7 +128,14 @@ o_agr_pred$concept = d_agr_pred$noun_response[match(o_agr_pred$predicate,d_agr_p
 gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = 0.60, r2 = 0.36
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
 boot.ci(results, type="bca") # 95%   ( 0.0712,  0.6160 )    
-
+ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nconcept formability")+
+  ylab("preferred distance from noun\n")+
+  ylim(0,1)+
+  theme_bw()
+#ggsave("../results/naturalness-concept-noun.png",height=3,width=3.5)
 
 
 
