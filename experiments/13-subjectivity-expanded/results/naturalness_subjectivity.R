@@ -154,18 +154,18 @@ ggplot(o_no_sup_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
 lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep="\t",header=T)
 o_no_sup_pred$freq = lf$logProbability[match(o_no_sup_pred$correctpred1,lf$Adjective)]
 o_no_sup_pred$length = lf$Length[match(o_no_sup_pred$correctpred1,lf$Adjective)]
-m = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred)
+m = lm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred)
 summary(m)
 r.squaredGLMM(m) #0.7036081
-m_s = glm(correctresponse~freq+length,data=o_no_sup_pred)
+m_s = lm(correctresponse~freq+length,data=o_no_sup_pred)
 summary(m_s)
-m_f = glm(correctresponse~subjectivity+length,data=o_no_sup_pred)
+m_f = lm(correctresponse~subjectivity+length,data=o_no_sup_pred)
 summary(m_f)
-m_l = glm(correctresponse~subjectivity+freq,data=o_no_sup_pred)
+m_l = lm(correctresponse~subjectivity+freq,data=o_no_sup_pred)
 summary(m_l)
-anova(m,m_s,test = "F")
-anova(m,m_f,test = "F")
-anova(m,m_l,test = "F")
+anova(m_s,m)
+anova(m_f,m)
+anova(m_l,m)
 
 m1 = lmer(correctresponse~sub1+freq1+length1+(1|workerid),data=o)
 m2 = lmer(correctresponse~freq1+length1+(1|workerid),data=o)
