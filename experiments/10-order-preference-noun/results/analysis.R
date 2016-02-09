@@ -13,7 +13,7 @@ unique(d$language)
 all <- d
 # only native English speakers (n=45)
 d = d[d$language!="Spanish/English"&d$language!="vietnamese",]
-unique(d$workerid)
+length(unique(d$workerid))
 summary(d)
 #write.csv(d,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/order-preference-trimmed.csv")
 

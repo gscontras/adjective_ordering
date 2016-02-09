@@ -106,6 +106,28 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=bad)) +
   scale_color_manual(values=c("green","black","blue"))+
   theme(legend.position="none")
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub.png",height=3,width=3.5)  
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method="lm",color="black")+
+  #stat_smooth(method="lm")+
+  #geom_text(aes(label=text),size=2.5,vjust=1.5)+
+  ylab("naturalness\n")+
+  xlab("\nsubjectivity")+
+  theme_bw()+
+  scale_color_manual(values=c("green","black","blue"))+
+  theme(legend.position="none")
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub_all.pdf",height=3,width=3.5) 
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,color=bad)) +
+  geom_point() +
+  geom_smooth(data=o_agr_pred[o_agr_pred$correctpred1!="best"&o_agr_pred$correctpred1!="biggest"&o_agr_pred$correctpred1!="closest"&o_agr_pred$correctpred1!="last",],method="lm",color="black")+
+  #stat_smooth(method="lm")+
+  geom_text(data=o_agr_pred[o_agr_pred$correctpred1=="best"|o_agr_pred$correctpred1=="biggest"|o_agr_pred$correctpred1=="closest"|o_agr_pred$correctpred1=="last",],aes(label=text),size=2.5,vjust=1.5)+
+  ylab("naturalness\n")+
+  xlab("\nsubjectivity")+
+  theme_bw()+
+  scale_color_manual(values=c("green","black","black"))+
+  theme(legend.position="none")
+#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/expt3_nat-sub_sup.pdf",height=3,width=3.5)  
 # no superlatives
 o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred1,s_agr_pred$predicate)]
 m = glm(correctresponse~subjectivity,data=o_no_sup_pred)
@@ -134,6 +156,26 @@ o_no_sup_pred$freq = lf$logProbability[match(o_no_sup_pred$correctpred1,lf$Adjec
 o_no_sup_pred$length = lf$Length[match(o_no_sup_pred$correctpred1,lf$Adjective)]
 m = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred)
 summary(m)
+r.squaredGLMM(m) #0.7036081
+m_s = glm(correctresponse~freq+length,data=o_no_sup_pred)
+summary(m_s)
+m_f = glm(correctresponse~subjectivity+length,data=o_no_sup_pred)
+summary(m_f)
+m_l = glm(correctresponse~subjectivity+freq,data=o_no_sup_pred)
+summary(m_l)
+anova(m,m_s,test = "F")
+anova(m,m_f,test = "F")
+anova(m,m_l,test = "F")
+
+m1 = lmer(correctresponse~sub1+freq1+length1+(1|workerid),data=o)
+m2 = lmer(correctresponse~freq1+length1+(1|workerid),data=o)
+anova(m1,m2)
+
+
+mo = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred[o_no_sup_pred$outlier==F,])
+summary(mo)
+r.squaredGLMM(mo) #0.7593991
+
 m
 o_no_sup_pred$Predicted = fitted(m)
 o_no_sup_pred$Diff = abs(o_no_sup_pred$correctresponse - o_no_sup_pred$Predicted)
@@ -152,10 +194,7 @@ ggplot(o_no_sup_pred, aes(x=Predicted,y=correctresponse,color=outlier)) +
   xlab("\npredicted naturalness")+
   theme_bw()
 #ggsave("results/naturalness-subjectivity-outliers_lf.pdf",height=4,width=5.5)
-r.squaredGLMM(m) #0.7036081
-mo = glm(correctresponse~subjectivity+freq+length,data=o_no_sup_pred[o_no_sup_pred$outlier==F,])
-summary(mo)
-r.squaredGLMM(mo) #0.7593991
+
 
 
 
@@ -626,3 +665,15 @@ r.squaredGLMM(m_sub)
 
 r.squaredGLMM(m)
 r.squaredGLMM(m_no_config)
+
+
+# add in frequency and length 
+lf = read.table("../../corpus_results/data/sampled_adjectives_with_freq.txt",sep="\t",header=T)
+head(lf)
+o_agr_pred$freq = lf$logProbability[match(o_agr_pred$correctpred1,lf$Adjective)]
+o_agr_pred$length = lf$Length[match(o_agr_pred$correctpred1,lf$Adjective)]
+head(o_agr_pred)
+
+m = glm(correctresponse~subjectivity+freq+length,data=o_agr_pred)
+summary(m)
+r.squaredGLMM(m)
