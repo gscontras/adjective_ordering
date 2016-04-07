@@ -58,17 +58,19 @@ gof(o_agr_pred$subsective,o_agr_pred$faultless) # r = .93, r2 = .86
 gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .94, r2 = .89
 
 # plot order preference against subsectivity
-ggplot(o_agr_pred, aes(x=subsective,y=correctresponse)) +
+ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
 #ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
 #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
   xlab("\nsubsectivity")+
-  ylab("naturalness\n")+
+  ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  #ylab("naturalness\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity-new.pdf",height=3,width=3.5)
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-subsective-subjective.pdf",height=3,width=3.5)
 
 #model comparison
 o$subsective = si$subsective[match(o$predicate,si$predicate)]
@@ -145,6 +147,58 @@ ggplot(o_agr_pred, aes(x=subs_diff,y=correctresponse)) +
 
 
 
+
+###################################
+##### NEW NOUNS ####################
+###################################
+
+#load in order preference
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/10-order-preference-noun/Submiterator-master/naturalness-duplicated.csv",header=T)
+head(o)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+#o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
+head(o_agr_pred)
+
+#load in subsectivity
+si = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective-set1.csv",header=T)
+#si$subsective <- as.factor(si$subsective)
+o_agr_pred$subsective = si$subsective[match(o_agr_pred$predicate,si$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.92 r2 = 0.85
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
+boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )   
+
+#load in subjectivity
+setwd("~/Documents/git/cocolab/adjective_ordering/experiments/analysis")
+s = read.csv("subjectivity_no-noun_results.csv",header=T)
+s_agr_pred = aggregate(response~predicate,data=s,mean)
+#s_agr_class = aggregate(response~class,data=s,mean)
+o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .92, r2 = .85
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )  
+
+#compare subsectivity and subjectivity
+gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .97, r2 = .93
+
+# plot order preference against subsectivity
+ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubsectivity")+
+  ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  #ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt2-subsective-subjective.pdf",height=3,width=3.5)
+
+
+
+
+
+
 ###################################
 ##### NEW ADJECTIVES ####################
 ###################################
@@ -169,13 +223,13 @@ colnames(o_agr_pred) <- c("predicate","class","correctresponse")
 si = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective-set2.csv",header=T)
 
 o_agr_pred$subsective = si$subsective[match(o_agr_pred$predicate,si$predicate)]
-gof(o_agr_pred$correctresponse,o_agr_pred$subsective,na.rm=FALSE) # r = 0.76 r2 = 0.58
+gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.75, r2 = 0.56
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
-boot.ci(results, type="bca") # 95%   ( 0.3827,  0.6681 )  
+boot.ci(results, type="bca") # 95%   ( 0.4056,  0.6741 )
 
 o_agr_pred$subsectiveF = si$subsectiveF[match(o_agr_pred$predicate,si$predicate)]
 o.m = lm(correctresponse~subsectiveF,data=o_agr_pred)
-summary(o.m)
+summary(o.m) # r2 = 0.53
 
 #load in subjectivity
 s = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/13-subjectivity-expanded/results/subjectivity-expanded_results.csv",header=T)
@@ -186,9 +240,27 @@ o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_p
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = 0.72 r2 = 0.51
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.2888,  0.6064 ) 
-
 o.s = lm(correctresponse~subjectivity,data=o_agr_pred)
-summary(o.s)
+summary(o.s) # r2 = 0.51
+
+#compare subsective and intersective
+ss.m = lm(subjectivity~subsectiveF,data=o_agr_pred)
+summary(ss.m) # r2 = 0.52
+
+# plot order preference against subsectivity
+ggplot(o_agr_pred, aes(x=subsectiveF,y=subjectivity)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubsectivity")+
+  ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  #ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt3-subsective-subjective.pdf",height=3,width=3.5)
+
 
 #model comparison
 o$subsective = si$subsective[match(o$correctpred1,si$predicate)]
@@ -212,3 +284,7 @@ anova(m.4,m.2)
 anova(m.2,m.5)
 summary(m.2)
 summary(m.4)
+
+
+
+
