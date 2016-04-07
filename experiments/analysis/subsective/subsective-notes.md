@@ -9,7 +9,7 @@
 
 #### Experiment 1: Origninal 26 adjectives and 10 nouns
 
-![title](expt1-subjective.pdf)
+![title](expt1-subjective.png)
 Fig. 1: Adjective subjectivity vs. adjective naturalness (i.e., preferred distance from noun); r^2 = 0.81.
 
 ![title](expt1-subsective.pdf)
