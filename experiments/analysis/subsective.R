@@ -31,6 +31,9 @@ gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.91 r2 = 0.82
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
 boot.ci(results, type="bca") # 95%   ( 0.6989,  0.8914 )  
 
+subs.m = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
+summary(subs.m)
+
 #load in faultless disagreement
 f = read.csv("faultless_results.csv",header=T)
 head(f)
@@ -53,9 +56,22 @@ gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .90, r2 = .81
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 ) 
 
+subj.m = lm(correctresponse~subjectivity,data=o_agr_pred)
+summary(subj.m)
+
+# split subsective and intersective adjectives
+subs = o_agr_pred[o_agr_pred$subsective==1,]
+gof(subs$correctresponse,subs$subjectivity) # r = 0.29, r2 = 0.08
+int = o_agr_pred[o_agr_pred$subsective==0,]
+gof(int$correctresponse,int$subjectivity) # r = 0.54, r2 = 0.29
+
 #compare subsective with faultless and subjectivity
 gof(o_agr_pred$subsective,o_agr_pred$faultless) # r = .93, r2 = .86
 gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .94, r2 = .89
+
+m.0 = lm(correctresponse~subjectivity+as.factor(subsective),data=o_agr_pred)
+m.1 = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
+anova(m.1,m.0,test="Chisq")
 
 # plot order preference against subsectivity
 ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
@@ -74,24 +90,51 @@ ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
 
 #model comparison
 o$subsective = si$subsective[match(o$predicate,si$predicate)]
-o$faultless = f_agr_pred$response[match(o$predicate,f_agr_pred$predicate)]
+#o$faultless = f_agr_pred$response[match(o$predicate,f_agr_pred$predicate)]
 o$subjectivity = s_agr_pred$response[match(o$predicate,s_agr_pred$predicate)]
 
-m.0 = glm(correctresponse~subsective+faultless+subjectivity,data=o)
-m.1 = glm(correctresponse~faultless+subjectivity,data=o)
-m.2 = glm(correctresponse~subsective+subjectivity,data=o)
-m.3 = glm(correctresponse~subsective+faultless,data=o)
-m.4 = glm(correctresponse~subsective,data=o)
-m.5 = glm(correctresponse~subjectivity,data=o)
-m.6 = glm(correctresponse~faultless,data=o)
+gof(o$correctresponse,o$subsective)
+o.subs = lm(correctresponse~as.factor(subsective),data=o)
+summary(o.subs) #r2=0.28
+gof(o$correctresponse,o$subjectivity)
+o.subj = lm(correctresponse~subjectivity,data=o)
+summary(o.subj) #r2=0.27
+
+# split subsective and intersective adjectives
+subs = o[o$subsective==1,]
+summary(lm(correctresponse~subjectivity,data=subs)) ## **
+int = o[o$subsective==0,]
+summary(lm(correctresponse~subjectivity,data=int)) ## ***
+
+#m.0 = glm(correctresponse~subsective+faultless+subjectivity,data=o)
+#m.1 = glm(correctresponse~faultless+subjectivity,data=o)
+m.2 = lm(correctresponse~as.factor(subsective)+subjectivity,data=o)
+#m.3 = glm(correctresponse~subsective+faultless,data=o)
+m.4 = lm(correctresponse~as.factor(subsective),data=o)
+#m.5 = lm(correctresponse~subjectivity,data=o)
+#m.6 = glm(correctresponse~faultless,data=o)
 
 r.squaredGLMM(m.4) # 0.2761397
-r.squaredGLMM(m.5) # 0.2725833
-r.squaredGLMM(m.6) # 0.2934775
+#r.squaredGLMM(m.5) # 0.2725833
+#r.squaredGLMM(m.6) # 0.2934775
 
-anova(m.0,m.3)
-anova(m.2,m.5)
-anova(m.3,m.6)
+#anova(m.0,m.3)
+#anova(m.5,m.2)
+#anova(m.3,m.6)
+anova(m.4,m.2)
+
+# plot order preference against subsectivity
+ggplot(o, aes(x=subsective,y=correctresponse)) +
+  #ggplot(o, aes(x=subjectivity,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
 
 #######
 ## configuration analysis
@@ -177,6 +220,12 @@ gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .92, r2 = .85
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )  
 
+# split subsective and intersective adjectives
+subs = o_agr_pred[o_agr_pred$subsective==1,]
+gof(subs$correctresponse,subs$subjectivity) # r = 0.39, r2 = 0.15
+int = o_agr_pred[o_agr_pred$subsective==0,]
+gof(int$correctresponse,int$subjectivity) # r = 0.13, r2 = 0.02
+
 #compare subsectivity and subjectivity
 gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .97, r2 = .93
 
@@ -243,6 +292,14 @@ boot.ci(results, type="bca") # 95%   ( 0.2888,  0.6064 )
 o.s = lm(correctresponse~subjectivity,data=o_agr_pred)
 summary(o.s) # r2 = 0.51
 
+# split subsective and intersective adjectives
+subs = o_agr_pred[o_agr_pred$subsectiveF=="subsective",]
+gof(subs$correctresponse,subs$subjectivity) # r = 0.47, r2 = 0.22
+int = o_agr_pred[o_agr_pred$subsectiveF=="intersective",]
+gof(int$correctresponse,int$subjectivity) # r = 0.37, r2 = 0.14
+oth = o_agr_pred[o_agr_pred$subsectiveF=="other",]
+gof(oth$correctresponse,oth$subjectivity) # r = 0.05, r2 = 0.00
+
 #compare subsective and intersective
 ss.m = lm(subjectivity~subsectiveF,data=o_agr_pred)
 summary(ss.m) # r2 = 0.52
@@ -285,6 +342,13 @@ anova(m.2,m.5)
 summary(m.2)
 summary(m.4)
 
+# split subsective and intersective adjectives
+subs = o[o$subsectiveF=="subsective",]
+summary(lm(correctresponse~subjectivity,data=subs)) ## ***
+int = o[o$subsectiveF=="intersective",]
+summary(lm(correctresponse~subjectivity,data=int)) ## ***
+oth = o[o$subsectiveF=="other",]
+summary(lm(correctresponse~subjectivity,data=oth)) ## not significant
 
 
 
