@@ -32,7 +32,7 @@ results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse
 boot.ci(results, type="bca") # 95%   ( 0.6989,  0.8914 )  
 
 subs.m = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
-summary(subs.m)
+summary(subs.m) # r2=0.82
 
 #load in faultless disagreement
 f = read.csv("faultless_results.csv",header=T)
@@ -103,8 +103,10 @@ summary(o.subj) #r2=0.27
 # split subsective and intersective adjectives
 subs = o[o$subsective==1,]
 summary(lm(correctresponse~subjectivity,data=subs)) ## **
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=subs)) ## **
 int = o[o$subsective==0,]
 summary(lm(correctresponse~subjectivity,data=int)) ## ***
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=int)) ## ***
 
 #m.0 = glm(correctresponse~subsective+faultless+subjectivity,data=o)
 #m.1 = glm(correctresponse~faultless+subjectivity,data=o)
@@ -243,6 +245,26 @@ ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt2-subsective-subjective.pdf",height=3,width=3.5)
 
+#model comparison
+o$subsective = si$subsective[match(o$predicate,si$predicate)]
+#o$faultless = f_agr_pred$response[match(o$predicate,f_agr_pred$predicate)]
+o$subjectivity = s_agr_pred$response[match(o$predicate,s_agr_pred$predicate)]
+
+gof(o$correctresponse,o$subsective)
+o.subs = lm(correctresponse~as.factor(subsective),data=o)
+summary(o.subs) #r2=0.25
+gof(o$correctresponse,o$subjectivity)
+o.subj = lm(correctresponse~subjectivity,data=o)
+summary(o.subj) #r2=0.25
+
+# split subsective and intersective adjectives
+subs = o[o$subsective==1,]
+summary(lm(correctresponse~subjectivity,data=subs)) ## ***
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=subs)) ## ***
+int = o[o$subsective==0,]
+summary(lm(correctresponse~subjectivity,data=int)) ## not significant
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=int)) ## .
+
 
 
 
@@ -345,10 +367,13 @@ summary(m.4)
 # split subsective and intersective adjectives
 subs = o[o$subsectiveF=="subsective",]
 summary(lm(correctresponse~subjectivity,data=subs)) ## ***
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=subs)) ## ***
 int = o[o$subsectiveF=="intersective",]
 summary(lm(correctresponse~subjectivity,data=int)) ## ***
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=int)) ## ***
 oth = o[o$subsectiveF=="other",]
 summary(lm(correctresponse~subjectivity,data=oth)) ## not significant
+summary(lmer(correctresponse~subjectivity+(1|workerid),data=oth)) ## not significant
 
 
 
