@@ -19,10 +19,15 @@ unique(d$language)
 #d = d[d$language!="Chinese"&d$language!="Spanish, English"&d$language!="Spanish"&d$language!="Hindi"&d$language!="spanish"&d$language!="",]
 #unique(d$language)
 
-length(unique(d$workerid)) # n=69
+length(unique(d$workerid)) # n=72
+table(d$condition)
 
 #write.csv(d,"../results/subjectivity-expanded_results.csv")
 
+inh = d[d$condition=="inherent",]
+#write.csv(inh,"../results/inherentness.csv")
+sub = d[d$condition=="subjective",]
+#write.csv(sub,"../results/subjectivity.csv")
 
 ## predicate plot by class
 c_s = bootsSummary(data=d, measurevar="response", groupvars=c("class","condition"))

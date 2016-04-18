@@ -7,6 +7,7 @@ Mon Apr 18 10:17:38 PDT 2016,A1159EV0HX7QLZ,0.3
 Mon Apr 18 10:17:40 PDT 2016,ATMQRDBW7WM1Z,0.3
 Mon Apr 18 10:21:39 PDT 2016,ARR1VG3SV6BLW,0.3
 Mon Apr 18 10:29:04 PDT 2016,A3FQC8ZAQ7SYEJ,0.3
-,total paid to workers:,=SUM(c2:c9)
-,10% paid to Amazon:,=.1*c10
-,total:,=SUM(c10:c11
+Mon Apr 18 10:51:47 PDT 2016,A1A3TGZ7DKJWRW,0.3
+,total paid to workers:,=SUM(c2:c10)
+,10% paid to Amazon:,=.1*c11
+,total:,=SUM(c11:c12

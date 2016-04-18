@@ -59,6 +59,22 @@ boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 )
 subj.m = lm(correctresponse~subjectivity,data=o_agr_pred)
 summary(subj.m)
 
+#load in inherentness
+inh = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/14-inherentness/results/inherentness.csv",header=T)
+inh_agr = aggregate(response~predicate,inh,mean)
+o_agr_pred$inherentness = inh_agr$response[match(o_agr_pred$predicate,inh_agr$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$inherentness) # r = -0.04 r2 = 0.00
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~inherentness)
+boot.ci(results, type="bca") # 95%   ( 0.000,  0.021 )  
+
+#load in subsective-inherentness
+sub2 = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/14-inherentness/results/subjectivity.csv",header=T)
+sub2_agr = aggregate(response~predicate,sub2,mean)
+o_agr_pred$subjectivity2 = sub2_agr$response[match(o_agr_pred$predicate,sub2_agr$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity2) # r = 0.87 r2 = 0.75
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity2)
+boot.ci(results, type="bca") # 95%   ( 0.5336,  0.8348 ) 
+
 # split subsective and intersective adjectives
 subs = o_agr_pred[o_agr_pred$subsective==1,]
 gof(subs$correctresponse,subs$subjectivity) # r = 0.29, r2 = 0.08
