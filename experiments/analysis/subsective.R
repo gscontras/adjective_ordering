@@ -92,17 +92,20 @@ anova(m.1,m.0,test="Chisq")
 # plot order preference against subsectivity
 ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
 #ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+#ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
+#ggplot(o_agr_pred, aes(x=inherentness,y=correctresponse)) +
 #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nsubsectivity")+
-  ylab("subjectivity\n")+
+  #xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
   #xlab("\nsubjectivity")+
-  #ylab("naturalness\n")+
+  xlab("\ninherentness")+
+  ylab("naturalness\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
-#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-subsective-subjective.pdf",height=3,width=3.5)
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-inherentness-naturalness.pdf",height=3,width=3.5)
 
 #model comparison
 o$subsective = si$subsective[match(o$predicate,si$predicate)]
