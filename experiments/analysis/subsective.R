@@ -84,6 +84,8 @@ gof(int$correctresponse,int$subjectivity) # r = 0.54, r2 = 0.29
 #compare subsective with faultless and subjectivity
 gof(o_agr_pred$subsective,o_agr_pred$faultless) # r = .93, r2 = .86
 gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .94, r2 = .89
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsective)
+boot.ci(results, type="bca") # 5%   ( 0.7415,  0.9413 ) 
 
 m.0 = lm(correctresponse~subjectivity+as.factor(subsective),data=o_agr_pred)
 m.1 = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
@@ -106,6 +108,27 @@ ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-inherentness-naturalness.pdf",height=3,width=3.5)
+
+o_agr_pred$subs = "intersective"
+o_agr_pred[o_agr_pred$subsective==1,]$subs = "subsective"
+
+# plot order preference against subsectivity and subjectivity
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subs)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
+  #ggplot(o_agr_pred, aes(x=inherentness,y=correctresponse)) +
+  #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  #xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
+  xlab("\nsubjectivity")+
+  #xlab("\ninherentness")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  theme(legend.title=element_blank())
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-subjectivity-subsectivity.pdf",height=3,width=4.5)
 
 #model comparison
 o$subsective = si$subsective[match(o$predicate,si$predicate)]
@@ -344,6 +367,8 @@ gof(oth$correctresponse,oth$subjectivity) # r = 0.05, r2 = 0.00
 #compare subsective and intersective
 ss.m = lm(subjectivity~subsectiveF,data=o_agr_pred)
 summary(ss.m) # r2 = 0.52
+results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsectiveF)
+boot.ci(results, type="bca") # 95%   ( 0.3474,  0.6477 ) 
 
 # plot order preference against subsectivity
 ggplot(o_agr_pred, aes(x=subsectiveF,y=subjectivity)) +
@@ -358,6 +383,24 @@ ggplot(o_agr_pred, aes(x=subsectiveF,y=subjectivity)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt3-subsective-subjective.pdf",height=3,width=3.5)
+
+# plot order preference against subsectivity and subjectivity
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subsectiveF,color=subsectiveF)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
+  #ggplot(o_agr_pred, aes(x=inherentness,y=correctresponse)) +
+  #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm) +
+  #xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
+  xlab("\nsubjectivity")+
+  #xlab("\ninherentness")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()+
+  theme(legend.title=element_blank())
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt3-subjectivity-subsectivity.pdf",height=3,width=4.5)
 
 
 #model comparison
