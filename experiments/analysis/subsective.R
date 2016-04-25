@@ -73,7 +73,7 @@ sub2_agr = aggregate(response~predicate,sub2,mean)
 o_agr_pred$subjectivity2 = sub2_agr$response[match(o_agr_pred$predicate,sub2_agr$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity2) # r = 0.87 r2 = 0.75
 results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity2)
-boot.ci(results, type="bca") # 95%   ( 0.5336,  0.8348 ) 
+boot.ci(results, type="bca") # 95%   ( 0.5321,  0.8352 )  
 
 # split subsective and intersective adjectives
 subs = o_agr_pred[o_agr_pred$subsective==1,]
