@@ -113,12 +113,12 @@ o_agr_pred$subs = "intersective"
 o_agr_pred[o_agr_pred$subsective==1,]$subs = "subsective"
 
 # plot order preference against subsectivity and subjectivity
-ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subs)) +
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subs,color=subs,linetype=subs)) +
   #ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
   #ggplot(o_agr_pred, aes(x=inherentness,y=correctresponse)) +
   #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
   geom_point() +
-  geom_smooth(method=lm,color="black") +
+  geom_smooth(method=lm) +
   #xlab("\nsubsectivity")+
   #ylab("subjectivity\n")+
   xlab("\nsubjectivity")+
@@ -126,6 +126,8 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subs)) +
   ylab("naturalness\n")+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
+  scale_colour_manual(values=c("red","blue"))+
+  scale_linetype_manual(values=c("solid","dashed"))+
   theme_bw()+
   theme(legend.title=element_blank())
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-subjectivity-subsectivity.pdf",height=3,width=4.5)
@@ -385,7 +387,7 @@ ggplot(o_agr_pred, aes(x=subsectiveF,y=subjectivity)) +
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt3-subsective-subjective.pdf",height=3,width=3.5)
 
 # plot order preference against subsectivity and subjectivity
-ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subsectiveF,color=subsectiveF)) +
+ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,linetype=subsectiveF,shape=subsectiveF,color=subsectiveF)) +
   #ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
   #ggplot(o_agr_pred, aes(x=inherentness,y=correctresponse)) +
   #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
@@ -397,7 +399,11 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse,shape=subsectiveF,color=
   #xlab("\ninherentness")+
   ylab("naturalness\n")+
   #ylim(0,1)+
+  #xlim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
+  scale_colour_manual(values=c("red","darkgreen","blue"))+
+  scale_linetype_manual(values=c("solid","dotted","dashed"))+
+  scale_shape_manual(values=c(16,15,17))+
   theme_bw()+
   theme(legend.title=element_blank())
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt3-subjectivity-subsectivity.pdf",height=3,width=4.5)
@@ -419,7 +425,7 @@ r.squaredGLMM(m.1) # 0.09711561
 r.squaredGLMM(m.4) # 0.1044312
 r.squaredGLMM(m.5) # 0.09250512
 
-anova(m.0,m.1)
+anova(m.1,m.0)
 anova(m.0,m.5)
 anova(m.4,m.2)
 anova(m.2,m.5)

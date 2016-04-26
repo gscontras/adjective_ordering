@@ -79,23 +79,61 @@ Participants completed a total of 26 trials, one for each of the adjectives in T
 	\caption{Mean naturalness ratings plotted against mean inherentness (\emph{left}) and subjectivity (\emph{right}) scores for each of the 26 adjectives tested.}\label{fig:inherentness}
 \end{figure}
 
-\paragraph{Discussion.} Using a modified version of \citeauthor{martin1969}'s (\citeyear{martin1969}) task measuring adjective inherentness, we failed to find \emph{any} correlation between inherentness and ordering preferences for our set of 26 adjectives. Indeed, our findings match \citeauthor{martin1969}'s own: he documented that inherentness accounted for between 14\% and 3\% of the variation in the ordering preferences that were measured for 40 adjectives. We also measured adjective subjectivity, which allows for a direct comparison of the two accounts: whereas inherentness accounted for no variation, subjectivity accounted for 75\% of the variation in our ordering preferences. Despite the many claims to its success in the literature \citep[e.g.,][]{sweet1898,whorf1945,kemmerer2000}, adjective inherentness does little (or nothing) to explain the observed regularities in adjective order. However, subjectivity continues to predict ordering preferences.
+\paragraph{Discussion.} Using a modified version of \citeauthor{martin1969}'s (\citeyear{martin1969}) task measuring adjective inherentness, we failed to find \emph{any} correlation between inherentness and ordering preferences for our set of 26 adjectives. Indeed, our findings match \citeauthor{martin1969}'s own: he documented that inherentness accounted for between 14\% and 3\% of the variation in the ordering preferences that he measured for 40 adjectives. We also measured adjective subjectivity, which allows for a direct comparison of the two predictors: whereas inherentness accounted for no variation, subjectivity accounted for 75\% of the variation in our ordering preferences. Despite the many claims to its success in the literature \citep[e.g.,][]{sweet1898,whorf1945,kemmerer2000}, adjective inherentness does little (or nothing) to explain the observed regularities in adjective order. However, subjectivity continues to predict ordering preferences.
 
 
 
 \section{Subjectivity vs.~subsectivity}
 
-Next, we turn to a more abstract but no less popular factor proposal meant to account for ordering preferences: the logical distinction between intersectivity and subsectivity.
+Next, we turn to a more abstract but no less popular factor meant to account for ordering preferences: the logical distinction between intersectivity and subsectivity. Semanticists argue that adjectives split on the basis of how they modify the nouns with which they compose \citep[for discussion, see][]{kamppartee1995}. Some adjectives are \emph{intersective}: the outcome of their modification is the intersection of the nominal denotation with the adjectival denotation, as in the following example, where \emph{carnivorous mammal} describes those things that hold the property of being carnivorous and of being a mammal.
 
-Indeed, subjectivity and subsectivity are related. Here are the reasons why we don’t think this is a competitor. Two measures with ordinary people that can get at subjectivity. Subsectivity is a theoretical construct, not a behavioral measure. Also, it is binary and we have systematic graded behavior in the orders. Whether subjectivity predicts ordering within the class of adjectives, and indeed it does.
+\begin{align*} 
+\sem{carnivorous} &= \{x : carnivorous(x)\}\\
+\sem{mammal} &= \{x : mammal(x)\}\\
+\sem{carnivorous mammal} &= \{x : carnivorous(x)\ \&\ mammal(x)\}\\
+& =\sem{carnivorous} \cap \sem{mammal}
+\end{align*}
 
-The two predictors are extremely highly correlated (Expt.~1: $r^2${=}0.89, 95\% CI [0.74,  0.94]; Expt.~2: $r^2${=}0.52, 95\% CI [0.35,  0.65]).
+\noindent Other adjectives are \emph{subsective}: rather than intersecting with a nominal denotation, the outcome of subsective modification is a subset of the nominal denotation, which is used to determine the comparison class for the adjective. Subsective adjectives depend on the nominal with which they compose to fix their meaning. Take \emph{skillful}: a skillful surgeon is not necessarily a skillful violinist, but a skillful surgeon is necessarily a surgeon:
+
+\begin{align*} 
+\sem{skillful surgeon} & \subseteq \sem{surgeon}
+\end{align*}
+
+\noindent Finally, there are those adjectives that are neither clearly intersective nor clearly subsective. The clearest cases are so-called \emph{privative} adjectives like \emph{fake}, which require that the outcome of modification is a proper complement of the nominal denotation: a fake gun is not a gun.  More generally, these non-subsective adjectives preclude the inference that the things described hold the property named by the noun:
+
+\begin{align*} 
+\sem{fake gun} & \nsubseteq \sem{gun}
+\end{align*}
+
+What matters for present purposes is that some authors assume that the means of modification determines adjective order, such that intersective adjectives occur closer to the noun than subsective adjectives. We find the clearest statement of this claim in \cite{truswell2009}, who assumes that hierarchical dominance leads to linear precedence:
+
+\begin{quotation}
+\noindent\ben
+	\item Subsective adjectives dominate intersective adjectives. \item Modal [(i.e., non-subsective)] adjectives are freely ordered with respect to subsective and intersective adjectives, although they tend to dominate both classes.
+	\een
+\end{quotation}
+
+\noindent According to \citeauthor{truswell2009}, intersective adjectives occur closest to the modified noun, subsective adjectives occur farther than intersective adjectives, and non-subsective adjectives are freely ordered, despite their tendency to occur farthest of all. 
+
+There are two reasons why we do not consider subsectivity to be a true competitor to the subjectivity hypothesis. First, the intersective--subsective distinction is not a behavioral measure, nor even a human concept; the distinction is theoretical, and it takes consultation with a trained linguist to fix the status of a given adjective. Compare this with subjectivity, where we have seen the success of two behavioral measures with naive participants. Even more problematic is the fact that the intersective--subsective distinction is a binary one, but we have seen systematic graded behavior in the ordering of adjectives.
+
+Still, we attempted to compare the predictions of the two proposals. To do so, we coded our adjectives as either \emph{subsective}, \emph{intersective}, or \emph{other} using \citeauthor{truswell2009}'s classifications: shape, color, nationality, and material adjectives were coded as \emph{intersective}; all other adjectives were coded as \emph{subsective} except for the non-intersective class ``X'' adjectives from Expt.~2, which we coded as \emph{other}.
+
+The first thing to note is that the two predictors (i.e., subjectivity and subsectivity) are extremely highly correlated (Expt.~1: $r^2${=}0.89, 95\% CI [0.74,  0.94]; Expt.~2: $r^2${=}0.52, 95\% CI [0.35,  0.65]). This correlation should come as no surprise, given that the intersective--subsective distinction hangs on the context sensitivity of the adjective: intersective adjectives have fixed interpretations (i.e., they are maximally objective), while the interpretation of subsective adjectives varies with the modified noun. Given this high correlation and the observed success of subjectivity in predicting ordering preferences, we expect subsectivity to do well in predicting ordering preferences. However, the binary nature of the subsectivity predictor cannot account for the variation \emph{within} the classes of subsective and intersective adjectives. 
 
 \renewcommand\thefigure{S.\arabic{figure}}
 \begin{figure}
 	\centering\includegraphics[width=4.5in]{plots/expt1-subjectivity-subsectivity.eps}\\\includegraphics[width=4.5in]{plots/expt3-subjectivity-subsectivity.eps}
 	\caption{Mean naturalness ratings plotted against mean subjectivity scores grouped by subsectivity for the original set of 26 adjectives tested in Expt.~1 (\emph{top}) and the expanded set of 78 adjectives tested in Expt.~2 (\emph{bottom}).}\label{fig:subsectivity}
 \end{figure}
+
+Fig.~\ref{fig:subsectivity} plots adjective subjectivity scores against naturalness ratings from Expt.~1 (\emph{top}) and Expt.~2 (\emph{bottom}), grouping adjectives by subsectivity class. To evaluate the role of subjectivity \emph{over an above subsectivity} in predicting ordering preferences, we performed a nested model comparison. The models we compared predicted naturalness ratings by \textsc{subsectivity} only, or by \textsc{subsectivity} and \textsc{subjectivity}. The model comparison revealed that subjectivity does explain additional variance in ording preferences beyond the intersective--subsective distinction (Expt.~1: $F(1,2337)=25.28, p<0.001$; Expt.~2: $F(1,23786)=361.78, p<0.001$): even within the subsectivity classes, subjectivity continues to predict ordering preferences.
+
+
+
+
+
 
 \section{In search of noun effects}
 
@@ -173,15 +211,13 @@ As with our original materials, more subjective adjectives are preferred farther
 	\caption{Mean naturalness ratings plotted against mean subjectivity scores for each of the 26 adjectives tested in Expt.~2.}\label{fig:subjectivity}
 \end{figure}
 
-\subsection{Discussion}
-
-We  failed to find evidence in support of compositional accounts of ordering preferences, which hold that the most important factor in determining order is whether or not an adjective forms a complex concept with the noun it modifies. Using nouns chosen to maximize the probability of complex concepts formed with our 26 adjectives, we failed to find evidence that adjective ordering preferences depend on the modified noun. We do continue to find that subjectivity predicts ordering preferences.
+\paragraph{Discussion.} We  failed to find evidence in support of compositional accounts of ordering preferences, which hold that the most important factor in determining order is whether or not an adjective forms a complex concept with the noun it modifies. Using nouns chosen to maximize the probability of complex concepts formed with our 26 adjectives, we failed to find evidence that adjective ordering preferences depend on the modified noun. We do continue to find that subjectivity predicts ordering preferences.
 It is quite possible that noun-effects (and hence effects of concept composition) would be found with a different set of adjectives. 
 However, this already suggests that the effect of modified nouns explains only a small part of the overall story of adjective order; subjectivity seems to do better.
 
 
 
-\section{Operationalizing concept-formability}
+\subsection{Operationalizing concept-formability}
 
 Suppose the fundamental factor in predicting adjective ordering is whether an adjective is used to form a complex concept/subkind description or not.
 
@@ -196,6 +232,10 @@ The semantic analysis given by these authors to adjectives that form complex con
 The adjective concept-formability ratings predict 8\% of the variance in our preference data (r$^{2}=0.08$; 95\% CI [0.00,  0.33]). The noun ratings predict 36\% of the variance (r$^{2}=0.36$; 95\% CI [0.07,  0.62]). Recall that at its worst, subjectivity predicts 70\% of the variance in our preference data.
 While it is quite possible that concept-formability plays an important role for some cases (such as \emph{arquitecte t\`{e}cnic}), we did not see evidence that it was critical to ordering preferences in our broad set of items. We chose not to include this null result in our revision, given the brevity of the paper, and the difficulty of validating our measure of concept-formability. 
 However, we do include references to and discussion of the relevant literature. 
+
+
+\section{General discussion}
+
 
 
 
