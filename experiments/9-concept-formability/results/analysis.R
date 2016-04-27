@@ -3,6 +3,16 @@ library(reshape2)
 library(lme4)
 library(hydroGOF)
 
+
+# Bootstrap 95% CI for R-Squared
+library(boot)
+# function to obtain R-Squared from the data 
+rsq <- function(formula, data, indices) {
+  d <- data[indices,] # allows boot to select sample 
+  fit <- lm(formula, data=d)
+  return(summary(fit)$r.square)
+} 
+
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/9-concept-formability/Submiterator-master")
 
 d = read.table("concept-formability-trials.tsv",sep="\t",header=T)
@@ -13,46 +23,15 @@ d$language = s$language[match(d$workerid,s$workerid)]
 summary(d)
 d = dcast(data=d, workerid + trial + adjective + noun + class + nounclass + language ~ predicate, value.var="response",mean)
 colnames(d) = c("workerid","trial","predicate","noun","class","nounclass","language","adj_response","noun_response")
+length(unique(d$workerid)) # n=40
 
-
-#############################################
-## comparing concept-formability and faultless disagreement
-#############################################
-
-
-f = read.table("~/Documents/git/CoCoLab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-trials.tsv",sep="\t",header=T)
-
-f = subset(f,select=c("class","predicate","response","nounclass"))
-f$experiment = "faultless disagreement"
-head(f)
-adj = subset(d,select=c("class","predicate","adj_response","nounclass"))
-adj$experiment = "concept formability"
-colnames(adj) = c("class","predicate","response","nounclass","experiment")
-head(adj)
-all_d = rbind(adj,f)
-head(all_d)
-
-## predicate plot by class
-c_s = bootsSummary(data=all_d, measurevar="response", groupvars=c("class","experiment","nounclass"))
-class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response,fill=nounclass)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
-  ylab("rating\n")+
-  xlab("\nadjective class") +
-  facet_wrap(~experiment,scale="free_x") +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
-  theme_bw()+
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-class_plot
-#ggsave("../results/class_faultless_concept.png",height=3)
 
 
 #############################################
 ## compare adjective concept-formability and order preference
 #############################################
 
-
-## order preference
+## adjectives
 o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
@@ -63,22 +42,56 @@ d_agr_class = aggregate(adj_response~class,data=d,mean)
 # PREDICATE
 o_agr_pred$concept = d_agr_pred$adj_response[match(o_agr_pred$predicate,d_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = -0.28, r2 = 0.08
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
-boot.ci(results, type="bca") # 95%   ( 0.0004,  0.3276 )     
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
+#boot.ci(results, type="bca") # 95%   ( 0.0004,  0.3276 )     
 # CLASS
 o_agr_class$concept = d_agr_class$adj_response[match(o_agr_class$correctclass,d_agr_class$class)]
 gof(o_agr_class$correctresponse,o_agr_class$concept) # r = -0.74, r2 = 0.55
-results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~concept)
-boot.ci(results, type="bca") # 95%   ( 0.0001,  0.7918 )   
+#results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~concept)
+#boot.ci(results, type="bca") # 95%   ( 0.0001,  0.7918 )   
 # plot order preference against subjectivity
 ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nconcept formability")+
-  ylab("preferred distance from noun\n")+
-  ylim(0,1)+
+  xlab("\nadjective probability")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
   theme_bw()
-#ggsave("../results/naturalness-concept-pred.png",height=3,width=3.5)
+#ggsave("../results/naturalness-concept-adjective.pdf",height=3,width=3.5)
+
+
+## nouns
+o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+head(o)
+o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
+o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
+head(d)
+d_agr_pred = aggregate(noun_response~predicate,data=d,mean)
+d_agr_class = aggregate(noun_response~class,data=d,mean)
+# PREDICATE
+o_agr_pred$concept = d_agr_pred$noun_response[match(o_agr_pred$predicate,d_agr_pred$predicate)]
+gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = 0.60, r2 = 0.36
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
+#boot.ci(results, type="bca") # 95%   ( 0.0715,  0.6213 )    
+# CLASS
+o_agr_class$concept = d_agr_class$noun_response[match(o_agr_class$correctclass,d_agr_class$class)]
+gof(o_agr_class$correctresponse,o_agr_class$concept) # r = 0.82, r2 = 0.67
+#results <- boot(data=o_agr_class, statistic=rsq, R=10000, formula=correctresponse~concept)
+#boot.ci(results, type="bca") # 95%   ( 0.0006,  0.8949 )    
+# plot order preference against subjectivity
+ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
+  geom_point() +
+  geom_smooth(method=lm,color="black") +
+  xlab("\nnoun probability")+
+  ylab("naturalness\n")+
+  #ylim(0,1)+
+  theme_bw()
+#ggsave("../results/naturalness-concept-noun.pdf",height=3,width=3.5)
+
+
+
+
+
 
 ######
 ## with noun info
@@ -202,3 +215,39 @@ ggplot(raw_agg, aes(x=adjective,y=noun)) +
   ylim(0,1)+
   theme_bw()
 ggsave("../results/concept-noun-adj.png")
+
+
+
+
+
+
+#############################################
+## comparing concept-formability and faultless disagreement
+#############################################
+
+
+f = read.table("~/Documents/git/CoCoLab/adjective_ordering/experiments/2-faultless-disagreement/Submiterator-master/faultless-disagreement-2-trials.tsv",sep="\t",header=T)
+
+f = subset(f,select=c("class","predicate","response","nounclass"))
+f$experiment = "faultless disagreement"
+head(f)
+adj = subset(d,select=c("class","predicate","adj_response","nounclass"))
+adj$experiment = "concept formability"
+colnames(adj) = c("class","predicate","response","nounclass","experiment")
+head(adj)
+all_d = rbind(adj,f)
+head(all_d)
+
+## predicate plot by class
+c_s = bootsSummary(data=all_d, measurevar="response", groupvars=c("class","experiment","nounclass"))
+class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response,fill=nounclass)) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  ylab("rating\n")+
+  xlab("\nadjective class") +
+  facet_wrap(~experiment,scale="free_x") +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+class_plot
+#ggsave("../results/class_faultless_concept.png",height=3)
