@@ -61,6 +61,7 @@ summary(subj.m)
 
 #load in inherentness
 inh = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/14-inherentness/results/inherentness.csv",header=T)
+inh$naturalness = o_agr_pred$correctresponse[match(o_agr_pred$predicate,inh$predicate)]
 inh_agr = aggregate(response~predicate,inh,mean)
 o_agr_pred$inherentness = inh_agr$response[match(o_agr_pred$predicate,inh_agr$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$inherentness) # r = -0.04 r2 = 0.00
@@ -108,6 +109,45 @@ ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-inherentness-naturalness.pdf",height=3,width=3.5)
+
+# plot order preference against inherentness
+#ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
+  #ggplot(o_agr_pred, aes(x=subjectivity2,y=correctresponse)) +
+  ggplot(inh, aes(x=factor(naturalness),y=response)) +
+  #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_boxplot() + coord_flip()+
+  #xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  xlab("naturalness\n")+
+  ylab("\ninherentness")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+#ggsave("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/subsective/expt1-inherentness-naturalness.pdf",height=3,width=3.5)
+
+# remove wooden bananas
+head(inh)
+inh$adj_noun = paste(inh$predicate,inh$noun)
+inh_ = inh[inh$adj_noun!="wooden apple"&inh$adj_noun!="wooden apple"&inh$adj_noun!="blue banana"&inh$adj_noun!="wooden banana"&inh$adj_noun!="square banana"&inh$adj_noun!="plastic carrot"&inh$adj_noun!="plastic cheese"&inh$adj_noun!="short cheese"&inh$adj_noun!="green couch"&inh$adj_noun!="metal couch"&inh$adj_noun!="good couch"&inh$adj_noun!="square tomato"&inh$adj_noun!="purple TV",]
+inh$wb = 0
+inh[inh$adj_noun!="wooden apple"&inh$adj_noun!="wooden apple"&inh$adj_noun!="blue banana"&inh$adj_noun!="wooden banana"&inh$adj_noun!="square banana"&inh$adj_noun!="plastic carrot"&inh$adj_noun!="plastic cheese"&inh$adj_noun!="short cheese"&inh$adj_noun!="green couch"&inh$adj_noun!="metal couch"&inh$adj_noun!="good couch"&inh$adj_noun!="square tomato"&inh$adj_noun!="purple TV",]$wb = 1
+
+summary(lmer(response~wb+(1|workerid),data=inh))
+
+ggplot(inh_, aes(x=factor(naturalness),y=response)) +
+  #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
+  geom_boxplot() + coord_flip()+
+  #xlab("\nsubsectivity")+
+  #ylab("subjectivity\n")+
+  #xlab("\nsubjectivity")+
+  xlab("naturalness\n")+
+  ylab("\ninherentness")+
+  #ylim(0,1)+
+  #scale_y_continuous(breaks=c(.25,.50,.75))+
+  theme_bw()
+
 
 o_agr_pred$subs = "intersective"
 o_agr_pred[o_agr_pred$subsective==1,]$subs = "subsective"

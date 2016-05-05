@@ -126,6 +126,22 @@ ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
 #ggsave("../results/naturalness-concept-noun-pred.pdf",height=3,width=3.5)
 
 
+
+## get noun ratings for adj-noun combinations
+
+n = aggregate(noun_response~predicate*class*noun,data=d,mean)
+
+nrow(n)
+nrow(n[n$noun_response<0.5,])
+ex = n[n$noun_response<0.5,]
+ex$adj_noun = paste(ex$predicate,ex$noun)
+ex
+
+nrow(n[n$noun_response<0.7,])
+
+
+
+
 #############################################
 ## compare adjective concept-formability and order preference
 #############################################
