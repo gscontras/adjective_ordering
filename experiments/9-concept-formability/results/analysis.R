@@ -111,16 +111,19 @@ d_agr_class$class_noun = paste(d_agr_class$class,d_agr_class$noun)
 o_agr_pred$concept = d_agr_pred$adj_response[match(o_agr_pred$pred_noun,d_agr_pred$pred_noun)]
 o_agr_class$concept = d_agr_class$adj_response[match(o_agr_class$class_noun,d_agr_class$class_noun)]
 gof(o_agr_pred$correctresponse,o_agr_pred$concept) # r = -0.01., r2 = 0.00
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~concept)
+#boot.ci(results, type="bca") # 95%   ( 0.0006,  0.8949 )    
+# plot order preference against subjectivity
 gof(o_agr_class$correctresponse,o_agr_class$concept) # r = -0.20, r2 = 0.04
 
 ggplot(o_agr_pred, aes(x=concept,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nconcept formability")+
-  ylab("preferred distance from noun\n")+
+  xlab("\nadjective probability")+
+  ylab("naturalness\n")+
   ylim(0,1)+
   theme_bw()
-#ggsave("../results/naturalness-concept-noun-pred.png",height=3,width=3.5)
+#ggsave("../results/naturalness-concept-noun-pred.pdf",height=3,width=3.5)
 
 
 #############################################

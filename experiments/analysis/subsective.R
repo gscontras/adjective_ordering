@@ -28,8 +28,8 @@ si = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/s
 
 o_agr_pred$subsective = si$subsective[match(o_agr_pred$predicate,si$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.91 r2 = 0.82
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
-boot.ci(results, type="bca") # 95%   ( 0.6989,  0.8914 )  
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
+#boot.ci(results, type="bca") # 95%   ( 0.6989,  0.8914 )  
 
 subs.m = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
 summary(subs.m) # r2=0.82
@@ -42,8 +42,8 @@ f_agr_class = aggregate(response~class,data=f,mean)
 
 o_agr_pred$faultless = f_agr_pred$response[match(o_agr_pred$predicate,f_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$faultless) # r = .94, r2 = .88
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~faultless)
-boot.ci(results, type="bca") # 95%   ( 0.7713,  0.9479 )  
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~faultless)
+#boot.ci(results, type="bca") # 95%   ( 0.7713,  0.9479 )  
 
 #load in subjectivity
 s = read.csv("subjectivity_results.csv",header=T)
@@ -53,8 +53,8 @@ s_agr_class = aggregate(response~class,data=s,mean)
 
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .90, r2 = .81
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 ) 
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+#boot.ci(results, type="bca") # 95%   ( 0.6818,  0.8865 ) 
 
 subj.m = lm(correctresponse~subjectivity,data=o_agr_pred)
 summary(subj.m)
@@ -64,16 +64,16 @@ inh = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/14-inhere
 inh_agr = aggregate(response~predicate,inh,mean)
 o_agr_pred$inherentness = inh_agr$response[match(o_agr_pred$predicate,inh_agr$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$inherentness) # r = -0.04 r2 = 0.00
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~inherentness)
-boot.ci(results, type="bca") # 95%   ( 0.000,  0.021 )  
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~inherentness)
+#boot.ci(results, type="bca") # 95%   ( 0.000,  0.021 )  
 
 #load in subsective-inherentness
 sub2 = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/14-inherentness/results/subjectivity.csv",header=T)
 sub2_agr = aggregate(response~predicate,sub2,mean)
 o_agr_pred$subjectivity2 = sub2_agr$response[match(o_agr_pred$predicate,sub2_agr$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity2) # r = 0.87 r2 = 0.75
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity2)
-boot.ci(results, type="bca") # 95%   ( 0.5321,  0.8352 )  
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity2)
+#boot.ci(results, type="bca") # 95%   ( 0.5321,  0.8352 )  
 
 # split subsective and intersective adjectives
 subs = o_agr_pred[o_agr_pred$subsective==1,]
@@ -84,12 +84,12 @@ gof(int$correctresponse,int$subjectivity) # r = 0.54, r2 = 0.29
 #compare subsective with faultless and subjectivity
 gof(o_agr_pred$subsective,o_agr_pred$faultless) # r = .93, r2 = .86
 gof(o_agr_pred$subsective,o_agr_pred$subjectivity) # r = .94, r2 = .89
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsective)
-boot.ci(results, type="bca") # 5%   ( 0.7415,  0.9413 ) 
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsective)
+#boot.ci(results, type="bca") # 5%   ( 0.7415,  0.9413 ) 
 
 m.0 = lm(correctresponse~subjectivity+as.factor(subsective),data=o_agr_pred)
 m.1 = lm(correctresponse~as.factor(subsective),data=o_agr_pred)
-anova(m.1,m.0,test="Chisq")
+anova(m.1,m.0)
 
 # plot order preference against subsectivity
 ggplot(o_agr_pred, aes(x=subsective,y=subjectivity)) +
@@ -157,7 +157,7 @@ summary(lmer(correctresponse~subjectivity+(1|workerid),data=int)) ## ***
 m.2 = lm(correctresponse~as.factor(subsective)+subjectivity,data=o)
 #m.3 = glm(correctresponse~subsective+faultless,data=o)
 m.4 = lm(correctresponse~as.factor(subsective),data=o)
-#m.5 = lm(correctresponse~subjectivity,data=o)
+m.5 = lm(correctresponse~subjectivity,data=o)
 #m.6 = glm(correctresponse~faultless,data=o)
 
 r.squaredGLMM(m.4) # 0.2761397
@@ -165,7 +165,7 @@ r.squaredGLMM(m.4) # 0.2761397
 #r.squaredGLMM(m.6) # 0.2934775
 
 #anova(m.0,m.3)
-#anova(m.5,m.2)
+anova(m.5,m.2)
 #anova(m.3,m.6)
 anova(m.4,m.2)
 
@@ -253,8 +253,8 @@ si = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/s
 #si$subsective <- as.factor(si$subsective)
 o_agr_pred$subsective = si$subsective[match(o_agr_pred$predicate,si$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.92 r2 = 0.85
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
-boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )   
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
+#boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )   
 
 #load in subjectivity
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/analysis")
@@ -263,8 +263,8 @@ s_agr_pred = aggregate(response~predicate,data=s,mean)
 #s_agr_class = aggregate(response~class,data=s,mean)
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = .92, r2 = .85
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )  
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+#boot.ci(results, type="bca") # 95%   ( 0.7249,  0.9122 )  
 
 # split subsective and intersective adjectives
 subs = o_agr_pred[o_agr_pred$subsective==1,]
@@ -339,8 +339,8 @@ si = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/s
 
 o_agr_pred$subsective = si$subsective[match(o_agr_pred$predicate,si$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subsective) # r = 0.75, r2 = 0.56
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
-boot.ci(results, type="bca") # 95%   ( 0.4056,  0.6741 )
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subsective)
+#boot.ci(results, type="bca") # 95%   ( 0.4056,  0.6741 )
 
 o_agr_pred$subsectiveF = si$subsectiveF[match(o_agr_pred$predicate,si$predicate)]
 o.m = lm(correctresponse~subsectiveF,data=o_agr_pred)
@@ -353,8 +353,8 @@ s_agr_pred = aggregate(response~predicate,data=s,mean)
 
 o_agr_pred$subjectivity = s_agr_pred$response[match(o_agr_pred$predicate,s_agr_pred$predicate)]
 gof(o_agr_pred$correctresponse,o_agr_pred$subjectivity) # r = 0.72 r2 = 0.51
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
-boot.ci(results, type="bca") # 95%   ( 0.2888,  0.6064 ) 
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
+#boot.ci(results, type="bca") # 95%   ( 0.2888,  0.6064 ) 
 o.s = lm(correctresponse~subjectivity,data=o_agr_pred)
 summary(o.s) # r2 = 0.51
 
@@ -369,8 +369,8 @@ gof(oth$correctresponse,oth$subjectivity) # r = 0.05, r2 = 0.00
 #compare subsective and intersective
 ss.m = lm(subjectivity~subsectiveF,data=o_agr_pred)
 summary(ss.m) # r2 = 0.52
-results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsectiveF)
-boot.ci(results, type="bca") # 95%   ( 0.3474,  0.6477 ) 
+#results <- boot(data=o_agr_pred, statistic=rsq, R=10000, formula=subjectivity~subsectiveF)
+#boot.ci(results, type="bca") # 95%   ( 0.3474,  0.6477 ) 
 
 # plot order preference against subsectivity
 ggplot(o_agr_pred, aes(x=subsectiveF,y=subjectivity)) +
@@ -426,11 +426,12 @@ r.squaredGLMM(m.4) # 0.1044312
 r.squaredGLMM(m.5) # 0.09250512
 
 anova(m.1,m.0)
-anova(m.0,m.5)
-anova(m.4,m.2)
-anova(m.2,m.5)
-summary(m.2)
-summary(m.4)
+anova(m.5,m.0)
+#anova(m.0,m.5)
+#anova(m.4,m.2)
+#anova(m.2,m.5)
+#summary(m.2)
+#summary(m.4)
 
 # split subsective and intersective adjectives
 subs = o[o$subsectiveF=="subsective",]
