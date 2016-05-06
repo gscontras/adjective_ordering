@@ -134,7 +134,8 @@ inh_ = inh[inh$adj_noun!="wooden apple"&inh$adj_noun!="wooden apple"&inh$adj_nou
 inh$wb = 0
 inh[inh$adj_noun!="wooden apple"&inh$adj_noun!="wooden apple"&inh$adj_noun!="blue banana"&inh$adj_noun!="wooden banana"&inh$adj_noun!="square banana"&inh$adj_noun!="plastic carrot"&inh$adj_noun!="plastic cheese"&inh$adj_noun!="short cheese"&inh$adj_noun!="green couch"&inh$adj_noun!="metal couch"&inh$adj_noun!="good couch"&inh$adj_noun!="square tomato"&inh$adj_noun!="purple TV",]$wb = 1
 
-summary(lmer(response~wb+(1|workerid),data=inh))
+summary(lmer(response~myCenter(inh[, c("wb")])+(1|workerid),data=inh_c))
+inh_c = cbind(inh, myCenter(inh[,c("wb")]))
 
 ggplot(inh_, aes(x=factor(naturalness),y=response)) +
   #ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
