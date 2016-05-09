@@ -71,3 +71,5 @@ writing/long-paper/revision/adj-ord-supplement.blg
 *.blg
 
 writing/long-paper/revision/adj-ord-revised.blg
+
+*.out
