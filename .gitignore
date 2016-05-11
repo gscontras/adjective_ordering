@@ -73,3 +73,5 @@ writing/long-paper/revision/adj-ord-supplement.blg
 writing/long-paper/revision/adj-ord-revised.blg
 
 *.out
+
+experiments/analysis/~$participant-overlap.xlsx
