@@ -258,3 +258,7 @@ ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/long-paper/plots/naturalness-subjectivity-configuration.png",height=3,width=3.5)
+
+## find flexible pairings
+head(o_agr_pred)
+o_agr_pred[o_agr_pred$s_diff<0.1&o_agr_pred$s_diff>-0.1&o_agr_pred$correctresponse<0.6&o_agr_pred$correctresponse>0.4,]

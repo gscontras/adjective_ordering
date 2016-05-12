@@ -220,6 +220,8 @@ o_no_sup_pred$subjectivity = s_agr_pred$response[match(o_no_sup_pred$correctpred
 gof(o_no_sup_pred$correctresponse,o_no_sup_pred$subjectivity) # r = .78, r2 = .61
 results <- boot(data=o_no_sup_pred, statistic=rsq, R=10000, formula=correctresponse~subjectivity)
 boot.ci(results, type="bca") # 95%   ( 0.4658,  0.7145 )  
+
+
 # PREDICATE WITHOUT SUPERLATIVES AND OUTLIERS (civilized* (human), *creative* (human), *current* (temporal), *daily* (temporal), *designated* (X), *entrepreneurial* (human), *frozen* (physical), and *solid* (physical))
 o_no_out_pred <- o_no_sup_pred[o_no_sup_pred$correctpred1!="civilized"&o_no_sup_pred$correctpred1!="creative"&o_no_sup_pred$correctpred1!="current"&o_no_sup_pred$correctpred1!="daily"&o_no_sup_pred$correctpred1!="designated"&o_no_sup_pred$correctpred1!="entrepreneurial"&o_no_sup_pred$correctpred1!="frozen"&o_no_sup_pred$correctpred1!="solid",]
 gof(o_no_out_pred$correctresponse,o_no_out_pred$subjectivity) # r = .87, r2 = .76
@@ -602,7 +604,11 @@ o_no_sup <- o[o$correctpred1!="best"&o$correctpred1!="biggest"&o$correctpred1!="
 o_no_sup$subDiff = o_no_sup$sub1 - o_no_sup$sub2
 o_no_sup$lengthDiff = o_no_sup$length1 - o_no_sup$length2
 o_no_sup$freqDiff = o_no_sup$freq1 - o_no_sup$freq2
-
+# explainable variance
+o_no_sup$workerID = o_no_sup$workerid + 1
+o_no_sup$response = o_no_sup$correctresponse
+o_no_sup$predicate = o_no_sup$correctpred1
+prophet(splithalf_pred(o_no_sup, 100), 2) # 0.98
 
 md_sup = lmer(correctresponse~
             slide_number+
