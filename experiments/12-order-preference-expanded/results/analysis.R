@@ -1,6 +1,7 @@
 library(ggplot2)
 library(lme4)
 library(hydroGOF)
+library(lmerTest)
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master")
 
@@ -64,7 +65,12 @@ d$class2 <- as.character(d$class2)
 d$predicate1 <- as.character(d$predicate1)
 d$predicate2 <- as.character(d$predicate2)
 
-
+d$m_sense = 0
+d[d$makes_sense=="yes",]$m_sense = 1
+d$pred12 = paste(d$predicate1,d$predicate2)
+m1 = lm(m_sense~pred12,data=d)
+m2 = lm(m_sense~pred12+noun,data=d)
+anova(m1,m2)
 
 #####
 ## duplicate observations by adjective configuration
