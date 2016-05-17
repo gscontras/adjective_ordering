@@ -1,6 +1,18 @@
 library(ggplot2)
 library(reshape2)
 library(lme4)
+library(hydroGOF)
+
+
+# Bootstrap 95% CI for R-Squared
+library(boot)
+# function to obtain R-Squared from the data 
+rsq <- function(formula, data, indices) {
+  d <- data[indices,] # allows boot to select sample 
+  fit <- lm(formula, data=d)
+  return(summary(fit)$r.square)
+} 
+
 
 setwd("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master")
 
@@ -129,6 +141,7 @@ ggplot(o_agr_pred, aes(x=s_diff,y=correctresponse)) +
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity.pdf",height=3,width=3.5)
+#ggsave("../results/adjective-difference.pdf",height=3,width=3.5)
 
 
 
