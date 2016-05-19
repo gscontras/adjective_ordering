@@ -185,7 +185,7 @@ class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response,fill=ex
   #facet_wrap(~class,scale="free_x") +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 class_plot
-ggsave("../results/class_plot_comparison.pdf",height=3)
+#ggsave("../results/class_plot_comparison.pdf",height=3)
 
 ## predicate plot by class
 p_s = bootsSummary(data=all_d, measurevar="response", groupvars=c("class","predicate","experiment"))
@@ -196,9 +196,10 @@ pred_plot <- ggplot(p_s, aes(x=reorder(predicate,-response,mean),y=response,fill
   ylab("rating\n")+
   xlab("predicate") +
   facet_wrap(~class,scale="free_x") +
+  theme_bw() +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 pred_plot
-ggsave("../results/pred_plot_comparison.pdf",height=5,width=7)
+ggsave("../results/pred_plot_comparison.png",height=5,width=7)
 
 
 
