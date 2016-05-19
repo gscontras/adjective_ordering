@@ -122,11 +122,13 @@ We agree, and this is why we have chosen to include the discussion of this idea 
 
 There are different numbers of adjectives in each category because we initially selected adjectives that occur relatively frequently while trying to nevertheless cover as many different adjective classes as possible, resulting in unbalanced cells. 
 
-As for the reviewer's question regarding the danger of outlier-driven effects: most of the analyses we report were conducted on the adjective level, not the adjective class level, avoiding the possibility of inducing a class-level bias via an outlier in that class. For example, Fig.~4 shows naturalness ratings (order preferences) by adjective-wise subjectivity scores. We then replicated this adjective-level subjectivity effect with a much larger set of adjectives (see Fig.~6) and included a discussion of outlier effects in that dataset (p.~11-12). Similarly, all the analyses reported in the supplement were conducted at the adjective level, not the adjective class level.
+As for the reviewer's question regarding the danger of outlier-driven effects: almost all of the analyses we report were conducted on the adjective level, not the adjective class level, avoiding the possibility of inducing a class-level bias via an outlier in that class. For example, Fig.~4 shows naturalness ratings (order preferences) by adjective-wise subjectivity scores. We then replicated this adjective-level subjectivity effect with a much larger set of adjectives (see Fig.~6) and included a discussion of outlier effects in that dataset (p.~11-12). Similarly, all the analyses reported in the supplement were conducted at the adjective level, not the adjective class level.
 
-The concern is greater for the faultless disagreement analysis visualized in Fig.~5: here, we predicted naturalness ratings (order preferences) from a difference score that was computed by subtracting adjective \emph{class} means from each other. \jd{continue here}
+The concern is greater for the faultless disagreement analysis visualized in Fig.~5: here, we predicted naturalness ratings (order preferences) from a difference score that was computed by subtracting adjective \emph{class} means from each other. However, as you can see in the following graph, there was very little variability -- and thus, no outliers -- in faultless disagreement ratings within classes:
 
-\gcs{Judith, can you craft a response to this point?}\jd{started doing so, just need to know what the variation is like within classes so i can finish the last paragraph}
+\includegraphics{subjcomparison}
+
+
 
 \item \emph{It would be an even stronger argument for the authors if there were ordering preferences within the same semantic class, based on subjectivity.}
 
@@ -171,6 +173,11 @@ As for whether participants were simply ignoring the nouns in our ordering prefe
 
 \item \emph{Can you say something more about the analyses that use adjective class configurations? Why are the subjectivity ratings sometimes better at accounting for these?}
 
+We assume that the reviewer is referring to the difference between analyzing the data as visualized in Fig.~6 (where mean naturalness of each adjective as occurring in first position was predicted from that adjective's mean subjectivity) vs.~in Fig.~7 (where each class$_1$-class$_2$ naturalness mean was predicted from the difference in subjectivity between class$_1$ and class$_2$). The class-level analysis yielded a stronger correlation between subjectivity and ordering preferences than the adjective-level one because the noise that is present in the adjective-level ratings is smoothed when collapsing across adjective classes. 
+
+
+\jd{greg, can you add to the results section of experiment 2 how subjectivity scores were compared to naturalness ratings? (ie just make reference to how things were computed for exp 1).}
+
 \gcs{need to think this through -- something about how collapsing over classes smooths the data}
 
 \item \emph{Can you show that adjectives that are similar in subjectivity have more flexibility in relative order when they occur together? Would be nice to have some examples of this.}
@@ -191,13 +198,14 @@ We followed this advice, picking reasonable formalizations of three alternative 
 \item \emph{My second (perhaps ignorant) question is why we should think that anything abstract determines ordering preferences. If I just look at the frequency of usage---average distance from an adjective to its noun in a corpus--do I find that predicts ordering preference on new constructions? That could suggest that we just store some ordinal/weighting information about adjective position attached to each adjective. Of course in that analysis the causality could go either way... But in general I'd like to know what kind of evidence rules out those simple frequency/usage-based theories? Here's another version of the question: what if you gave me a new word and varied the subjectivity of its meaning. A fruit is ``paxy'' if you tend to like its color (subjective) vs. if it has more than 10 seeds (objective). Would you see ordering preferences for ``paxy'' depending on which meaning you gave people? If people really in their heads have a subjectivity $->$ order rule, it should apply on novel
 words like that, no? In general, it would be especially nice in this paper to make and test some novel predictions beyond just ratings for ordering preferences and adjective measures.}
 
-\gcs{need to think this through}
+Thank you for this excellent suggestion for an experiment. Indeed, under our account, a novel adjective's ordering preference should depend on the subjectivity of its meaning. We believe this experiment is outside the scope of the current paper, but now discuss the prediction in the General Discussion \jd{greg, can you either do that or say here why we don't?}.
+
 
 \item \emph{In section 3.3 (and perhaps elsewhere), the $R^2$ values are a little hard to interpret because they include variance from the noise in measuring the subjectivity preferences as well as the naturalness ratings. Because of this measurement error, you could never expect $R^2=1$, even for a perfect theory. A useful thing to do might be to do an analysis to see how much of the potentially explainable variance (e.g. subtracting off the measurement error) you actually do explain. Such an analysis would take into account the reliability of the x- and y-values in the correlation and adjust the correlation. Check out Spearman's Prophecy formula.}
 
 We performed these analyses on our ratings data, but the explainable variance was reliably high (i.e., $>$0.95), so we decided against including these analyses. To compute the explainable variance in the naturalness rating data, we first computed the split-half correlation of the data to itself. To do so, we chose a random sample of half of the participants, then correlated their data with the data from the remaining participants. We repeated this process 100 times to compute the mean split-half correlation of our data. To ``step up'' the split-half correlation to provide an estimated correlation of the data with itself, we entered this value into the Spearman-Brown Prophecy formula.
 
-\item \emph{I would like to know a little more what these findings tell us in a broader sense beyond adjective ordering. Do the authors expect general subjectivity effects in language? If so, why? I know they avoided saying too much about this due in order to avoid speculating, but I think talking about the bigger picture would help to situate this work for the broader cogsci community.}
+\item \emph{I would like to know a little more what these findings tell us in a broader sense beyond adjective ordering. Do the authors expect general subjectivity effects in language? If so, why? I know they avoided saying too much about this due in order to avoid speculating, but I think talking about the bigger picture would help to situate this work for the broader cogsci community.} 
 
 \gcs{Need to think this through.}
 
