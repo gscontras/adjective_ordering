@@ -60,17 +60,17 @@ d$makes_sense = "yes"
 d[!is.na(d$sense),]$makes_sense = "no"
 
 
-d$class1 <- as.character(d$class1)
-d$class2 <- as.character(d$class2)
-d$predicate1 <- as.character(d$predicate1)
-d$predicate2 <- as.character(d$predicate2)
+#d$class1 <- as.character(d$class1)
+#d$class2 <- as.character(d$class2)
+#d$predicate1 <- as.character(d$predicate1)
+#d$predicate2 <- as.character(d$predicate2)
 
-d$m_sense = 0
-d[d$makes_sense=="yes",]$m_sense = 1
-d$pred12 = paste(d$predicate1,d$predicate2)
-m1 = lm(m_sense~pred12,data=d)
-m2 = lm(m_sense~pred12+noun,data=d)
-anova(m1,m2)
+#d$m_sense = 0
+#d[d$makes_sense=="yes",]$m_sense = 1
+#d$pred12 = paste(d$predicate1,d$predicate2)
+#m1 = lm(m_sense~pred12,data=d)
+#m2 = lm(m_sense~pred12+noun,data=d)
+#anova(m1,m2)
 
 #####
 ## duplicate observations by adjective configuration
@@ -118,9 +118,19 @@ head(agr)
 ##############################################################
 
 o <- agr
+o = o[o$makes_sense=="yes",]
 
 model.7 = lm(correctresponse~correctpred1, data=o)
 model.11 = lm(correctresponse~correctpred1+noun:correctpred1, data=o)
 model.10 = lm(correctresponse~noun+correctpred1, data=o)
 anova(model.7,model.11)
 anova(model.7,model.10)
+
+#> anova(model.7,model.11)
+#Analysis of Variance Table
+#
+#Model 1: correctresponse ~ correctpred1
+#Model 2: correctresponse ~ correctpred1 + noun:correctpred1
+#Res.Df    RSS   Df Sum of Sq      F Pr(>F)
+#1  21269 2810.1                             
+#2  11593 1516.7 9676    1293.4 1.0218 0.1343
