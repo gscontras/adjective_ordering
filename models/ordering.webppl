@@ -1,0 +1,101 @@
+//noisy meaning functions
+var small = function(box) {
+  box === undefined ? false : box.small ? flip(1-smallNoise) : flip(smallNoise)
+}
+var brown = function(box) {
+  box === undefined ? false : box.brown ? flip(1-brownNoise) : flip(brownNoise)
+}
+var cardboard = function(box) {
+  box === undefined ? false : box.cardboard ? flip(1-cardboardNoise) : flip(cardboardNoise)
+}
+
+//property noise
+var smallNoise = 0.3
+var brownNoise = 0.2
+var cardboardNoise = 0.1
+
+//restrictively modify a set
+var restrict = function(set,property) {
+  var filter = function(obj){ 
+    if (property(obj)) {
+      return obj
+    }
+  }
+  var restrictedSet = map(filter,set.objs)
+  var numSmallErrors = (
+    _.filter(set.objs, {small: true}).length - 
+    _.filter(restrictedSet, {small: true}).length
+  ) + _.filter(restrictedSet, {small: false}).length
+  var numCardboardErrors = (
+    _.filter(set.objs, {cardboard: true}).length - 
+    _.filter(restrictedSet, {cardboard: true}).length
+  ) + _.filter(restrictedSet, {cardboard: false}).length
+  var currentErrors = property === small ? numSmallErrors : numCardboardErrors
+  var numErrors = set.totalErrors + currentErrors
+  var finalErrors = _.filter(boxes8, {small: true, cardboard: true}).length -
+      _.filter(restrictedSet, {small: true, cardboard: true}).length +
+      (_.filter(restrictedSet,{box: true}).length - 
+       _.filter(restrictedSet, {small: true, cardboard: true}).length)
+  return {objs: restrictedSet, totalErrors: numErrors, errors: finalErrors}
+}
+
+// 8 boxes; 1 is small, brown, and cardboard
+var boxes8 = [
+  {small: true, brown: true, cardboard: true, ID: 1, box: true},
+  {small: true, brown: true, cardboard: false, ID: 2, box: true},
+  {small: true, brown: false, cardboard: true, ID: 3, box: true},
+  {small: true, brown: false, cardboard: false, ID: 4, box: true},
+  {small: false, brown: true, cardboard: true, ID: 5, box: true},
+  {small: false, brown: true, cardboard: false, ID: 6, box: true},
+  {small: false, brown: false, cardboard: true, ID: 7, box: true},
+  {small: false, brown: false, cardboard: false, ID: 8, box: true}
+]
+
+// enumerate the number of final classification errors that result from "small cardboard box"
+var normalOrder = function() {
+  Infer({method: "enumerate",
+         model: function(){ 
+           restrict(restrict({objs: boxes8, totalErrors: 0}, cardboard), small).errors 
+         }})
+}
+
+// enumerate the number of final classification errors that result from "cardboard small box"
+var reverseOrder = function() {
+  Infer({method: "enumerate",
+         model: function(){ 
+           restrict(restrict({objs: boxes8, totalErrors: 0}, small), cardboard).errors
+         }})
+}
+
+
+print("final errors for canoninal order")
+viz(normalOrder())
+print("final errors for noncanoninal order")
+viz(reverseOrder())
+
+
+// enumerate the total number of classification errors that result from "small cardboard box"
+var normalOrder = function() {
+  Infer({method: "enumerate",
+         model: function(){ 
+           restrict(restrict({objs: boxes8, totalErrors: 0}, cardboard), small).totalErrors 
+         }})
+}
+
+// enumerate the total number of classification errors that result from "cardboard small box"
+var reverseOrder = function() {
+  Infer({method: "enumerate",
+         model: function(){ 
+           restrict(restrict({objs: boxes8, totalErrors: 0}, small), cardboard).totalErrors
+         }})
+}
+
+
+print("total errors for canoninal order")
+viz(normalOrder())
+print("total errors for noncanoninal order")
+viz(reverseOrder())
+
+
+
+
