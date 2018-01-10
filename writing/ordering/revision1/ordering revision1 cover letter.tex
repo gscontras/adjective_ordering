@@ -1,0 +1,403 @@
+\documentclass[12pt]{article}
+\usepackage[hmargin={1in},vmargin={1in,1in},foot={.6in}]{geometry}   
+\geometry{letterpaper}              
+\usepackage{color,graphicx}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{varioref}
+\usepackage{textcomp}
+\usepackage{textcomp}
+\usepackage{mflogo}
+\usepackage{wasysym}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.25mm}}
+
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{plain} % options: empty , plain , fancy
+\lhead{}\chead{}\rhead{}
+\renewcommand{\headrulewidth}{.5pt}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\newcommand{\txtp}{\textipa}
+\renewcommand{\rm}{\textrm}
+\newcommand{\sem}[1]{\mbox{$[\![$#1$]\!]$}}
+\newcommand{\lam}{$\lambda$}
+\newcommand{\lan}{$\langle$}
+\newcommand{\ran}{$\rangle$}
+\newcommand{\type}[1]{\ensuremath{\left \langle #1 \right \rangle }}
+
+\newcommand{\bex}{\begin{exe}}
+\newcommand{\eex}{\end{exe}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+
+\newcommand{\gcs}[1]{\textcolor{blue}{[gcs: #1]}}
+\definecolor{Green}{RGB}{10,200,100}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}
+\newcommand{\jd}[1]{\textcolor{red}{[jd: #1]}}
+
+\thispagestyle{empty}
+
+\begin{document}
+
+{\flushright
+
+\vspace{25pt}
+Irvine, California\\[20pt]
+
+\noindent XXX DATE\\[25pt]}
+
+
+\noindent Dear Dr. S\ae b\o,\\
+
+\noindent We would like to thank you and the two anonymous reviewers for your reviews and comments on our paper, ``On the grammatical source of adjective ordering preferences.'' As you will recall, you highlighted the following three concerns, which you encouraged us to consider in the development of a new submission to \emph{Semantics and Pragmatics}: 
+
+\ben
+
+\item \emph{The most important issue we see is with the tension between hierarchical and
+	linear structure. While linear structure is usually held to be relevant for
+	incremental processing, your argument rests on hierarchical structure, and
+	although this argument seems to be oriented towards incremental processing
+	(``speakers employ the most useful, least subjective adjectives early in this
+	semantic process"), you do not take note of the mismatch between linear and
+	hierarchical structure in prenominal languages like English. Modification
+	may proceed outward from the noun in semantic composition as a theoretical
+	model, but it is doubtful if it (only) does so in processing, and processing
+	is arguably what is relevant for pressures from successful reference
+	resolution and utility for effective communication. Both reviewers emphasize
+	this dilemma, and Reviewer A points to relevant work in the area of
+	incremental interpretation of adjectives.}
+
+	XXX
+	
+\item \emph{Second, a connection is made between subjectivity and uncertainty, or
+	liability to alignment errors (``noise"), which is not warranted without
+	further argument. On the one hand, as Reviewer A notes, it may not follow
+	from every theory of subjective meaning that subjectivity leads to
+	uncertainty. And on the other hand, subjectivity is not the only property
+	that may lead to uncertainty, or a high risk of misalignment: vague
+	adjectives and relative adjectives are also likely to introduce noise. In
+	fact, the adjective ``small", which you seem to use as an example of
+	subjective adjectives, is usually held to be both relative and vague, and
+	whether it is independently subjective is a matter of debate (see, e.g.,
+	Kennedy 2016).}
+
+	XXX
+	
+\item \emph{And third, the particular analysis you propose in terms of noise and
+	subsective, non-intersective modification is not sufficiently explicit to
+	show what it is supposed to show, namely, that it pays for reference
+	resolution to start with less noisy modifiers. The definition (3) is not
+	immediately intelligible, and it does not become clear exactly how
+	subsectivity leads to non-commutativity. (In fact, not all theories of
+	adjective meaning predict that adjectives like ``small" are not intersective;
+	according to Kennedy (2007), for example, the relativity is built into the
+	context-sensitive standard of comparison function that comes with the
+	positive morpheme.) One would need to see a step-by-step demonstration that
+	``small brown box" indeed results in fewer errors, or a higher probability of
+	intended referent retrieval, than ``brown small box".}
+
+	XXX
+
+\een
+In the remainder of this letter, we consider in more detail each of the reviewers' concerns. 
+
+Thank you again for the thorough and thoughtful comments on our work. We hope that you will like the new version of the paper. Please let us know if you require additional information. We look forward to hearing from you!\\[25pt]
+
+
+\noindent Yours sincerely,\\[10pt]
+
+\noindent Gregory Scontras, Judith Degen, and Noah D.~Goodman
+
+\newpage
+
+
+
+
+\subsubsection*{Reviewer A}
+
+\ben
+
+\item \emph{The biggest problem with the current ms. is that it fails to say anything
+about the elephant in the room, which concerns the relation between linear
+order, heirarchical order, and referential processing.  The discussion of
+relative ``referential utility" on pp. 8-9, which is meant to establish the
+idea that modifiers that are closer to the noun do more ``work" for the
+purpose of establishing reference, is based on the idea that the starting
+point for referential processing --- the set of things are under
+consideration as possible referents for the noun phrase in the first place
+--- is the noun meaning. But this is the case only if interpretation is
+based on heirarchical order, with the most embedded expression (in the
+nominal projection, namely the noun) processed first, rather than on linear
+order, with the leftmost expression processed first.  The paper presents
+exactly zero evidence in support of this crucial assumption.  And if things
+happened to be the opposite --- if, instead, the starting point for
+referential processing were not the noun, but rather the determiner (or
+whatever else signals the left edge of a noun phrase), then the very same
+principles of uncertainty that the author invokes to ensure that less
+subjective adjectives are closer to the noun would derive exactly the
+opposite ordering pattern. On this view, what the parser would know upon
+encountering a determiner is that it the domain of reference is the domain
+of things, maybe even narrowed down by phi- or case features (depending on
+the language) to a subset of the set of things.  Then, by the same reasoning
+presented in this paper, we'd expect the first modifier --- the one farthest
+from the noun --- to be the one that most reliably narrows this set down
+further.  And so forth.}
+
+\emph{So is there evidence that tells us whether referential processing is
+sensitive to heirarchical vs.~linear structure?  I do not know the
+processing literature well, but I do know of one fairly prominent study
+(with many follow-ups) that does not appear to work in the author's favor. 
+This is the work on ``referential contrast effects" originally done by Julie
+Sedivy (using the Visual World Paradigm), and subsequently by lots of other
+people.  What this work shows is that when subjects are attending to a
+visual context in which there is a ``target" object that satisfies both a
+noun and an adjective meaning (e.g., a tall glass) and ``competitor" object
+that satisfies the adjective but not the noun (e.g., a tall pitcher),
+subjects fixate on the target more quickly when there is also a ``contrast"
+object that satisfies the noun but not the adjective (e.g. a small cup).  In
+particular, they fixate on the target in the contrast condition before they
+have processed the noun.  This result seems difficult to explain if the
+subjects are engaging in referential processing according to heirarchical
+order, in the way that the reasoning in the ms. expects, rather than
+according to linear order, in the way that would appear to lead to exactly
+the opposite predictions about adjective ordering universals, at least for
+head-final languages, though it would make the correct predictions for
+head-initial languages.  (On the other hand, it would not predict the
+mirror-image ordering preferences that we actually see.)}
+
+XXX
+
+\item \emph{The author ends up operationalizing the effects of subjectivity on
+reference selection in terms of uncertainty.  This is interesting, but
+deserves a bit more discussion.  First, how does this relate to actual
+theories of uncertainty?  Would a relativist theory like Lasersohn's lead us
+to expect this result, for example? Lasersohn is actually very explicit to
+reject an account of subjectivity based on uncertainty of meaning. And at
+least from one perspective (so to speak), it seems that a relativist theory
+would NOT predict greater uncertainty of meaning for subjective predicates: 
+if there is a convention for autocentric interpretation, then there is
+little uncertainty about the meaning of a subjective predicate as uttered by
+S:  it picks out the set of things that satisfy the predicate from S's
+perspective.  On the other hand, from a different perspective, maybe a
+relativist theory would give rise to such a prediction:  even if there is
+such a convention, there is going to be uncertainty for any hearer H about
+what the actual extension of the predicate is, given that H doesn't share
+S's perspective.  But even if we grant all that, how do these essentially
+pragmatic expectations about language use get cashed out and worked into the
+grammar in the form of adjective ordering preferences?}
+
+\emph{There is actually one theory of subjectivity that explicitly links
+subjectivity to uncertainty of meaning, and even hypothesizes that
+(something like) different degrees of uncertainty correspond to different
+degrees of subjecitvity.  This is the approach advocated by Kennedy and
+Willer (2016) (SALT paper ``Subjective attitudes and counterstance
+contingency").  The author has clearly tried to be agnostic about the
+``right" account of subjectivity in this paper, but if the proposals make
+more sense when they're embedded in one approach compared to another, that
+would constitute a theoretically interesting result, which should be pointed
+out.}
+
+XXX
+
+\item \emph{It would be good to show exactly how subsective modification breaks the
+chain of commutativity.  The paper points to one example --- comparison
+class-dependent vague predicates --- but not all subjective adjectives show
+the profile of such expressions.  And it is not even clear that such
+expressions are not intersective from an actual compositional point of view.
+If the adjective is context-dependent relative to threshold of application
+(as is usually thought), then `small elephant' and its kin can be
+interpreted intersectively provided the threshold of `small' is fixed in the
+right way.  True, there's a kind of dependency between the adjective and the
+noun, but this need not be a compositional one.}
+
+XXX
+
+\item \emph{The discussion of ``referential utility" on p. 9 needs to be cleaned up. 
+I get the general point here, which is that, assuming that modification
+isn't vacuous, the set of objects that each adjective gets to ``make a
+decision about" monotonically decreases as we move out from the noun. 
+(Sticking to the case of intersective modification!)  But the discussion
+makes it sound as the inner adjectives also necessarily exclude more objects
+than the outer ones.  This is of course not true, and is contingent on the
+facts.  If I have a set of 100 boxes, 99 of which are cardboard and 50 of
+which are big, then in `big cardboard box', `big' provides greater
+information gain than `cardboard'.}
+
+XXX
+
+\item \emph{Returning to the issues of processing above:  the following poster was
+presented at CUNY a couple years ago:}
+
+\emph{Redford, R., \& Chambers, C.G. (March 2016). The Good, the Bad, and the Ugly:
+Incremental Interpretation of Evaluative Adjectives. Poster presented at the
+CUNY Conference on Human Sentence Processing, Gainesville, FL.}
+
+\emph{If I remember correctly, it had the interesting result that evaluative
+modifiers were less likely to give rise to a referenetial contrast effect in
+a Sedivy-style referential processing study. This is also relevant to the
+current proposal, because it suggests (and I think this is what the authors
+of the poster proposed) that evaluative (subjective) adjectives are more
+likely to be non-restrictive than restrictive. What does this mean in the
+context of the current proposal?  Does it make sense, if the author is
+correct that greater subjectivity leads to less referential utility?  Or
+does it provide another explanation for order effects, given the well-known
+structural constraints on restrictive vs. non-restrictive interpretations
+(e.g. Larson 1998, SALT paper ``Events and modification in nominals")?  Or
+could the latter be another result of the former?  }
+
+XXX
+
+\een
+
+
+\subsubsection*{Reviewer B}
+
+\ben
+
+\item \emph{One issue that keeps on coming up in my mind has to do with the
+incrementality of language interpretation. We know from a large body of work
+that language interpretation is incremental and that comprehenders will
+start to make predictions about an intended referent even before a sentence
+is over.  Thus, from this angle, a communicatively maximally efficient
+approach might be to say the most informative, reliable, helpful adjectives
+*first*, to help the listener narrow down the potential set of referents as
+fast as possible.  Under this view, it seems odd that subjective adjectives
+would occur BEFORE more objective adjectives in prenominal languages like
+English. The situation is, of course, unproblematic for languages with
+post-nominal adjectives since there, more objective adjectives *do* linearly
+precede more subjective adjectives. Perhaps the ordering constraints in
+prenominal languages are due to some grammatical constraint – if so, it
+would be helpful to say something about this, to be more explicit about why
+prenominal adjective languages would mention the `less useful'
+adjectives *first*.}  
+
+\emph{I may be misunderstanding or overlooking something very fundamental in the
+paper, but basically, the question of ``why not always make sure that more
+helpful adjectives occur linearly before less helpful adjectives'' keeps up
+coming up for me. In other words, if the right account is a
+communicatively-oriented, reference-based account, it's not yet fully
+clear to me how it works for languages with prenominal adjectives where more
+subjective adjectives linearly precede less subjective adjectives.  If I am
+overlooking something critical, perhaps the authors could make that part
+more explicit.}
+
+XXX
+
+\item \emph{As a side note, I was also wondering, typologically, how the number of
+prenominal adjective languages compares to the number of postnominal
+adjective languages?   (especially since, at least on my understanding, the
+authors' analysis/account/story is simpler/more straightforward for
+postnominal adjective languages)}
+
+XXX
+
+\item \emph{A question related to the point above has to do with whose needs are driving
+the adjective ordering process, as well as what assumptions are being made
+about language production. On page 10, the authors state that ``Thus,
+speakers employ the most useful, least subjective adjectives early in this
+semantic process where there is the greatest potential for misalignment''.
+There seems to be some tension here between a speaker-oriented process and
+an addressee-oriented process. On the one hand, the authors convincingly
+articulate how less subjective adjectives are more helpful for communication
+(addressee-oriented need). At the same time, though, talking about speakers
+employing the most useful adjectives early in the process – where
+`early' means early in a bottom-up, noun-based combination process (?)
+– seems to be a speaker-oriented claim which could be seen as being at
+odds with the incremental nature of language comprehension that I mention in
+the preceding point (at least for prenominal adjective languages like
+English).   It would be helpful if the authors could clarify their
+assumptions about the speaker- vs. addressee-oriented nature of the process
+as well as what they mean by `early'  – since (if I understood
+correctly) it is early from the linguistic construction-of-noun-phrases
+point of view but *not* early from the addressee's `when do I hear the
+adjective in the linear string in English' point of view.}
+
+XXX
+
+\item \emph{The title is ``on the grammatical source of adjective ordering
+preferences'' but seems to me that the authors ultimately argue for a
+relatively non-grammatical and more communicatively-oriented source.}
+
+XXX
+
+\item \emph{p.2 ``has proven elusive, owing to the complex, careful empirical work
+required to test these hypotheses'' – this sounds a bit negatively
+inclined towards the prior work, as if they were not capable of conducting
+careful empirical work. Is this intended?}
+
+XXX
+
+\item \emph{p.2 second paragraph: hypotheses => hypothesis?}
+
+XXX
+
+\item \emph{Section 2, p.2-3: the authors use the term `extremely' a few times when
+talking about Scontras (``an extremely strong correlation'' and ``finding
+extremely high correlations').  I would recommend leaving out the modifier
+`extremely' and just saying strong correlation (and perhaps including a
+number indicating correlation strength) – using a word like
+`extremely' without numerical support struck me as a bit odd.}
+
+XXX
+
+\item \emph{Top of p.4: Given how much attention the cartographic approach has received
+in prior literature, it seems to me that it was perhaps dismissed a little
+too fast. As a related side note, one could claim that gradient judgements
+could emerge from a categorical grammatical system, e.g via interaction with
+a `performance' factor or through an interplay of factors. Someone might
+argue that the grammar has a rigid structure but that extra-grammatical
+factors interact with that and hence the outcome is gradient. I'm not
+saying I personally would argue for this but I can see how someone could
+make this claim.}
+
+XXX
+
+\item \emph{p.4: the link between (i) being more inherent to the object and (ii) being a
+more salient/accessible property was not entirely clear to me.  Can't we
+have properties that are very inherent (at least on some understanding of
+the term) but not very salient when we think about the object? Eg an
+inherent property of cats is that they are warm-blooded but I don't think
+this is necessarily a very salient/accessible property, when compared to
+properties like `furry'. But I may be misunderstanding what is meant by
+`inherent' in the work being discussed in this section, so maybe that
+could simply be clarified?  (This is not an issue for the authors' claims
+in this paper, obviously.)}
+
+XXX
+
+\item \emph{p.10: the example about the tacky polyester shirt is very interesting and I
+think the the question of ``whether speaker goals influence ordering
+preferences'' is a really important question to answer if one wants to
+argue for a communication-based account such as this one.  So I might
+recommend that the authors not `dismiss' this question so fast and
+perhaps spend more time on this issue.}
+
+XXX
+
+\item \emph{p.10-11:  I was very glad to see discussion of acquisition work. That seems
+like another intriguing direction for future work.}
+
+XXX
+
+\een
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
