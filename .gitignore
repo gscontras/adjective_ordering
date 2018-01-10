@@ -99,3 +99,9 @@ writing/ordering/ordering.ps
 writing/ordering/ordering.spl
 
 writing/ordering/ordering-main-text-count.pdf
+
+*.spl
+
+*.ps
+
+writing/ordering/revision/ordering.pdf
