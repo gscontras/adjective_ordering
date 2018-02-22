@@ -309,7 +309,7 @@ To get this story off the ground, we must consider the semantics of modification
 \sem{ADJ} = \lam x. if \texttt{ADJ}(x) then \texttt{flip}($1-\epsilon$), else \texttt{flip}($\epsilon$)
 
 Stacking a series of noisy adjectives together in a modification structure, there will indeed be a greater chance of incorrect classifications (i.e., misalignments) if the adjectives are not ordered according to subjectivity. %The larger the denotation with which a noisy adjective composes, the greater the opportunity for misclassifications: 
-For each potential referent a adjective classifies, we introduce the potential for misclassification $\epsilon_{adj}$. As the number $N$ of potential referents increases, so too does the probability of misclassification $p(\textrm{error})$: 
+For each potential referent an adjective classifies, we introduce the potential for misclassification $\epsilon_{adj}$. As the number $N$ of potential referents increases, so too does the probability of misclassification $p(\textrm{error})$: 
 
 \setcounter{equation}{3}
 \begin{align}
@@ -317,19 +317,47 @@ p(\textrm{error}_{adj}) &= 1 - p(\textrm{no-error}_{adj}) \nonumber\\
 &= 1 - (1-\epsilon_{adj})^N
 \end{align}
 
-Suppose $\epsilon_{\footnotesize\textrm{cardboard}} = 0.01$, so that there is a 1\% chance of incorrectly classifying an object as cardboard. Suppose further that $\epsilon_{\footnotesize\textrm{brown}} = 0.02$ and $\epsilon_{\footnotesize\textrm{small}} = 0.03$. For \emph{small brown cardboard box}, we can calculate the probability of \emph{any} errors in misclassification by multiplying the individual error probabilities  first determining the individual pro
+%Suppose $\epsilon_{\footnotesize\textrm{cardboard}} = 0.01$, so that there is a 1\% chance of incorrectly classifying an object as cardboard. Suppose further that $\epsilon_{\footnotesize\textrm{brown}} = 0.02$ and $\epsilon_{\footnotesize\textrm{small}} = 0.03$. 
+For a multi-adjective string, we can calculate the probability of \emph{any} errors in misclassification by multiplying the individual error probabilities from each adjective as in (\ref{multi-adj-eq}); crucially, $N$ will decrease as adjectives restrict the nominal denotation. 
 
-$$p(\textrm{error}) = 1 - p(\textrm{no-error})$$
+\begin{equation} \label{multi-adj-eq}
+p(\textrm{error}_{N\!P}) = 1 - (1-\epsilon_{adj_1})^{N_1}\ \cdot\ \ldots\ \cdot\ (1-\epsilon_{adj_n})^{N_n}
+\end{equation}
+Ordering with respect to subjectivity minimizes the probability of misclassifications for a multi-adjective string by ensuring that $N$ decreases as $\epsilon$ increases. In this way, a simple policy of minimizing misclassifications could result in the observed subjectivity-based ordering. 
 
-$$p(\textrm{no-error}) = (1-\epsilon)^N$$
+%If there are eight boxes with all possible combinations of the properties \textsc{small}, \textsc{brown}, and \textsc{cardboard}, as in Table \ref{adj-table}, $p(\textrm{error})$ for the string \emph{small brown cardboard box}
+%
+%\begin{table}
+%	\caption{XXX} \label{adj-table}
+%	\centering
+%\begin{tabular}{r|llll}
+%	& \textsc{small} & \textsc{brown} & \textsc{cardboard} & \textsc{box} \\ \hline
+%	1 & \texttt{true} & \texttt{true} & \texttt{true} & \texttt{true} \\ 
+%	2 & \texttt{true} & \texttt{true} & \texttt{false}  & \texttt{true} \\
+%	3 & \texttt{true} & \texttt{false}  &  \texttt{true} & \texttt{true} \\
+%	4 & \texttt{true} & \texttt{false}  & \texttt{false}  & \texttt{true} \\
+%	5 & \texttt{false}  & \texttt{true} & \texttt{true} & \texttt{true} \\
+%	6 & \texttt{false}  & \texttt{true} & \texttt{false}  & \texttt{true} \\
+%	7 & \texttt{false}  & \texttt{false} & \texttt{true} & \texttt{true} \\
+%	8 & \texttt{false}  & \texttt{false}  & \texttt{false} & \texttt{true} \\
+%	\end{tabular}
+%\end{table}
+%
+%
+%\begin{align}
+%p(\textrm{error}_{NP}) &= 1 - (1-\epsilon_{adj_1})^{N_1}\ \cdot\ \ldots\ \cdot\ (1-\epsilon_{adj_n})^{N_n}  \nonumber\\
+%&= 1 - (1-0.01)^8\ \cdot\ (1-0.02)^4\ \cdot\ (1-0.3)^2
+%\end{align}
+%
+%
+%
+%$$p(\textrm{error}_{\footnotesize\textrm{small-brown-cardboard}}) = 1-  p(\textrm{no-error}_{\footnotesize\textrm{cardboard}}) \cdot p(\textrm{no-error}_{\footnotesize\textrm{brown}}) \cdot p(\textrm{no-error}_{\footnotesize\textrm{small}})$$
 
-$$p(\textrm{no-error}_{\footnotesize\textrm{small-brown-cardboard}}) = p(\textrm{no-error}_{\footnotesize\textrm{cardboard}}) \cdot p(\textrm{no-error}_{\footnotesize\textrm{brown}}) \cdot p(\textrm{no-error}_{\footnotesize\textrm{small}})$$
 
-A simple policy of minimizing misclassifications could therefore result in the observed subjectivity-based ordering. 
 
-However, assuming a truly intersective semantics for modification, the probability of arriving at the correct referent once a noun has been modified does not depend on the order of the adjectives. Each adjective has some probability $p$ (i.e., $1-\epsilon$) of correctly classifying the intended object(s). Given the commutativity of noise in intersective modification, a nominal with $n$ adjectives will correctly classify the intended objects with probability $p_{adj_1} \cdot\ \ldots\ \cdot\ p_{adj_n}$. In \emph{small brown cardboard box}, the probability that the intended referent will remain in the full nominal denotation is equal to $p_{\footnotesize\textrm{cardboard}} \ \cdot\ p_{\footnotesize\textrm{brown}} \ \cdot\ p_{\footnotesize\textrm{small}}$, irrespective of order. If the pressure for subjectivity-based ordering preferences ultimately arises out of pressures toward successful reference resolution, the commutativity of noise in intersective modification will not deliver subjectivity-based preferences.
+However, minimizing misclassifications and ensuring successful reference resolution are subtly differently notions. Assuming a truly intersective semantics for modification, the probability of arriving at the correct referent once a noun has been modified does not depend on the order of the adjectives (i.e., the order of semantic composition). To see why, consider the process of reference resolution from the perspective of the intended referent. Each adjective has some probability $p(\textrm{no-error}_{adj})$ (i.e., $1-\epsilon_{adj}$) of correctly classifying the intended referent(s). Given the commutativity of noise in intersective modification, a nominal with $n$ adjectives will correctly classify the intended referent with probability $p_{adj_1} \cdot\ \ldots\ \cdot\ p_{adj_n}$. In \emph{small brown cardboard box}, the probability that the intended referent will remain in the full nominal denotation is equal to $p_{\footnotesize\textrm{cardboard}} \ \cdot\ p_{\footnotesize\textrm{brown}} \ \cdot\ p_{\footnotesize\textrm{small}}$, irrespective of order. If the pressure for subjectivity-based ordering preferences ultimately arises not out of an avoidance of any misclassifications, but out of pressures toward successful reference resolution, the commutativity of noise in intersective modification will not deliver subjectivity-based preferences.
 
-We break the commutativity of noise and thus the order-independence of modification once we recognize that not all modification is intersective \citep{truswell2009,mcnally2016}. Indeed, intersective modification is likely a poor choice for adjectives like \emph{small}: asserting that Dumbo is a small elephant need not commit the speaker to the assertion that Dumbo is small. Instead, many cases of modification are subsective, such that the interpretation of the modifier (i.e., the adjective) depends crucially on the denotation of its complement (i.e., the nominal it modifies). With subsective modification in multi-adjective strings, the probability that a nominal will correctly classify its intended references \emph{does} depend on the order of adjectives: ordering relative to subjectivity will minimize potential misclassifications and thereby maximize the probability of retrieving the intended referent. In other words, once modification takes into account the content of what gets modified (as in the case of modification that is not merely intersective), early errors in misclassification have the potential to get magnified. %, since later modifiers will get interpreted 
+We break the commutativity of noise and thus the order-independence of modification once we recognize that not all modification is intersective \citep{kamppartee1995,truswell2009,mcnally2016}. Indeed, intersective modification is likely a poor choice for adjectives like \emph{small}: asserting that Dumbo is a small elephant need not commit the speaker to the assertion that Dumbo is small. Instead, many cases of modification are subsective, such that the interpretation of the modifier (i.e., the adjective) depends crucially on the denotation of its complement (i.e., the nominal it modifies). With subsective modification in multi-adjective strings, the probability that a nominal will correctly classify its intended references \emph{does} depend on the order of adjectives: ordering relative to subjectivity will minimize potential misclassifications \emph{of the intended referent} and thereby maximize the probability of retrieving the intended referent. In other words, once modification takes into account the content of what gets modified (as in the case of modification that is not merely intersective), early errors in misclassification have the potential to get magnified. %, since later modifiers will get interpreted 
 
 \gcs{here's an attempt at explaining how subsective modification breaks commutativity by walking through an example} Take an example with two subsective modifiers, say \emph{small old box}. Supposing that \emph{old} restricts the denotation of \emph{box} with some amount of noise $\epsilon_{\footnotesize\textrm{old}}$, the denotation of \emph{old box} will contain the intended referent with probability $1-\epsilon_{\footnotesize\textrm{old}}$. Next, \emph{small} composes subsectively by finding those old boxes that are small \emph{for old boxes}. In other words, \emph{small} examines the contents of its complement in order to fix its own interpretation.\footnote{One ought to wonder how this meaning dependence plays out in the semantics and pragmatics of modification. Recent proposals within the Bayesian Rational Speech Act modeling framework offer implementations of language understanding with vague gradable adjectives \citep{lassitergoodman2013,lassitergoodman2015}. To extend these models to the current case, all that is needed is the possibility to compose a series of such modifiers.} The error rate for \emph{small}, $\epsilon_{\footnotesize\textrm{small}}$, depends on the error rate that went into forming its complement, in this case $\epsilon_{\footnotesize\textrm{old}}$. As $\epsilon_{\footnotesize\textrm{old}}$ increases, so too can $\epsilon_{\footnotesize\textrm{small}}$, and thus the probability of correctly classifying the intended referent \emph{decreases}. To avoid misclassifications, one ought to use adjectives with the lowest $\epsilon$---that is, the lowest subjectivity---early in the process of modification.
 
