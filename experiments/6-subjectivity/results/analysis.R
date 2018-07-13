@@ -14,26 +14,27 @@ rsq <- function(formula, data, indices) {
 } 
 
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/6-subjectivity/Submiterator-master")
+setwd("~/git/adjective_ordering/experiments/6-subjectivity/Submiterator-master")
 
-d = read.table("subjectivity-trials.tsv",sep="\t",header=T)
+d = read.csv("subjectivity-trials.csv",header=T)
 head(d)
-s = read.table("subjectivity-subject_information.tsv",sep="\t",header=T)
+s = read.csv("subjectivity-subject_information.csv",header=T)
 head(s)
 
 d$language = s$language[match(d$workerid,s$workerid)]
 
 d <- d[d$language != "Bosnian" & d$language != "Russian",]
 
-unique(d$workerid) # n=28
+length(unique(d$workerid)) # n=28
 
 aggregate(response~class,data=d,mean)
+#aggregate(response~predicate,data=d,mean)
 
 #d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
 
 
 #load in naturalness preferences
-o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/git/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
