@@ -2,7 +2,7 @@ library(ggplot2)
 library(lme4)
 library(hydroGOF)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/3-order-preference/Submiterator-master")
+setwd("~/git/adjective_ordering/experiments/3-order-preference/Submiterator-master")
 
 d = read.table("order-preference-trials.tsv",sep="\t",header=T)
 head(d)
@@ -13,7 +13,7 @@ unique(d$language)
 all <- d
 # only native English speakers (n=45)
 d = d[d$language!="DUTCH, ENGLISH"&d$language!="English, Spanish"&d$language!="Vietnamese"&d$language!="Spanish",]
-unique(d$workerid)
+length(unique(d$workerid))
 summary(d)
 #write.csv(d,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/order-preference-trimmed.csv")
 
@@ -39,6 +39,8 @@ agr$class1 = NULL
 agr$class2 = NULL
 nrow(agr) #2340
 #write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
+
+eng_agr <- agr
 
 #####
 ## duplicate observations by adjective configuration
