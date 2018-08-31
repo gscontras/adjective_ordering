@@ -72,7 +72,7 @@ adjective ordering, subjectivity, hierarchical structure, modification, referenc
 
 \end{frontmatter}
 
-\noindent Word count: 6912
+\noindent Word count: 7137
 
 \section{Introduction}
 
@@ -395,21 +395,28 @@ Given the commutativity of noise in intersective modification, a nominal with tw
 arises out of pressures toward successful reference resolution, the commutativity of noise in intersective modification will not deliver subjectivity-based preferences.\footnote{Not all modification is intersective \citep{kamppartee1995,truswell2009,mcnally2016}. Indeed, intersective modification is likely a poor choice for adjectives like \emph{small}: asserting that Dumbo is a small elephant need not commit the speaker to the assertion that Dumbo is small. Instead, many cases of modification are subsective, such that the interpretation of the modifier (i.e., the adjective) depends crucially on the denotation of its complement (i.e., the nominal it modifies). The account developed below applies just as well to all cases of restrictive modification, including subsective ones.}
 	%With non-intersective modification in multi-adjective strings, the probability that a nominal will correctly classify its intended referents \emph{does} depend on the order of adjectives: ordering relative to subjectivity will minimize potential misclassifications \emph{of the intended referent} and thereby maximize the probability of retrieving the intended referent. In other words, once modification takes into account the content of what gets modified (as in the case of modification that is not merely intersective), early errors in misclassification have the potential to get magnified. %, since later modifiers will get interpreted }
 
-We break the commutativity of noise and thus the order-independence of modification once we recognize that $\epsilon_{adj}$ is not a fixed value, but rather varies with the size of the set to be classified, $|\textrm{NP}|$ (i.e., the number of objects under consideration).\footnote{For convenience, we identify NP with its extension, a set of objects.} With a fixed processing budget, ​more classifications to be made will necessarily mean making each with fewer resources; the precision of a stochastic classification is monotonically related to processing resources. Thus, as $|\textrm{NP}|$ increases, the precision of each individual classification decreases and so the potential for misclassification grows. We model this tendency by revising $p_{adj}(\texttt{ref})$ so that $\epsilon_{adj}$ depends on the size of the NP denotation that $adj$ restricts, with the constraint that $\epsilon_{adj}(|\textrm{NP}|) \leq \epsilon_{adj}(|\textrm{NP}|+1)$:
+We break the commutativity of noise and thus the order-independence of modification once we recognize that $\epsilon_{adj}$ is not a fixed value, but rather varies with the size of the set to be classified, $|\textrm{NP}|$ (i.e., the number of objects under consideration).\footnote{For convenience, we identify NP with its extension, a set of objects.} \gcs{Each classification that must be made takes some computational processing. If we posit a fixed processing budget, more classifications will necessarily mean making each with fewer resources. Making a stochastic classification with less computation can be done at the expense of decreased precision, or in other words, more noise. Classification noise will monotonically increase with the size of the set that must be classified.}
+%With a fixed processing budget, ​more classifications to be made will necessarily mean making each with fewer resources; the precision of a stochastic classification is monotonically related to processing resources. 
+Thus, as $|\textrm{NP}|$ increases, the precision of each individual classification decreases and so the potential for misclassification grows. We model this tendency by revising $p_{adj}(\texttt{ref})$ so that $\epsilon_{adj}$ depends on the size of the NP denotation that $adj$ restricts, with the constraint that $\epsilon_{adj}(|\textrm{NP}|) \leq \epsilon_{adj}(|\textrm{NP}|+1)$:
 
 \begin{equation}
-p_{adj}(\texttt{ref},\textrm{NP}) = 1-\epsilon_{adj}(|\textrm{NP}|)
+p_{adj}(\texttt{ref},\textrm{NP}) = 1-\epsilon_{adj}(|\textrm{NP.}|)
 \end{equation}
 
 
 %The probability that a multi-adjective NP will correct classify the intended referent \texttt{ref}, $p_{N\!P}(\texttt{ref})$, continues to depend on the probabilities that each individual adjective will correctly classify the intended referent. However, now these probabilities depend on the size of the set to be classified: $p_{adj_n}(\texttt{ref},\textrm{NP}_n)$. 
 %\gcs{a walk-through of the math} 
-In a case with two adjectives, the probability that the full multi-adjective NP correctly classifies the intended referent \texttt{ref}, $p_{N\!P}(\texttt{ref})$, takes into account the probability that $adj_1$ correctly classifies \texttt{ref} in NP$_1$, $p_{adj_1}(\texttt{ref},\textrm{NP}_2)$, and that $adj_2$ correctly classifies \texttt{ref} in NP$_2$, $p_{adj_2}(\texttt{ref},\textrm{NP}_2)$. However, $p_{adj_2}(\texttt{ref},\textrm{NP}_2)$ depends on the size of NP$_2$, which itself depends on potential classification errors from $adj_1$. We must therefore consider all possible values for NP$_2$.
+In a case with two adjectives \gcs{as in (5)}, the probability that the full multi-adjective NP correctly classifies the intended referent \texttt{ref}, $p_{N\!P}(\texttt{ref})$, takes into account the probability that $adj_1$ correctly classifies \texttt{ref} in NP$_1$, $p_{adj_1}(\texttt{ref},\textrm{NP}_1)$, and that $adj_2$ correctly classifies \texttt{ref} in NP$_2$, $p_{adj_2}(\texttt{ref},\textrm{NP}_2)$.\footnote{\gcs{For simplicity, we assume a fixed (i.e., noiseless) extension for the noun.}} However, $p_{adj_2}(\texttt{ref},\textrm{NP}_2)$ depends on the size of NP$_2$, which itself depends on potential classification errors from $adj_1$. We must therefore consider all possible values for NP$_2$.
 
-To calculate the probability of each possible NP$_2$, the function $F_{i}$ in \Next looks up the probability that $adj_i$ (in)correctly classifies each potential element $x$; $V(x,adj_i)$ serves as our ground truth, returning \texttt{true} just in case $x$ actually holds the property named by $adj_i$. The first outcome for $F_i$ in \Next corresponds to the probability of correctly including an element in NP$_2$ that holds the property named by $adj_i$; the second outcome corresponds to the probability of correctly excluding elements that do not hold the relevant property. The final two outcomes correspond to the probabilities associated with misclassifications.
+\ex.[(5)] \label{two-adj} \gcs{\Tree [.NP [.AP $adj_2$ ] [.NP$_2$ [.AP $adj_1$ ] [.NP$_1$ $noun$ ] ] ]}
 
+
+To calculate the probability of each possible NP$_2$, \gcs{$P(x \in NP_2 | NP_1, adj_i)$} in (\ref{F}) looks up the probability that $adj_i$ (in)correctly classifies each potential element $x$; $V(x,adj_i)$ serves as our ground truth, returning \texttt{true} just in case $x$ actually holds the property named by $adj_i$. The first case in (\ref{F}) corresponds to the probability of correctly including an element in NP$_2$ that holds the property named by $adj_i$; the second case corresponds to the probability of correctly excluding elements that do not hold the relevant property. The final two cases correspond to the probabilities associated with misclassifications.
+
+\setcounter{equation}{6}
 \begin{equation}
-F_i(x,\textrm{NP}_2,\textrm{NP}_1) = \left\{\begin{array} {l}
+\label{F}
+\gcs{P(x \in NP_2 | NP_1, adj_i)} = \left\{\begin{array} {l}
 1 - \epsilon_i(|\textrm{NP}_1|) \textrm{ if } x \in \textrm{NP}_2\ \&\ V(x,adj_i)  \\
 1 - \epsilon_i(|\textrm{NP}_1|) \textrm{ if } x \notin \textrm{NP}_2\ \&\ \neg V(x,adj_i) \\
 \epsilon_i(|\textrm{NP}_1|) \textrm{ if } x \notin \textrm{NP}_2\ \&\ V(x,adj_i) \\
@@ -418,14 +425,19 @@ F_i(x,\textrm{NP}_2,\textrm{NP}_1) = \left\{\begin{array} {l}
 \right. 
 \end{equation}
 
-To calculate the probability of successful referent classification at the level of NP, $p_{N\!P}(\texttt{ref})$,
+\gcs{Our aim is the probability of successful referent classification at the level of NP, $p_{N\!P}(\texttt{ref})$. In other words, we want to know how probable it is that both adjectives correctly classify the intended referent. 
 %Because the size of NP$_2$ can vary depending on errors made when $adj_1$ restricts NP$_1$, 
-we sum over possible values of NP$_2$, assuming that \texttt{ref} was correctly classified by $adj_1$ and so made it into the NP$_2$ denotation (i.e., $\texttt{ref} \in \textrm{NP}_2$). For each potential NP$_2$, we find the probability of successful classification by $adj_2$, $p_{adj_2}(\texttt{ref}, \textrm{NP}_2)$, and multiply it by the probability of arriving at that NP$_2$:
+To calculate this probability, we sum over possible values of NP$_2$ where \texttt{ref} was correctly classified by $adj_1$ %and so made it into the NP$_2$ denotation 
+(i.e., where $\texttt{ref} \in \textrm{NP}_2$). For each potential NP$_2$, we then find the probability of successful classification by $adj_2$, $p_{adj_2}(\texttt{ref}, \textrm{NP}_2)$, and multiply it by the probability of having arrived at that NP$_2$:}
 
 \begin{equation}
 \label{NP-prob}
-p_{N\!P}(\texttt{ref}) = \sum_{\substack{\textrm{NP}_2\subseteq\textrm{NP}_1\\ \textrm{where}\ \texttt{ref}\in\textrm{NP}_2}} p_{adj_2}(\texttt{ref}, \textrm{NP}_2) \cdot \prod_{x \in \textrm{NP}_1} F_{adj_1}(x, \textrm{NP}_2, \textrm{NP}_1)  
+p_{N\!P}(\texttt{ref}) = \sum_{\substack{\textrm{NP}_2\subseteq\textrm{NP}_1\\ \textrm{where}\ \texttt{ref}\in\textrm{NP}_2}} p_{adj_2}(\texttt{ref}, \textrm{NP}_2) \cdot \prod_{x \in \textrm{NP}_1} \gcs{P(x \in NP_2 | NP_1, adj_1)}  \\
 \end{equation}
+%
+%$$P(ref \in NP) 
+%= \sum_{NP_2} P(ref \in NP | ref \in NP_2) P(NP_2 | NP_1)$$
+%$$= \sum_{NP_2} P(ref \in NP | ref \in NP_2) \prod_{x\in NP_1} P(x \in NP_2 | NP_1)$$
 %
 %\footnote{The precise value of $|\textrm{NP}_2|$ depends on $p_{adj_1}(\texttt{ref}, \textrm{NP}_1)$. $|\textrm{NP}_2|$ is a random variable whose value depends on two Binomial distributions, which simulate the outcome of $n$ weighted coin flips:	$$|\textrm{NP}_2| =  \textrm{binomial}(1-\epsilon_{adj_1}(|\textrm{NP}_1|),2) + \textrm{binomial}(\epsilon_{adj_1}(|\textrm{NP}_1|),2).$$ Binomial($1 - \epsilon_{adj_1}(|\textrm{NP}_1|),2$) corresponds to the number of correct classifications for $adj_1$, while Binomial($\epsilon_{adj_1}(|\textrm{NP}_1|),2$) corresponds to the number of incorrect classifications for $adj_1$. The number of (in)correct classifications determines the size of NP$_2$.}
 %
@@ -440,17 +452,17 @@ p_{N\!P}(\texttt{ref}) = \sum_{\substack{\textrm{NP}_2\subseteq\textrm{NP}_1\\ \
 Adjectives closer to the noun will compose earlier semantically, and so the number of potential referents they must classify will be larger (cf.~the example in Fig.~\ref{mod-fig}). In (\ref{NP-prob}), this fact ensures that $|\textrm{NP}_2| \leq |\textrm{NP}_1|$. 
 Because adjectives that compose earlier classify a larger set, we maximize $p_{N\!P}(\texttt{ref})$ by ensuring that adjectives with lower subjectivity (i.e., with a lower $\epsilon$) compose earlier.
 
-To see the role of subjectivity-based ordering in maximizing the probability of successful reference resolution, consider the choice between \emph{small brown box} vs.~\emph{brown small box} in \ref{default} vs.~\ref{dispreferred}.\\ 
+To see the role of subjectivity-based ordering in maximizing the probability of successful reference resolution, consider the choice between \emph{small brown box} vs.~\emph{brown small box} in (9) vs.~(10).\\ 
 
 
 \noindent
 \begin{minipage}{.5\textwidth}
-	\ex.[(7)] \label{default}
+	\ex.[(9)] \label{default}
 	\Tree [.NP [.AP \emph{small} ] [.NP$_2$ [.AP \emph{brown} ] [.NP$_1$ \emph{box} ] ] ]
 	
 \end{minipage}
 \begin{minipage}{.5\textwidth}
-	\ex.[(8)] \label{dispreferred}
+	\ex.[(10)] \label{dispreferred}
 	\Tree [.NP [.AP \emph{brown} ] [.NP$_2$ [.AP \emph{small} ] [.NP$_1$ \emph{box} ] ] ]
 	
 \end{minipage}\\
@@ -459,7 +471,7 @@ To see the role of subjectivity-based ordering in maximizing the probability of 
 and assume that $\epsilon$ decreases by 0.04 with each decrease in $|\textrm{NP}|$.\footnote{
 %\gcs{even more of a disclaimer} 
 These values are adopted for illustrative purposes only. Subjectivity scores are likely an inflated estimate of an adjective's potential for misclassification $\epsilon$, and the decrease of 0.04 for decreasing $|\textrm{NP}|$ is chosen arbitrarily. Still, any values for $\epsilon_{small}(|\textrm{NP}|)$ and $\epsilon_{brown}(|\textrm{NP}|)$ would do so long as $\epsilon_{small}(|\textrm{NP}|) > \epsilon_{brown}(|\textrm{NP}|)$ for any $|\textrm{NP}|$.} We adopt the following values:
-\setcounter{equation}{8}
+\setcounter{equation}{10}
 \begin{align}
 \epsilon_{small}(|\textrm{NP}|=3) = 0.64 & & \epsilon_{brown}(|\textrm{NP}|=3) = 0.20 \nonumber\\
 \epsilon_{small}(|\textrm{NP}|=2) = 0.60 & & \epsilon_{brown}(|\textrm{NP}|=2) = 0.16 \nonumber\\
@@ -503,9 +515,9 @@ T (0.36) & F (0.36) & F (0.64) & 0.88 & 0.083 \\ \hline
 
 
 %If we suppose that the result of (i.e., $N2 = 2$); Here we consider a case where the first adjective 
-As the calculations above demonstrate, ordering with respect to decreasing subjectivity results in a higher probability of successfully classifying the intended referent than the reverse order. By ensuring that $|\textrm{NP}_2| \leq |\textrm{NP}_1|$ in the case of restrictive adjectival modification, this pattern holds generally; this fact is summarized by the following theorem:
+As the calculations above demonstrate, ordering with respect to decreasing subjectivity results in a higher probability of successfully classifying the intended referent than the reverse order. \gcs{Because it is necessarily the case} that $|\textrm{NP}_2| \leq |\textrm{NP}_1|$ in the case of restrictive adjectival modification, this pattern holds generally; this fact is summarized by the following theorem:
 
-\ex.[(12)] If $\epsilon_{adj}(i)$ is monotonic with respect to $i$, and $\epsilon_{adj_1}(i) < \epsilon_{adj_2}(i)$ for all $i$, then 
+\ex.[(14)] If $\epsilon_{adj}(i)$ is monotonic with respect to $i$, and $\epsilon_{adj_1}(i) < \epsilon_{adj_2}(i)$ for all $i$, then 
  $p_{adj_1\ adj_2\ noun}$(\texttt{ref}) $<$ $p_{adj_2\ adj_1\ noun}$(\texttt{ref}).
 
 
