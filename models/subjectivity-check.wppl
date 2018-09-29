@@ -1,0 +1,117 @@
+// // saebo's example
+// var objs = [
+//   {brown : true, small : true, ref: true},
+//   {brown : true, small : true, ref: false},
+//   {brown : true, small : false, ref: false},
+//   {brown : true, small : false, ref: false},
+//   {brown : false, small : true, ref: false}
+// ]
+
+var stringify = function(x){return JSON.stringify(x)}
+
+
+// generate single box
+var objGenerator = function() {
+  var brown = flip()
+  var small = flip()
+//   var ref = flip()
+  return {brown: brown, small: small}
+}
+
+// generate n-many boxes
+var objsGenerator = function(num,list) {
+  var list = list == undefined ? [] : list
+  if (num == 0) {
+    return list
+  } else {
+    var newObj = objGenerator()
+    var newList = list.concat([newObj])
+    return objsGenerator(num - 1, newList)
+  }
+}
+
+// generate all the possible sets with a single unique referent
+var objListsGenerator = function() {
+  Infer({model: function() {
+//     var numBins = _.range(2, 4, 1)
+    var numBins = [2,3,4,5]
+    var num = uniformDraw(numBins)
+    var objs = objsGenerator(num)
+    var refNumber = _.filter(objs, {"brown":true,"small":true}).length
+    condition(refNumber == 1)
+    return objs  
+  }})
+}
+
+// toy size-dependent error rates
+var epsLookup = function(property,length,smallEps,brownEps) {
+  property == "small" ? 
+    smallEps + ((length - 1) * .04) :
+    brownEps + ((length - 1) * .04) 
+}
+
+var adjMeaning = function(property,eps) {
+  return function(obj) {
+    obj[property] ? flip(1-eps) : flip(eps)
+  }
+}
+
+var restrictedSet = function(set,adj,smallEps,brownEps){
+  var length = set.length
+  var eps = epsLookup(adj,length,smallEps,brownEps) 
+  var adjSem = adjMeaning(adj,eps)
+  var filter = function(obj){ 
+    adjSem(obj) ? obj : null
+  }
+  var filteredSet = map(filter,set)
+  return filteredSet.filter(Boolean) // removes null
+}
+
+
+var defaultOrder = function(objs,smallEps,brownEps) {
+  Infer({method: "enumerate",
+         model: function(){ 
+           var brownSet = restrictedSet(objs,"brown",smallEps,brownEps)
+           var smallSet = restrictedSet(brownSet,"small",smallEps,brownEps)
+           var newSet = _.filter(smallSet, {"brown":true,"small":true})
+           newSet
+         }})
+}
+
+var reverseOrder = function(objs,smallEps,brownEps) {
+  Infer({method: "enumerate",
+         model: function(){ 
+           var smallSet = restrictedSet(objs,"small",smallEps,brownEps)
+           var brownSet = restrictedSet(smallSet,"brown",smallEps,brownEps)
+           var newSet = _.filter(brownSet, {"brown":true,"small":true})
+           newSet
+         }})
+}
+
+// possible values for epsilon
+var epsBins = _.range(0.01, 0.8, 0.04)
+
+var subjCheck = cache(function() {
+  Infer({method: "enumerate",maxExecutions: Infinity, model: function(){
+    var objs = sample(objListsGenerator())
+    var smallEps = uniformDraw(epsBins)
+    var brownEps = uniformDraw(epsBins)
+    var defaultScore = defaultOrder(objs,smallEps,brownEps).score([{"brown":true,"small":true}])
+    var reverseScore = reverseOrder(objs,smallEps,brownEps).score([{"brown":true,"small":true}])
+    // var diff =  Math.exp(defaultScore) - Math.exp(reverseScore)
+    var diff =  Math.exp(reverseScore) - Math.exp(defaultScore)
+    condition(defaultScore < reverseScore & smallEps > brownEps)
+//     condition(smallEps > brownEps)
+    // return {objs: stringify(objs),smallEps,brownEps}
+    return diff
+  }})
+})
+
+var results = subjCheck()
+
+console.log(_.min(results.support()))
+console.log(_.max(results.support()))
+console.log(sum(results.support())/results.support().length)
+
+// RUN WITH: --require webppl-csv
+// csv.writeJoint(results, 'subj-check_results-4.csv')
