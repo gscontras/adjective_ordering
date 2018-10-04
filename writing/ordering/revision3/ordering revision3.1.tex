@@ -72,7 +72,7 @@ adjective ordering, subjectivity, hierarchical structure, modification, referenc
 
 \end{frontmatter}
 
-\noindent Word count: 5650
+\noindent Word count: 5823
 
 \section{Introduction}
 
@@ -409,7 +409,15 @@ For a multi-adjective string, we can calculate the probability of \emph{any} err
 \begin{equation} \label{multi-adj-eq}
 p(\textrm{error}_{N\!P}) = 1 - (1-\epsilon_{adj_1})^{|\textrm{NP}_1|}\ \cdot\ \ldots\ \cdot\ (1-\epsilon_{adj_n})^{|\textrm{NP}_n|}
 \end{equation}
-Ordering with respect to subjectivity minimizes the probability of misclassifications for a multi-adjective string by ensuring that $|\textrm{NP}|$ decreases as $\epsilon$ increases. 
+Ordering with respect to subjectivity minimizes the probability of misclassifications for a multi-adjective string by ensuring that $|\textrm{NP}|$ decreases as $\epsilon$ increases. For a concrete example, suppose there are three boxes: $box_{s}$ is small but not brown, $box_{b}$ is brown but not small, and $box_{sb}$ is both small and brown. To calculate the probability of any misclassifications for the two adjective orderings \emph{small brown} vs.~\emph{brown small}, we will need each adjective's potential for misclassification $\epsilon$; we use the subjectivity scores from \cite{scontrasetal2017adjectives} to set these values: 0.20 for \emph{brown} and 0.64 for \emph{small}.\footnote{These values are adopted for illustrative purposes only. Subjectivity scores are likely an inflated estimate of an adjective's potential for misclassification $\epsilon$. Still, any values for $\epsilon_{small}$ and $\epsilon_{brown}$ would do so long as $\epsilon_{small} > \epsilon_{brown}$.} As the following calculations demonstrate, ordering with respect to decreasing subjectivity, (\ref{multi-adj-eq-smallbrown}), results in a lower probability for misclassifications than the reverse order, (\ref{multi-adj-eq-brownsmall}):
+
+\begin{equation} \label{multi-adj-eq-smallbrown}
+p(\textrm{error}_{small\ brown\ box}) = 1 - (1-0.20)^{3} \cdot (1-0.64)^{2} = \textbf{0.93}
+\end{equation}
+\begin{equation} \label{multi-adj-eq-brownsmall}
+p(\textrm{error}_{brown\ small\ box}) = 1 - (1-0.64)^{3} \cdot (1-0.20)^{2} = \textbf{0.97}
+\end{equation}
+
 %In this way, a simple policy of minimizing misclassifications could result in the observed subjectivity-based ordering.
 %\gcs{end of misclassification potential}
 %
