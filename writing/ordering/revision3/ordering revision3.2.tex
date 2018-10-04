@@ -72,7 +72,7 @@ adjective ordering, subjectivity, hierarchical structure, modification, referenc
 
 \end{frontmatter}
 
-\noindent Word count: 7623
+\noindent Word count: 7764
 
 \section{Introduction}
 
@@ -409,10 +409,17 @@ For a multi-adjective string, we can calculate the probability of \emph{any} err
 \begin{equation} \label{multi-adj-eq}
 p(\textrm{error}_{N\!P}) = 1 - (1-\epsilon_{adj_1})^{|\textrm{NP}_1|}\ \cdot\ \ldots\ \cdot\ (1-\epsilon_{adj_n})^{|\textrm{NP}_n|}
 \end{equation}
-Ordering with respect to subjectivity minimizes the probability of misclassifications for a multi-adjective string by ensuring that $|\textrm{NP}|$ decreases as $\epsilon$ increases. In this way, a simple policy of minimizing misclassifications could result in the observed subjectivity-based ordering.
+Ordering with respect to subjectivity minimizes the probability of misclassifications for a multi-adjective string by ensuring that $|\textrm{NP}|$ decreases as $\epsilon$ increases. For a concrete example, suppose there are three boxes: $box_{s}$ is small but not brown, $box_{b}$ is brown but not small, and $box_{sb}$ is both small and brown. To calculate the probability of any misclassifications for the two adjective orderings \emph{small brown} vs.~\emph{brown small}, we will need each adjective's potential for misclassification $\epsilon$; we use the subjectivity scores from \cite{scontrasetal2017adjectives} to set these values: 0.20 for \emph{brown} and 0.64 for \emph{small}.\footnote{These values are adopted for illustrative purposes only. Subjectivity scores are likely an inflated estimate of an adjective's potential for misclassification $\epsilon$. Still, any values for $\epsilon_{small}$ and $\epsilon_{brown}$ would do so long as $\epsilon_{small} > \epsilon_{brown}$.} As the following calculations demonstrate, ordering with respect to decreasing subjectivity, (\ref{multi-adj-eq-smallbrown}), results in a lower probability for misclassifications than the reverse order, (\ref{multi-adj-eq-brownsmall}):
+
+\begin{equation} \label{multi-adj-eq-smallbrown}
+p(\textrm{error}_{small\ brown\ box}) = 1 - (1-0.20)^{3} \cdot (1-0.64)^{2} = \textbf{0.93}
+\end{equation}
+\begin{equation} \label{multi-adj-eq-brownsmall}
+p(\textrm{error}_{brown\ small\ box}) = 1 - (1-0.64)^{3} \cdot (1-0.20)^{2} = \textbf{0.97}
+\end{equation}
 \gcs{end of misclassification potential}
 
-However, minimizing misclassifications and ensuring successful reference resolution are subtly differently notions. If we assume a fixed misclassification potential $\epsilon$ for each adjective and a truly intersective semantics for modification, the probability of correctly classifying the intended referent once a noun has been modified by multiple adjectives does not depend on the order of the adjectives (i.e., the order of semantic composition). %To see why, consider the process of reference resolution from the perspective of the intended referent. 
+However, minimizing misclassifications and correctly classifying the intended referent, thereby allowing for successful reference resolution, are subtly differently notions. If we assume a fixed misclassification potential $\epsilon$ for each adjective and a truly intersective semantics for modification, the probability of correctly classifying the intended referent once a noun has been modified by multiple adjectives does not depend on the order of the adjectives (i.e., the order of semantic composition). %To see why, consider the process of reference resolution from the perspective of the intended referent. 
 Given the commutativity of noise in intersective modification, a nominal with two adjectives will correctly classify the intended referent with probability $p_{adj_1}(\texttt{ref}) \cdot p_{adj_2}(\texttt{ref})$. In \emph{small brown box}, the probability that the intended referent will remain in the full nominal denotation is equal to $p_{brown}(\texttt{ref}) \cdot p_{small}(\texttt{ref})$, irrespective of order. If the pressure for subjectivity-based ordering preferences %ultimately arises not out of an avoidance of any misclassifications, but 
 arises out of pressures toward successful reference resolution, the commutativity of noise in intersective modification will not deliver subjectivity-based preferences.\footnote{Not all modification is intersective \citep{kamppartee1995,truswell2009,mcnally2016}. Indeed, intersective modification is likely a poor choice for adjectives like \emph{small}: asserting that Dumbo is a small elephant need not commit the speaker to the assertion that Dumbo is small. Instead, many cases of modification are subsective, such that the interpretation of the modifier (i.e., the adjective) depends crucially on the denotation of its complement (i.e., the nominal it modifies). The account developed below applies just as well to all cases of restrictive modification, including subsective ones.}
 	%With non-intersective modification in multi-adjective strings, the probability that a nominal will correctly classify its intended referents \emph{does} depend on the order of adjectives: ordering relative to subjectivity will minimize potential misclassifications \emph{of the intended referent} and thereby maximize the probability of retrieving the intended referent. In other words, once modification takes into account the content of what gets modified (as in the case of modification that is not merely intersective), early errors in misclassification have the potential to get magnified. %, since later modifiers will get interpreted }
@@ -491,10 +498,10 @@ To see the role of subjectivity-based ordering in maximizing the probability of 
 	
 \end{minipage}\\
 
-\noindent Suppose there are three boxes: $box_{s}$ is small but not brown, $box_{b}$ is brown but not small, and $box_{sb}$ is both small and brown. To calculate the probability of successfully resolving the referent to the small brown box for the two adjective orderings, we will need each adjective's potential for misclassification; we use the subjectivity scores from \cite{scontrasetal2017adjectives} to set the upper limit of these values (i.e., when $|\textrm{NP}|=3$), %\gcs{more about our choices} 
+\noindent Suppose once again that there are three boxes: $box_{s}$, $box_{b}$, and $box_{sb}$. To calculate the probability of successfully resolving the referent to the small brown box for the two adjective orderings, we will need each adjective's potential for misclassification; here, we use the subjectivity scores from \cite{scontrasetal2017adjectives} to set the upper limit of these values (i.e., when $|\textrm{NP}|=3$), %\gcs{more about our choices} 
 and assume that $\epsilon$ decreases by 0.04 with each decrease in $|\textrm{NP}|$.\footnote{
 %\gcs{even more of a disclaimer} 
-These values are adopted for illustrative purposes only. Subjectivity scores are likely an inflated estimate of an adjective's potential for misclassification $\epsilon$, and the decrease of 0.04 for decreasing $|\textrm{NP}|$ is chosen arbitrarily. %Still, any values for $\epsilon_{small}(|\textrm{NP}|)$ and $\epsilon_{brown}(|\textrm{NP}|)$ would do so long as $\epsilon_{small}(|\textrm{NP}|) > \epsilon_{brown}(|\textrm{NP}|)$ for any $|\textrm{NP}|$.
+As before, these values are adopted for illustrative purposes only. The decrease of 0.04 for decreasing $|\textrm{NP}|$ is chosen arbitrarily. %Still, any values for $\epsilon_{small}(|\textrm{NP}|)$ and $\epsilon_{brown}(|\textrm{NP}|)$ would do so long as $\epsilon_{small}(|\textrm{NP}|) > \epsilon_{brown}(|\textrm{NP}|)$ for any $|\textrm{NP}|$.
 } We adopt the following values:
 \setcounter{equation}{11}
 \begin{align}
