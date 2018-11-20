@@ -40,19 +40,19 @@
 \newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}
 \newcommand{\jd}[1]{\textcolor{red}{[jd: #1]}}
 
-\thispagestyle{empty}
+%\thispagestyle{empty}
 
 \begin{document}
 
 {\flushright
 
 \vspace{25pt}
-Irvine, California\\[20pt]
+T\"{u}bingen, Germany\\[20pt]
 
-\noindent September 1, 2018\\[25pt]}
+\noindent November 12, 2018\\[25pt]}
 
 
-\noindent Dear Dr.~S\ae b\o,\\
+\noindent Dear Kjell Johan,\\
 
 \noindent We would like to thank you yet again for your comments on our revised paper, ``On the grammatical source of adjective ordering preferences.'' We were sorry to hear that you found our revision to have moved in the wrong direction, but we are grateful for the additional chance to address the issues that remain. As you will recall, you identified a relatively clear path to publication on the basis of addressing the following concerns:
 
@@ -74,16 +74,16 @@ Irvine, California\\[20pt]
 	objects. This argument would be relatively reader-accessible, and I
 	recommend that you include it if you still consider it valid.}
 
-XXX
+We have added back in the discussion of the probability of no misclassifications.
 	
-\item \emph{Secondly, the assumption about the fixed processing budget and the concrete
-	example of how ordering according to subjectivity maximizes the probability
-	of successful referent resolution are now presented in a separate subsection
-	which is very difficult to understand, not because of the amount or the
-	level of mathematics, but because notations and formulations are unclear and
-	there are inconsistencies and errors.}
-
-XXX
+%\item \emph{Secondly, the assumption about the fixed processing budget and the concrete
+%	example of how ordering according to subjectivity maximizes the probability
+%	of successful referent resolution are now presented in a separate subsection
+%	which is very difficult to understand, not because of the amount or the
+%	level of mathematics, but because notations and formulations are unclear and
+%	there are inconsistencies and errors.}
+%
+%XXX
 	
 \item \emph{Let me first comment on your statement just above the subsection 4.1 where
 	you advise readers ``who are already convinced by our argument or wary of
@@ -91,19 +91,19 @@ XXX
 	argument has not yet been presented at this point, either formally or
 	informally.}
 
-XXX
+We have removed this passage.
 	
-\item \emph{You present a scenario where there is exactly one small brown box (sb),
-	exactly one brown box which is not small (b) and exactly one small box which
-	is not brown (s), and compute, roughly, on the one hand, the probability
-	that sb is judged to be brown relative to the set of boxes and judged to be
-	small relative to the set of brown boxes, and on the other hand, the
-	probability that sb is judged to be small relative to the set of boxes and
-	judged to be brown relative to the set of small boxes (although it is
-	somewhat more complex than this). As desired, the former is slightly higher
-	than the latter (.32 vs.~.3024).}
-
-XXX 
+%\item \emph{You present a scenario where there is exactly one small brown box (sb),
+%	exactly one brown box which is not small (b) and exactly one small box which
+%	is not brown (s), and compute, roughly, on the one hand, the probability
+%	that sb is judged to be brown relative to the set of boxes and judged to be
+%	small relative to the set of brown boxes, and on the other hand, the
+%	probability that sb is judged to be small relative to the set of boxes and
+%	judged to be brown relative to the set of small boxes (although it is
+%	somewhat more complex than this). As desired, the former is slightly higher
+%	than the latter (.32 vs.~.3024).}
+%
+%XXX 
 	
 \item \emph{Note, however, that the probability that sb is judged to be the unique box
 	that is brown and small is not captured, that is, the probability that
@@ -111,14 +111,14 @@ XXX
 	thus the paraphrase ``successful (intended) referent resolution'' is somewhat
 	misleading.}
 
-XXX
+We have revised our language to be more careful and precise. We now talk of the probability of correctly classifying the intended referent. This value has a large influence on the probability of successful reference resolution (successful referent resolution cannot happen without successful referent classification), but the two are indeed not identical.
 	
 \item \emph{Now before that, you introduce `ref'. It is unclear what `ref' is in the
 	definitions (3) and (4). It is paraphrased as ``the intended referent(s)'',
 	but it must be something like a bound variable in an implicit universal
 	quantification, so that} 
 	
-	`$p_{adj}(ref, NP) = 1 -  \varepsilon_adj(|NP|)$'
+	`$p_{adj}(ref, NP) = 1 -  \varepsilon_{adj}(|NP|)$'
 	
 	\emph{must be read as something like}
 	
@@ -130,14 +130,14 @@ XXX
 	property, equals 1 - the misclassification potential of adj as a function of
 	the cardinality of NP'.}
 
-XXX
+We have modified the introduction of these equations in an attempt to limit confusion. We now introduce the probability of correctly classifying some object \texttt{obj} (i.e., quantifying over potential objects), then narrow in on the probability of correctly classifying the intended referent(s) \texttt{ref}.
 	
 \item \emph{There are also some more minor inconsistencies and errors: in the tables
 	(12) and (13), the sums do not in fact add up, as you have omitted a column
 	of final products, and in (11), the misclassification potential function has
 	a different type of argument from elsewhere.}
 
-XX
+We have corrected these errors.
 	
 \item \emph{Now while the issues I have noted so far can probaby be remedied in a
 	relatively straightforward way, there is a further problem which requires
@@ -158,7 +158,7 @@ XX
 	valid in generality but would need to be qualified. It is essential that
 	this problem is sorted out.}
 
-XXX
+We are grateful to you for pointing out the limits of the generality of our claim. This realization prompted us to systematically explore the parameter space. We now report on this exploration and our findings, and we link to a web-based appendix with runnable code that walks the reader through the analysis. As we state now in our revision, of the 100,000+ cases we explored, 93\% were in line with the predictions of misclassification minimization via  subjectivity-based ordering. This finding had led us to discuss an issue we had been mulling over but didn't feel comfortable raising until now: whether ordering preferences derive from  online subjectivity-based reasoning, or whether the preferences reflect regularities in our input that get strengthened as language evolves.
 	
 	
 \een
