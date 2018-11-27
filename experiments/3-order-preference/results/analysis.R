@@ -41,6 +41,7 @@ nrow(agr) #2340
 #write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv")
 
 eng_agr <- agr
+#write.csv(eng_agr,"../results/eng_agr.csv")
 
 #####
 ## duplicate observations by adjective configuration
