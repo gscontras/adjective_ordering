@@ -1,7 +1,7 @@
 library(hydroGOF)
 library(ggplot2)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/analysis")
+setwd("~/git/adjective_ordering/experiments/analysis")
 
 # Bootstrap 95% CI for R-Squared
 library(boot)
@@ -22,7 +22,7 @@ source("splithalf.R")
 r = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/results-by-class.csv",header=T)
 r$X.1 = NULL
 r$X = NULL
-o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/git/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_s = bootsSummary(data=o, measurevar="correctresponse", groupvars=c("correctclass"))
 o_s$expt = "preference"
@@ -72,7 +72,7 @@ boot.ci(results, type="bca") # 95%   ( 0.8174,  0.9291 )
 c_agr_pred = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_pred_averages.csv",header=T)
 c_agr_class = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/corpus_class_averages.csv",header=T)
 #load in naturalness preferences
-o = read.csv("~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
+o = read.csv("~/git/adjective_ordering/experiments/analysis/naturalness-duplicated.csv",header=T)
 head(o)
 o_agr_pred = aggregate(correctresponse~predicate*correctclass,data=o,mean)
 o_agr_class = aggregate(correctresponse~correctclass,data=o,mean)
@@ -144,6 +144,7 @@ ggplot(o_agr_pred, aes(x=faultless,y=correctresponse)) +
   geom_smooth(method=lm,color="black") +
   xlab("\nfaultless disagreement rating")+
   ylab("naturalness rating\n")+
+  # geom_text(label=o_agr_pred$predicate)+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
