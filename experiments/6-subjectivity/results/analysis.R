@@ -75,11 +75,12 @@ ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
   geom_smooth(method=lm,color="black") +
   xlab("\nsubjectivity")+
   ylab("naturalness\n")+
+  #geom_text(aes(label=predicate))+
   #ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity-new.pdf",height=3,width=3.5)
-
+#ggsave("../results/naturalness_subjectivity_LABELED.png")
 
 #####
 ## configuration analysis
