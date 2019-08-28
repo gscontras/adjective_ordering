@@ -28,7 +28,8 @@ d <- d[d$language != "Bosnian" & d$language != "Russian",]
 length(unique(d$workerid)) # n=28
 
 aggregate(response~class,data=d,mean)
-#aggregate(response~predicate,data=d,mean)
+#s_agg = aggregate(response~predicate,data=d,mean)
+#write.csv(s_agg,"../results/subjectivity-aggregate.csv")
 
 #d$class <- factor(d$class,levels=c("quality","size","age","texture","color","shape","material"))
 
