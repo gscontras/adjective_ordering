@@ -84,6 +84,30 @@ head(agr)
 #write.csv(agr,"~/Documents/git/cocolab/adjective_ordering/experiments/analysis/naturalness-configuration-duplicated.csv")
 
 
+#################################
+###### CLASS DISTANCE PLOT ######
+#################################
+
+source("../results/helpers.R")
+
+class_s = bootsSummary(data=agr, measurevar="correctresponse", groupvars=c("correctclass1"))
+#write.csv(class_s,"../results/tagalog_class_s.csv")
+
+ggplot(data=class_s,aes(x=reorder(correctclass1,-correctresponse,mean),y=correctresponse))+
+  geom_bar(stat="identity",fill="lightgray",color="black")+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(correctclass1,-correctresponse,mean), width=0.1))+
+  geom_hline(yintercept=0.5,linetype="dashed") + 
+  xlab("\nadjective class")+
+  ylab("preferred\ndistance from noun\n")+
+  ylim(0,1)+
+  #labs("order\npreference")+
+  theme_bw()#+
+#theme(axis.text.x=element_text(angle=90,vjust=0.35,hjust=1))
+#ggsave("../results/class_distance_english.pdf",height=3)
+
+
+#################################
+#################################
 
 
 ## compute class configuration ratio
