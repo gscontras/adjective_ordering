@@ -74,14 +74,15 @@ boot.ci(results, type="bca") # 95%   ( 0.1890,  0.9561 )
 ggplot(o_agr_pred, aes(x=subjectivity,y=correctresponse)) +
   geom_point() +
   geom_smooth(method=lm,color="black") +
-  xlab("\nsubjectivity")+
-  ylab("naturalness\n")+
+  ylab("preferred distance from noun\n")+
+  xlab("\nsubjectivity score")+
   #geom_text(aes(label=predicate))+
-  #ylim(0,1)+
+  ylim(0,1)+
   #scale_y_continuous(breaks=c(.25,.50,.75))+
   theme_bw()
 #ggsave("~/Documents/git/cocolab/adjective_ordering/writing/short-paper/plots/naturalness-subjectivity-new.pdf",height=3,width=3.5)
 #ggsave("../results/naturalness_subjectivity_LABELED.png")
+#ggsave("../results/english-no-conjunction-scatter.pdf",height=2.75,width=3.15)
 
 #####
 ## configuration analysis
