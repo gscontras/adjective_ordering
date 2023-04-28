@@ -3,7 +3,7 @@ library(lme4)
 library(hydroGOF)
 library(lmerTest)
 
-setwd("~/Documents/git/cocolab/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master")
+setwd("~/git/adjective_ordering/experiments/12-order-preference-expanded/Submiterator-master")
 
 library(tidyr)
 library(dplyr)
@@ -59,6 +59,23 @@ summary(d)
 d$makes_sense = "yes"
 d[!is.na(d$sense),]$makes_sense = "no"
 
+
+#### find triples that didn't make sense
+d_new <- d
+d_new$triple = paste(d_new$predicate1,d_new$predicate2,d_new$noun,sep=" ")
+d_new_nonsense = d_new[d_new$makes_sense=="no",]
+length(unique(d_new_nonsense$triple)) # 2286
+#write.csv(d_new_nonsense,"../results/nonsense_triples.csv")
+
+d_new_sense = d_new[d_new$makes_sense=="yes",]
+length(unique(d_new_sense$triple)) # 11744
+#write.csv(d_new_sense,"../results/sense_triples.csv")
+
+length(Reduce(intersect,list(d_new_nonsense$triple,d_new_sense$triple))) # 47
+
+# leaves us 11744-47= 11697 good triples
+
+####
 
 #d$class1 <- as.character(d$class1)
 #d$class2 <- as.character(d$class2)
